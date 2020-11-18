@@ -1,0 +1,42 @@
+<blockquote class="blockquote">
+ {% if attribute(data, 'ismemberof') %}
+ {% if attribute(data, 'ismemberof') is iterable %}
+ {% for collection in attribute(data, 'ismemberof')%}
+   {% set parentnode = bamboo_load_entity('node', collection) %}
+   {% set parentnodeurl = url('entity.node.canonical', {'node': collection}, {'absolute': true}) %}
+ <footer class="blockquote-footer">In <cite title="{{ parentnode.title.value }}"><a href="{{ parentnodeurl }}">{{  parentnode.title.value }}</a></cite></footer>
+{% endfor %}
+{% else %}
+  {% set parentnode = bamboo_load_entity('node', attribute(data, 'ismemberof')) %}
+  {% set parentnodeurl = url('entity.node.canonical', {'node': attribute(data, 'ismemberof')}, {'absolute': true}) %}
+<footer class="blockquote-footer">In <cite title="{{ parentnode.title.value }}"><a href="{{ parentnodeurl }}">{{  parentnode.title.value }}</a></cite></footer>
+{% endif %}
+{% endif %}
+{% if node.id %}
+{% set nodeurl = url('entity.node.canonical', {'node': node.id }, {'absolute': true}) %}
+{% endif %}
+</blockquote>
+  <h2>Plan Elements</h2>
+  <p><i>These are the elements this practitioner selected. <a href="#elementlisttools">At the bottom of this page</a>, you can choose to download this list, or use it as a template to make your own selections.</i></p>
+<div>
+{% for key,value in data %} 
+  	{% if data_webform_elements[key] and key != 'your_email' and value == 1 %}
+  	<h3>{{ data_webform_elements[key]['#title'] }}</h3>
+  	<p>{{ data_webform_elements[key]['#description']|convert_encoding('UTF-8', 'HTML-ENTITIES') }}</p>
+	{% endif %}
+{% endfor %}
+</div>
+<h3>Rights Statements</h3>
+<a href="http://rightsstatements.org/vocab/InC-EDU/1.0/"><img src="http://rightsstatements.org/files/buttons/InC-EDU.white.svg" title="In Copyright - Educational Use Permitted" style="max-width:200px;height:auto;background-color: black;padding:1em"></a>
+<hr />
+<a name="elementlisttools"></a>
+<p><i>You can use this list to customize your own:</i></p>
+<a class="button btn btn-primary btn-small" href="/ohelements?do={{ node.uuid.value }}" role="button">Customize this list</a>
+<p><i>Download this list as CSV:</i></p>
+<a class="button btn btn-primary btn-small" href="{{ nodeurl }}/metadata/csv/elementlist.csv" role="button" download>Download list as CSV</a>
+{% if attribute(data, 'as:document') %}
+<p><i>Download this list as CSV:</i></p>
+{% for document in attribute(data, 'as:document') %}
+<a download class="button btn btn-primary btn-small" href="/do/{{ node.id }}/iiif/{{ document['dr:uuid'] }}/full/full/0/{{  document.name }}" target="_blank">Download Document</a>
+{% endfor %}
+{% endif %}

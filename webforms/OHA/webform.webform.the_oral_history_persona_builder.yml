@@ -1,0 +1,434 @@
+uuid: c2ccf9d5-53d3-409f-ae45-ca75e9123ce2
+langcode: en
+status: open
+dependencies:
+  module:
+    - webform_entity_print
+    - webform_strawberryfield
+third_party_settings:
+  webform_entity_print:
+    template:
+      header: ''
+      footer: ''
+      css: ''
+    export_types:
+      pdf:
+        enabled: true
+        link_text: ''
+        link_attributes: {  }
+open: null
+close: null
+weight: 0
+uid: 6
+template: false
+archive: false
+id: the_oral_history_persona_builder
+title: 'The Oral History Persona Builder'
+description: |
+  Personas are a user-centered design tool adopted by the Oral History Association&#39;s Metadata Task Force to help anyone working with oral histories to determine what information they would like to capture and preserve about their interviews. A persona is a profile of a particular person that provides context to the decisions they make by bringing together important information about their needs, available resources and interests. In this persona-building activity, you will crystallize a snapshot of your context that will help you determine what metadata will be most important for you to capture and preserve for your interviews. At the end of this eight question survey, you will be able to download a comprehensive list of metadata elements that you can selectively adopt, based on the values and needs you&#39;ve established in your persona.&nbsp;<br />
+  <br />
+  Let&#39;s get started! This should take about 20 minutes to complete.
+category: Archipel
+elements: |
+  email_address:
+    '#type': webform_email_confirm
+    '#title': 'Your email address'
+    '#confirm__title': 'Please confirm your email'
+    '#required': true
+  avatar:
+    '#type': webform_image_file
+    '#title': avatar
+    '#format_items': comma
+    '#uri_scheme': s3
+    '#max_filesize': '50'
+    '#file_extensions': 'jpg, jpeg, tif, tiff'
+    '#sanitize': true
+  what_s_your_name_:
+    '#type': textfield
+    '#title': 'What''s your name?'
+    '#required': true
+    '#format_items': comma
+  label:
+    '#type': value
+    '#title': 'Digital Object Title'
+    '#value': '[webform_submission:values:what_s_your_name_]'
+    '#required': true
+    '#default_value': '[webform_submission:values:what_s_your_name_]'
+    '#format_items': comma
+  how_would_you_describe_your_role_working_with_oral_histories_:
+    '#type': textarea
+    '#title': 'How would you describe your role working with oral histories?'
+    '#rows': 4
+  what_s_the_name_of_your_organization_:
+    '#type': textfield
+    '#title': "What's the name of your organization?\P"
+    '#required': true
+    '#required_error': 'Please don''t forget to add the organization you belong to'
+    '#format_items': comma
+  what_type_of_organization_:
+    '#type': webform_checkboxes_other
+    '#title': 'What type of organization?'
+    '#options':
+      University: University
+      'Public Library': 'Public Library'
+      'Historical Society': 'Historical Society'
+      Museum: Museum
+      'Oral History Program': 'Oral History Program'
+    '#options_none_value': ''
+    '#options_none_text': ''
+    '#required': true
+  location:
+    '#type': webform_metadata_nominatim
+    '#title': 'Where is it located?'
+    '#format_items': ol
+  describe_your_organization:
+    '#type': webform_section
+    '#title': 'Describe Your Organization'
+    '#description': 'Every organization has unique characteristics that impact the type and quantity of metadata they keep about their oral history collections. Think about the impact of the following factors on your metadata:'
+  do_you_collect_things_other_than_oral_histories_:
+    '#type': textarea
+    '#rows': 4
+    '#title': 'Do you collect things other than oral histories? '
+  mission_and_nature_of_collections_:
+    '#type': textarea
+    '#rows': 4
+    '#title': 'Mission and nature of collections: '
+  how_big_is_the_oral_history_collection_:
+    '#type': textarea
+    '#rows': 4
+    '#title': 'How big is the oral history collection? '
+  what_percentage_of_your_collections_are_oral_histories_:
+    '#type': textarea
+    '#rows': 4
+    '#title': 'What percentage of your collections are oral histories? '
+  researcher_characteristics_and_needs_:
+    '#type': textarea
+    '#rows': 4
+    '#title': 'Researcher characteristics and needs:'
+  privacy_considerations_:
+    '#type': textarea
+    '#title': 'Privacy considerations: '
+    '#description': 'For example interview content, researcher names.'
+    '#rows': 4
+    '#format_items': comma
+  staffing_limitations_and_strengths_:
+    '#type': textarea
+    '#rows': 4
+    '#title': 'Staffing limitations and strengths: '
+  agree_to_be_published:
+    '#type': checkbox
+    '#title': 'Please consider my profile for publication on this website'
+    '#description': 'By submitting this Profile for review, you agree to have your Profile published on this website. If your Profile is approved for publication by the OHA Metadata Task Force, you will receive a user account with the ability to edit and maintain your Profile.'
+  actions:
+    '#type': webform_actions
+    '#title': 'Submit button(s)'
+    '#submit__label': 'Save Persona'
+    '#reset__label': 'Clear Form'
+    '#preview_prev_hide': true
+css: ''
+javascript: ''
+settings:
+  ajax: true
+  ajax_scroll_top: form
+  ajax_progress_type: ''
+  ajax_effect: ''
+  ajax_speed: null
+  page: true
+  page_submit_path: ''
+  page_confirm_path: ''
+  page_theme_name: ''
+  form_title: both
+  form_submit_once: false
+  form_exception_message: ''
+  form_open_message: ''
+  form_close_message: ''
+  form_previous_submissions: true
+  form_confidential: false
+  form_confidential_message: ''
+  form_remote_addr: true
+  form_convert_anonymous: true
+  form_prepopulate: false
+  form_prepopulate_source_entity: false
+  form_prepopulate_source_entity_required: false
+  form_prepopulate_source_entity_type: ''
+  form_reset: false
+  form_disable_autocomplete: false
+  form_novalidate: false
+  form_disable_inline_errors: false
+  form_required: false
+  form_unsaved: false
+  form_disable_back: false
+  form_submit_back: false
+  form_autofocus: false
+  form_details_toggle: false
+  form_access_denied: default
+  form_access_denied_title: ''
+  form_access_denied_message: ''
+  form_access_denied_attributes: {  }
+  form_file_limit: ''
+  share: false
+  share_node: false
+  share_theme_name: ''
+  share_title: true
+  share_page_body_attributes: {  }
+  submission_label: ''
+  submission_log: false
+  submission_views: {  }
+  submission_views_replace: {  }
+  submission_user_columns: {  }
+  submission_user_duplicate: false
+  submission_access_denied: default
+  submission_access_denied_title: ''
+  submission_access_denied_message: ''
+  submission_access_denied_attributes: {  }
+  submission_exception_message: ''
+  submission_locked_message: ''
+  submission_excluded_elements: {  }
+  submission_exclude_empty: false
+  submission_exclude_empty_checkbox: false
+  previous_submission_message: ''
+  previous_submissions_message: ''
+  autofill: false
+  autofill_message: ''
+  autofill_excluded_elements: {  }
+  wizard_progress_bar: true
+  wizard_progress_pages: false
+  wizard_progress_percentage: false
+  wizard_progress_link: false
+  wizard_progress_states: false
+  wizard_auto_forward: true
+  wizard_start_label: ''
+  wizard_preview_link: false
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
+  wizard_track: ''
+  wizard_prev_button_label: ''
+  wizard_next_button_label: ''
+  wizard_toggle: false
+  wizard_toggle_show_label: ''
+  wizard_toggle_hide_label: ''
+  preview: 0
+  preview_label: ''
+  preview_title: ''
+  preview_message: ''
+  preview_attributes: {  }
+  preview_excluded_elements: {  }
+  preview_exclude_empty: true
+  preview_exclude_empty_checkbox: false
+  draft: all
+  draft_multiple: false
+  draft_auto_save: false
+  draft_saved_message: ''
+  draft_loaded_message: ''
+  draft_pending_single_message: ''
+  draft_pending_multiple_message: ''
+  confirmation_type: inline
+  confirmation_title: ''
+  confirmation_message: |
+    <h3>Congratulations!</h3>
+    <br />
+    You have completed your profile! The thinking you&#39;ve done here is now a foundation you can use to inform which of the over 100 metadata elements you will choose to capture and preserve for the interviews in your care.&nbsp;<br />
+    <br />
+    The metadata represented by these elements do not have to be captured in a catalog record. They can be stored in different places and formats. The important thing is the exercise of thinking ahead about what information will be most helpful to have in the future.<br />
+    <br />
+    <a href="https://oha.archipelago.nyc/ohelements">Begin building your element set!&nbsp;</a>
+  confirmation_url: ''
+  confirmation_attributes: {  }
+  confirmation_back: true
+  confirmation_back_label: ''
+  confirmation_back_attributes: {  }
+  confirmation_exclude_query: false
+  confirmation_exclude_token: false
+  confirmation_update: false
+  limit_total: 10
+  limit_total_interval: 86400
+  limit_total_message: ''
+  limit_total_unique: false
+  limit_user: null
+  limit_user_interval: null
+  limit_user_message: ''
+  limit_user_unique: false
+  entity_limit_total: null
+  entity_limit_total_interval: null
+  entity_limit_user: null
+  entity_limit_user_interval: null
+  purge: draft
+  purge_days: 10
+  results_disabled: false
+  results_disabled_ignore: false
+  results_customize: false
+  token_view: true
+  token_update: false
+access:
+  create:
+    roles:
+      - anonymous
+      - authenticated
+    users: {  }
+    permissions: {  }
+  view_any:
+    roles:
+      - administrator
+      - metadata_pro
+    users: {  }
+    permissions: {  }
+  update_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_any:
+    roles:
+      - administrator
+      - metadata_pro
+    users: {  }
+    permissions: {  }
+  purge_any:
+    roles:
+      - administrator
+    users: {  }
+    permissions: {  }
+  view_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  administer:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  test:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  configuration:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+handlers:
+  email:
+    id: email
+    label: Email
+    handler_id: email
+    status: true
+    conditions:
+      disabled:
+        ':input[name="files[avatar]"]':
+          filled: true
+    weight: 0
+    settings:
+      states:
+        - completed
+      to_mail: '[webform_submission:values:email_address:raw]'
+      to_options: {  }
+      cc_mail: 'dpino@metro.org,Natalie.M.Milbrodt@queenslibrary.org'
+      cc_options: {  }
+      bcc_mail: ''
+      bcc_options: {  }
+      from_mail: _default
+      from_options: {  }
+      from_name: _default
+      subject: 'OHA Taskforce Metadata Practitioner Profile'
+      body: |
+        Thank you for your interest in sharing a Practitioner Profile on the Oral History Association Metadata Task Force Repository.<br />
+        <br />
+        You can review your submitted Practitioner Profile information below this message. You will be able to make corrections and adjustments to your Profile once it is approved.<br />
+        <br />
+        We will review your Practitioner Profile submission and contact you soon.<br />
+        <br />
+        Sincerely,<br />
+        The Oral History Association Metadata Task Force<br />
+        <br />
+        <br />
+        <br />
+        Your Practitioner Profile:<br />
+        <br />
+        [webform_submission:values]
+      excluded_elements: {  }
+      ignore_access: true
+      exclude_empty: true
+      exclude_empty_checkbox: true
+      exclude_attachments: false
+      html: true
+      attachments: false
+      twig: false
+      debug: false
+      reply_to: ''
+      return_path: ''
+      sender_mail: ''
+      sender_name: ''
+      theme_name: ''
+      parameters: {  }
+  a_strawberryfield_harvester:
+    id: strawberryField_webform_handler
+    label: 'A strawberryField harvester'
+    handler_id: a_strawberryfield_harvester
+    status: true
+    conditions: {  }
+    weight: 0
+    settings:
+      submission_url: 'https://api.example.org/SOME/ENDPOINT'
+      upload_scheme: s3
+      operation: null
+      ado_settings:
+        bundles: persona_profile
+        bundled_fields:
+          langcode:
+            value: ''
+          revision_timestamp:
+            value: ''
+          revision_uid:
+            target_id: ''
+          revision_log:
+            value: ''
+          status:
+            value: 'input:agree_to_be_published'
+          uid:
+            target_id: ''
+          title:
+            value: 'input:what_s_your_name_'
+          created:
+            value: ''
+          changed:
+            value: ''
+          promote:
+            value: ''
+          sticky:
+            value: ''
+          default_langcode:
+            value: ''
+          revision_default:
+            value: ''
+          ds_switch:
+            value: ''
+          body:
+            value: ''
+            format: ''
+            summary: ''
+        sbf_fields:
+          email_address: field_descriptive_metadata
+          what_s_your_name_: field_descriptive_metadata
+          how_would_you_describe_your_role_working_with_oral_histories_: field_descriptive_metadata
+          what_s_the_name_of_your_organization_: field_descriptive_metadata
+          what_type_of_organization_: field_descriptive_metadata
+          location: field_descriptive_metadata
+          do_you_collect_things_other_than_oral_histories_: field_descriptive_metadata
+          mission_and_nature_of_collections_: field_descriptive_metadata
+          how_big_is_the_oral_history_collection_: field_descriptive_metadata
+          what_percentage_of_your_collections_are_oral_histories_: field_descriptive_metadata
+          researcher_characteristics_and_needs_: field_descriptive_metadata
+          privacy_considerations_: field_descriptive_metadata
+          staffing_limitations_and_strengths_: field_descriptive_metadata
+          agree_to_be_published: field_descriptive_metadata
+        entity_revision: 1
+      ado_crud_enabled: true
+      states:
+        - completed
+      ado_prepopulate_enabled: false
+variants: {  }

@@ -1,0 +1,48 @@
+{% if node.id %}
+    {% set nodeurl = url('entity.node.canonical', {'node': node.id}, {'absolute': true}) %}
+{% endif %} 
+
+{% set imageurl = NULL %}
+
+{% for image in attribute(data, 'as:image') %}
+   {% set imageurl = iiif_server ~ '/' ~ image['url']|replace({'s3://':''})|replace({'private://':''})|url_encode ~ '/full/200,/0/default.jpg'  %}
+{% endfor %}
+
+<div class="jumbotron">
+  <h1 class="display-4">{{ data.what_s_your_name_ }} at {{ data.what_s_the_name_of_your_organization_ }}</h1>
+  {% if imageurl!= NULL %}
+  <img class="rounded float-right img-thumbnail" src="{{ imageurl }}" alt="Card image cap">
+  {% endif %}
+  <p class="lead">{{ data.how_would_you_describe_your_role_working_with_oral_histories_ }}</p>
+  <hr class="my-4">
+  <div class="container">
+    <h4>Mission and Nature of Collections</h4>
+    <p>{{ data.mission_and_nature_of_collections_ }}</p>
+    <h4>Staffing Limitations and Strengths</h4>
+    <p>{{ data.staffing_limitations_and_strengths_ }}</p>  
+    <h4>Researcher Characteristics and Needs</h4>
+    <p>{{ data.researcher_characteristics_and_needs_ }}</p>  
+    <h4>Privacy Considerations</h4>
+    <p>{{ data.privacy_considerations_ }}</p>
+ 	<h4>Size of Institution's Oral History Collection</h4>
+    <p>{{ data.how_big_is_the_oral_history_collection_ }}</p>
+    <h4>Percentage of Institution's Collections that are Oral Histories</h4>
+    <p>{{ data.what_percentage_of_your_collections_are_oral_histories_ }}</p>
+    <h4>Type of Institution</h4> 
+      <p>
+     {% if data.what_type_of_organization_ %}
+     {% if data.what_type_of_organization_ is iterable %}
+     {% for type in data.what_type_of_organization_ %}
+       {{ type }} <br>
+     {% endfor %}
+     {% else %}
+     {{ data.what_type_of_organization_ }} <br>
+     {% endif %} 
+   {% endif %}
+  </div>
+  
+  <p>If you would like to create your own Practitioner Profile please click below:</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="/ohpersonabuilder" role="button">Create your own Practitioner Profile</a>
+  </p>
+</div>

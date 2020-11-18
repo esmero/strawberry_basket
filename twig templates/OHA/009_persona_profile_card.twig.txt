@@ -1,0 +1,19 @@
+{% if node.id %}
+    {% set nodeurl = url('entity.node.canonical', {'node': node.id}, {'absolute': true}) %}
+{% endif %}  
+{% set imageurl = NULL %}
+
+{% for image in attribute(data, 'as:image') %}
+  {% set imageurl = "/do/" ~ node.id ~ "/iiif/" ~ image['dr:uuid'] ~ "/full/full/0/" ~  image.name|escape  %}
+{% endfor %}
+
+<div class="card" style="width:24rem">
+  {% if imageurl!=NULL %}
+  <img class="card-img-top mx-auto d-block" src="{{ imageurl }}" style="padding:1em" alt="Card image cap">
+  {% endif %}
+  <div class="card-body">
+    <h5 class="card-title">{{ data.what_s_your_name_ }} at {{ data.what_s_the_name_of_your_organization_ }}</h5>
+    <p class="card-text">{{ data.mission_and_nature_of_collections_ }}</p>
+    <a href="{{ nodeurl }}" class="btn btn-primary">See the profile</a>
+  </div>
+</div>

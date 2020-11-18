@@ -1,0 +1,1191 @@
+uuid: 9775dfc1-9f9e-464a-85a9-36822005204c
+langcode: en
+status: open
+dependencies:
+  module:
+    - webform_strawberryfield
+open: null
+close: null
+weight: 0
+uid: 38
+template: false
+archive: false
+id: oh_descriptive_metadata_2020
+title: 'OH Descriptive Metadata 2020'
+description: 'This form adds OH Test Elements to a Digital Object&#39;s metadata&nbsp;'
+category: Archipel
+elements: |
+  welcome:
+    '#type': webform_wizard_page
+    '#title': Welcome
+    processed_text:
+      '#type': processed_text
+      '#text': |
+        <p>Welcome to the oral history element tool! The purpose of this tool is to allow the selection of a set of metadata elements to export for use in a new or existing oral history project. These elements were assembled and edited by the Oral History Association Metadata Task Force, whose members consulted with dozens of oral history practitioners with the goal of creating the most complete picture of what information is helpful to capture and preserve about oral histories. The list is not meant to be prescriptive, but rather to offer a complete picture of current practice across a diverse field and a common language in which to speak across cultures about oral history.</p>
+        
+      '#format': basic_html
+  plan:
+    '#type': webform_wizard_page
+    '#title': Plan
+    processed_text_01:
+      '#type': processed_text
+      '#text': |
+        <h3>Metadata collected during the research and planning phases before the interview</h3>
+        
+      '#format': basic_html
+    description_of_supplemental_materials:
+      '#type': checkbox
+      '#title': 'Description of supplemental materials'
+      '#description': 'Description and / or quantity of any additional materials given by interviewee or gathered during the research / interview process. Can include field notes and other preparatory materials used for research by interviewers. Can be open for public use or closed.'
+    expertise_qualifications_of_interviewer_:
+      '#type': checkbox
+      '#title': 'Expertise/qualifications of interviewer '
+    intended_audience:
+      '#type': checkbox
+      '#title': 'Intended audience'
+      '#description': 'Was a specific audience intended by creators of the interview?'
+    interviewee_biographical_history_info:
+      '#type': checkbox
+      '#title': 'Interviewee biographical history info'
+      '#description': 'Personal, educational, service, occupational, professional history of interviewee. Any of these categories could be broken out within a customized controlled vocabulary or retained in narrative form. For example: hometown, place of birth, organizations affiliated with'
+    interviewer_interviewee_connection:
+      '#type': checkbox
+      '#title': 'Interviewer / interviewee connection'
+      '#description': 'How were the interviewer and interviewee brought together? Notes about how they know each other. For example: student interviewer matched with elder whose language she can speak fluently'
+    interviewer_preparation:
+      '#type': checkbox
+      '#title': 'Interviewer preparation'
+      '#description': 'How the interviewer prepared for the interview including notes about training; for example, their research prior to the interview and sources consulted, topical/question lists'
+    interviewer_selection_process:
+      '#type': checkbox
+      '#title': 'Interviewer selection process'
+      '#description': 'Background information on selection and onboarding process for interviewer(s)'
+    organizations_supporting_interview_process:
+      '#type': checkbox
+      '#title': 'Organizations supporting interview process'
+      '#description': 'Organizations that played any number of roles in the interview process (funders, staffing, research support, etc)'
+    purpose:
+      '#type': checkbox
+      '#title': Purpose
+      '#description': 'Any information about why the interview or project happened; could be where &quot;About this Project&quot; information is captured.'
+    reason_for_selection_of_this_interviewee:
+      '#type': checkbox
+      '#title': 'Reason for selection of this interviewee'
+      '#description': 'For example: the alumni office solicited an interview for a homecoming event'
+    researcher_contact_info:
+      '#type': checkbox
+      '#title': 'Researcher contact info'
+      '#description': 'The person who completed research in preparation for the interview. Could be subfields: Phone Number, E-mail Address, Institutional Affiliation, Mailing Address &amp; Social Media Handle.'
+    researcher_name:
+      '#type': checkbox
+      '#title': 'Researcher name'
+      '#description': 'The person who completed research in preparation for the interview. Could be subfields: Full Name, Alternate Name'
+    sponsor_funder_contact_info:
+      '#type': checkbox
+      '#title': 'Sponsor/funder contact info'
+      '#description': 'Could be subfields: Phone Number, E-mail Address, Institutional Affiliation, Mailing Address &amp; Social Media Handle'
+    sponsor_funder_name:
+      '#type': checkbox
+      '#title': 'Sponsor/funder name'
+      '#description': 'Full Name, Alternate Name'
+    stakeholder_notes_and_questions:
+      '#type': checkbox
+      '#title': 'Stakeholder notes and questions'
+      '#description': 'Repeatable, inclusive field for information that is being communicated (written, verbally) from stakeholders during all stages of the interview lifecycle. This could include questions from before the interview, interviewee instructions, transcriber questions, proper wording, etc.'
+  interview:
+    '#type': webform_wizard_page
+    '#title': Interview
+    processed_text_02:
+      '#type': processed_text
+      '#text': |
+        <h3>Metadata concerning the actual interview</h3>
+        
+      '#format': basic_html
+    additional_information_about_interview_recording_room:
+      '#type': checkbox
+      '#title': 'Additional Information about interview recording room'
+    age_of_interviewee_at_time_of_interview:
+      '#type': checkbox
+      '#title': 'Age of interviewee at time of interview'
+    age_of_interviewer_at_time_of_interview:
+      '#type': checkbox
+      '#title': 'Age of interviewer at time of interview'
+    community_represented_in_the_interview:
+      '#type': checkbox
+      '#title': 'Community represented in the interview'
+    compensation_details_for_anyone_involved_in_interview:
+      '#type': checkbox
+      '#title': 'Compensation details for anyone involved in interview'
+      '#description': 'For example: interviewees receiving a .wav file of their interview recording or an intern earning class credit for her role as interviewer'
+    copyright_holder_contact_info:
+      '#type': checkbox
+      '#title': 'Copyright holder contact info'
+      '#description': 'Could be subfields: Phone Number, E-mail Address, Institutional Affiliation, Mailing Address &amp; Social Media Handle'
+    copyright_holder_name:
+      '#type': checkbox
+      '#title': 'Copyright holder name'
+      '#description': 'Could be subfields: Full Name, Alternate Name'
+    duration_recording_:
+      '#type': checkbox
+      '#title': 'Duration (recording)'
+      '#description': 'For example: 1 hours and 30 minutes, 01:30:00'
+    existence_of_release_form:
+      '#type': checkbox
+      '#title': 'Existence of release form'
+      '#description': 'Can be interview agreement, release form, consent form, deed of gift, or other legal form'
+    family_members_of_interviewee_contact_info:
+      '#type': checkbox
+      '#title': 'Family members of interviewee contact info'
+      '#description': 'For example: Genealogical research. Could be subfields: Phone Number, E-mail Address, Institutional Affiliation, Mailing Address &amp; Social Media Handle.'
+    family_members_of_interviewee_names:
+      '#type': checkbox
+      '#title': 'Family members of interviewee names'
+      '#description': 'For example: Genealogical research. Could be subfields: Full Name, Alternate Name'
+    funding_story_for_interview:
+      '#type': checkbox
+      '#title': 'Funding story for interview'
+      '#description': 'Any additional information about funding or support for this interview or project'
+    gender_of_interviewee:
+      '#type': checkbox
+      '#title': 'Gender of interviewee'
+      '#description': 'Consider input from interviewee when assigning identity labels, even years after the interview was conducted'
+    interview_date_:
+      '#type': checkbox
+      '#title': 'Interview date '
+      '#description': 'For example: month, day, year'
+    interview_location:
+      '#type': checkbox
+      '#title': 'Interview location'
+      '#description': 'Could be geolocation, GPS coordinates, street addresses etc. Consider privacy issues; administrative information'
+    interview_recording_method:
+      '#type': checkbox
+      '#title': 'Interview recording method'
+      '#description': 'Could indicate audio or video recording. Could also document multiple camera positions or other recording setups. For example: moving image or sound recording'
+    interview_time_:
+      '#type': checkbox
+      '#title': 'Interview time '
+      '#description': 'For example: 2 pm'
+    interviewee_contact_info:
+      '#type': checkbox
+      '#title': 'Interviewee contact info'
+      '#description': 'Could be subfields: Phone Number, E-mail Address, Institutional Affiliation, Mailing Address &amp; Social Media Handle'
+    interviewee_name:
+      '#type': checkbox
+      '#title': 'Interviewee name'
+      '#description': 'Could be subfields: Full Name, Alternate Name'
+    interviewee_condition:
+      '#type': checkbox
+      '#title': 'Interviewee condition'
+      '#description': 'Observable and/or self-reported behaviors and state of being, including emotional, mental, physical, circumstantial. Note of caution: subjective behavioral observations can be sensitive when publicly available.'
+    interviewee_date_of_birth:
+      '#type': checkbox
+      '#title': 'Interviewee date of birth'
+      '#description': 'Consider privacy issues; administrative information'
+    interviewer_contact_info:
+      '#type': checkbox
+      '#title': 'Interviewer contact info'
+      '#description': 'Could be subfields: Phone Number, E-mail Address, Institutional Affiliation, Mailing Address &amp; Social Media Handle'
+    interviewer_name:
+      '#type': checkbox
+      '#title': 'Interviewer name'
+      '#description': 'Could be subfields: Full Name, Alternate Name'
+    interviewer_condition:
+      '#type': checkbox
+      '#title': 'Interviewer condition'
+      '#description': 'Observable and/or self-reported behaviors and state of being, including emotional, mental, physical, circumstantial. Note of caution: subjective behavioral observations can be sensitive especially when publicly documented.'
+    interviewer_date_of_birth:
+      '#type': checkbox
+      '#title': 'Interviewer date of birth'
+      '#description': 'Consider privacy issues; administrative information'
+    languages_spoken_in_interview_:
+      '#type': checkbox
+      '#title': 'Languages spoken in interview '
+    native_language_of_interviewee:
+      '#type': checkbox
+      '#title': 'Native language of interviewee'
+    native_language_of_interviewer:
+      '#type': checkbox
+      '#title': 'Native language of interviewer'
+    next_of_kin_of_interviewee_:
+      '#type': checkbox
+      '#title': 'Next of kin of interviewee '
+      '#description': 'For rights management, consider privacy: Legal representative of interviewee after their death. Could be subfields: Full Name, Phone Number, E-mail Address, Institutional Affiliation, Mailing Address, Alternate Name, &amp; Social Media Handle.'
+    observers_in_the_room_contact_info:
+      '#type': checkbox
+      '#title': 'Others present at the interview contact info'
+      '#description': 'Could be subfields: Phone Number, E-mail Address, Institutional Affiliation, Mailing Address &amp; Social Media Handle'
+    observers_in_the_room_name:
+      '#type': checkbox
+      '#title': 'Others present at the interview name'
+      '#description': 'Could be subfields: Full Name, Alternate Name'
+    original_recording_media_count:
+      '#type': checkbox
+      '#title': 'Original recording media count'
+      '#description': 'Quantities and inventories of physical media used to record interview or tracks created as part of a whole interview in the case of digital recordings. For example: 2 cassette tapes or five 15-minute .wav tracks, 2.00 hour analog reel-to-reel tape. Repeatable if there are multiple media types or formats.'
+    original_recording_format:
+      '#type': checkbox
+      '#title': 'Original recording media type'
+      '#description': 'For example: open-reel tape, Sony miniDV tape, Sandisk SD card, etc.'
+    quality_of_audio_:
+      '#type': checkbox
+      '#title': 'Quality of audio '
+      '#description': 'Overall quality of acoustics during interview. Might be used primarily in field notes to capture any technical or disruptive environmental acoustics; also covers notes about equipment'
+    race_of_interviewee:
+      '#type': checkbox
+      '#title': 'Race of interviewee'
+      '#description': |
+        Consider input from interviewee when assigning identity labels, even years after the interview was conducted<br />
+        &nbsp;
+        
+    recording_conditions:
+      '#type': checkbox
+      '#title': 'Recording conditions'
+      '#description': 'Any additional information about possible disruptions or noise during the recording; for example: telephone quality, coughing, machinery, etc.'
+    recording_equipment_used:
+      '#type': checkbox
+      '#title': 'Recording equipment used'
+      '#description': 'Make and model of recording equipment, hardware, supplies (example: recording device, microphones, cameras, etc)'
+    regional_dialect_of_interviewee:
+      '#type': checkbox
+      '#title': 'Regional dialect of interviewee'
+      '#description': 'Could also include accent information'
+    regional_dialect_of_interviewer:
+      '#type': checkbox
+      '#title': 'Regional dialect of interviewer'
+      '#description': 'Could also include accent information'
+    relationship_of_observer_in_the_room_to_the_interviewee:
+      '#type': checkbox
+      '#title': 'Relationship of observer in the room to the interviewee'
+      '#description': 'For example: daughter of interviewee'
+    relationship_of_recording_location_to_its_participants_:
+      '#type': checkbox
+      '#title': 'Relationship of recording location to its participants '
+      '#description': 'Consider privacy issues; this field could be in conjunction with &quot;Interview Location&quot; element for example: interviewee&#39;s home, interviewer&#39;s office, etc.'
+    religion_of_interviewee:
+      '#type': checkbox
+      '#title': 'Religion of interviewee'
+      '#description': 'Consider input from interviewee when assigning identity labels, even years after the interview was conducted'
+    technicians_in_the_room_contact_info:
+      '#type': checkbox
+      '#title': 'Technicians in the room contact info'
+      '#description': 'Could be subfields: Phone Number, E-mail Address, Institutional Affiliation, Mailing Address &amp; Social Media Handle'
+    technicians_in_the_room_name:
+      '#type': checkbox
+      '#title': 'Technicians in the room name'
+      '#description': 'Could be an audio producer, videographer, lighting technician, etc. Could be subfields: Full Name, Alternate Name.'
+    translator_contact_info:
+      '#type': checkbox
+      '#title': 'Translator contact info'
+      '#description': 'Could be subfields: Phone Number, E-mail Address, Institutional Affiliation, Mailing Address &amp; Social Media Handle'
+    translator_name:
+      '#type': checkbox
+      '#title': 'Translator name'
+      '#description': 'Could provide translation during interview or afterward during processing. Could be subfields: Full Name, Alternate Name'
+  process:
+    '#type': webform_wizard_page
+    '#title': Process
+    processed_text_03:
+      '#type': processed_text
+      '#text': |
+        <h3>Metadata concerning the work done on the interview</h3>
+        
+      '#format': basic_html
+    accession_date:
+      '#type': checkbox
+      '#title': 'Accession date'
+      '#description': 'Date materials formally accessioned'
+    archival_processing_location:
+      '#type': checkbox
+      '#title': 'Archival processing location'
+      '#description': 'Repeatable if there are multiple locations for various formats and interview components; for example: audio editing, cataloging, transcript, etc)'
+    audio_video_editor_contact_info:
+      '#type': checkbox
+      '#title': 'Audio / video editor contact info'
+      '#description': 'Could be subfields: Phone Number, E-mail Address, Institutional Affiliation, Mailing Address &amp; Social Media Handle'
+    audio_video_editor_name:
+      '#type': checkbox
+      '#title': 'Audio / video editor name'
+      '#description': 'Could be subfields: Full Name, Alternate Name'
+    captioner_contact_info:
+      '#type': checkbox
+      '#title': 'Captioner contact info'
+      '#description': 'Could be subfields: Phone Number, E-mail Address, Institutional Affiliation, Mailing Address &amp; Social Media Handle'
+    captioner_name:
+      '#type': checkbox
+      '#title': 'Captioner name'
+      '#description': 'Could be subfields: Full Name, Alternate Name'
+    cataloger_contact_info:
+      '#type': checkbox
+      '#title': 'Cataloger contact info'
+      '#description': 'Could be subfields: Phone Number, E-mail Address, Institutional Affiliation, Mailing Address &amp; Social Media Handle'
+    cataloger_name:
+      '#type': checkbox
+      '#title': 'Cataloger name'
+      '#description': 'Could be subfields: Full Name, Alternate Name'
+    condition_of_media:
+      '#type': checkbox
+      '#title': 'Condition of media'
+      '#description': 'For all physical and digital materials associated with the interview. For example: note of sticky shed observed on magnetic tape, proprietary digital formats in need of migration, age of optical media storage'
+    controlled_vocabulary_subject_headings:
+      '#type': checkbox
+      '#title': 'Controlled vocabulary subject headings'
+    correction_redaction_notes:
+      '#type': checkbox
+      '#title': 'Correction / Redaction notes'
+      '#description': 'Could be note of changes made to recordings or to supplementary materials such as transcriptions. For example: interviewee reveals private medical info during interview and then asks for it to be redacted from the record'
+    date_interview_discovered_in_collections:
+      '#type': checkbox
+      '#title': 'Date interview discovered in collections'
+      '#description': 'For materials found in storage locations that haven&#39;t previously been described or inventoried'
+    description_of_group_of_interviews:
+      '#type': checkbox
+      '#title': 'Description of group of interviews'
+      '#description': 'Context for interviews (who organized, interviewer[s], research questions, when and where interviews took place, part of a larger event, etc)'
+    digital_storage_location_transcript_:
+      '#type': checkbox
+      '#title': 'Digital storage location (derivative materials)'
+      '#description': 'Repeatable if there are multiple materials. Could be transcripts, indices, tape logs, captions, etc. For example: server, folder names'
+    digital_storage_location_metadata_:
+      '#type': checkbox
+      '#title': 'Digital storage location (metadata)'
+      '#description': 'Does not include transcript as metadata. For example: server, folder names'
+    digital_storage_location_supplemental_materials_:
+      '#type': checkbox
+      '#title': 'Digital storage location (supplemental materials)'
+      '#description': 'For example: server, folder names'
+    digitizer_contact_info:
+      '#type': checkbox
+      '#title': 'Digitizer contact info'
+      '#description': 'The person or company who did the digitization work. Could be subfields: Phone Number, E-mail Address, Institutional Affiliation, Mailing Address &amp; Social Media Handle.'
+    digitizer_name:
+      '#type': checkbox
+      '#title': 'Digitizer name'
+      '#description': 'The person or company who did the digitization work. Could be subfields: Full Name, Alternate Name'
+    donation_date:
+      '#type': checkbox
+      '#title': 'Donation date'
+      '#description': 'Date materials arrived or transferred'
+    donation_story:
+      '#type': checkbox
+      '#title': 'Donation story'
+      '#description': 'Any additional information about circumstances and backstory (provenance) of the acquisition of materials (example: retiring professor donating tapes to the repository years later); use this space to describe/capture the circumstances, especially if that process was complex, such as interviews passing through many different owners&#39; hands.'
+    file_name_s_:
+      '#type': checkbox
+      '#title': 'File name(s)'
+      '#description': 'Repeatable if there are multiple materials. For all physical and digital materials associated with the interview. Could be applied at item or collection level.'
+    groups_organizations_mentioned_during_the_interview_contact_info:
+      '#type': checkbox
+      '#title': 'Groups/organizations mentioned during the interview contact info'
+      '#description': 'Could be subfields: Phone Number, E-mail Address, Institutional Affiliation, Mailing Address &amp; Social Media Handle'
+    groups_organizations_mentioned_during_the_interview_names:
+      '#type': checkbox
+      '#title': 'Groups/organizations mentioned during the interview names'
+      '#description': 'Could be subfields: Full Name, Alternate Name'
+    index:
+      '#type': checkbox
+      '#title': Index
+      '#description': 'Could be used to indicate the existance of an index, or to store the index content.'
+    index_type:
+      '#type': checkbox
+      '#title': 'Index type'
+      '#description': 'For example: Tape log, audio log, abstract, proper word form, OHMS index, question list or subject index'
+    indexer_contact_info:
+      '#type': checkbox
+      '#title': 'Indexer contact info'
+      '#description': 'Repeatable if more than one indexer. Could be subfields: Phone Number, E-mail Address, Institutional Affiliation, Mailing Address &amp; Social Media Handle'
+    indexer_name:
+      '#type': checkbox
+      '#title': 'Indexer name'
+      '#description': 'Repeatable if more than one indexer. Could be subfields: Full Name, Alternate Name'
+    intent_vs_outcome:
+      '#type': checkbox
+      '#title': 'Intent vs. Outcome'
+      '#description': 'For example: This would be the place to capture circumstances where a researcher&#39;s/interviewer&#39;s original agenda was X, but there is a gap of what actually was discussed, yet Y is still interesting enough to preserve the interview.'
+    interview_summary:
+      '#type': checkbox
+      '#title': 'Interview summary'
+      '#description': 'Narrative description of interview content. Could be formatted as an abstract.'
+    languages_derivative_materials_:
+      '#type': checkbox
+      '#title': 'Languages (derivative materials)'
+      '#description': 'Repeatable if there are multiple translations. Could be transcripts, indices, tape logs, captions, etc. For example: Spanish and English transcriptions available.'
+    method_used_for_accession:
+      '#type': checkbox
+      '#title': 'Method used for accession'
+      '#description': 'Description of process used for transfer/deposit between parties of interview, metadata, and supplementary materials.'
+    name_for_group_of_interviews:
+      '#type': checkbox
+      '#title': 'Name of group of interviews'
+      '#description': 'Project or series as defined by the institution. For example, a series of 10 interviews with the same interviewee'
+    name_of_controlled_vocabulary_used_:
+      '#type': checkbox
+      '#title': 'Name of controlled vocabulary used  '
+      '#description': 'For example: LoC, Regional, etc.'
+    names_versions_of_software_used_:
+      '#type': checkbox
+      '#title': 'Names/versions of software used '
+      '#description': 'Software used at any point in the production or preservation of interview; for example: DAMS, editing software'
+    new_knowledge:
+      '#type': checkbox
+      '#title': 'New knowledge'
+      '#description': 'For any additional information discovered or gleaned retrospectively about the project origins, this is a space to add more context. For example: a relative finds an oral history transcript online and contacts repository to share information, or a crowdsourced comment sheds light on a project. Having a dedicated &quot;why&quot; field for this seems more manageable than fitting it into a notes field with other non-related information.'
+    number_of_interviews_in_group:
+      '#type': checkbox
+      '#title': 'Number of interviews in group'
+      '#description': 'Amount within a project or series as defined by the institution. For example, a series of 10 interviews with the same interviewee.'
+    objects_referenced_in_interview:
+      '#type': checkbox
+      '#title': 'Objects referenced in interview'
+      '#description': 'For example: photographs, maps, etc.'
+    original_media_digital_storage_location_recording_:
+      '#type': checkbox
+      '#title': 'Original media digital storage location (recording) '
+      '#description': 'For example: server, folder names'
+    original_draft_storage_location_transcript_:
+      '#type': checkbox
+      '#title': 'Original media format'
+      '#description': 'For example: .wav, .mp4'
+    original_media_storage_location_recording_:
+      '#type': checkbox
+      '#title': 'Original media storage location (recording)'
+      '#description': 'Repeatable if there are multiple locations for various formats and interview components'
+    original_storage_location_derivative_materials_:
+      '#type': checkbox
+      '#title': 'Original storage location (derivative materials)'
+      '#description': 'Repeatable if there are multiple materials. Could be transcripts, indices, tape logs, captions, etc. For example: server, folder names'
+    original_storage_location_supplemental_materials_:
+      '#type': checkbox
+      '#title': 'Original storage location (supplemental materials)'
+      '#description': 'For example: server, folder names'
+    people_mentioned_during_the_interview_contact_info:
+      '#type': checkbox
+      '#title': 'People mentioned during the interview contact info'
+      '#description': 'Could be subfields: Phone Number, E-mail Address, Institutional Affiliation, Mailing Address &amp; Social Media Handle'
+    people_mentioned_during_the_interview_name:
+      '#type': checkbox
+      '#title': 'People mentioned during the interview name'
+      '#description': 'Person who prepared interviews for future research; might be multiple people at multiple stages; might not be &quot;archivist,&quot; but could be. Could be subfields: Full Name, Alternate Name'
+    person_who_processed_the_interview_contact_info:
+      '#type': checkbox
+      '#title': 'Person who processed the interview contact info'
+      '#description': 'Person who prepared interviews for future research; might be multiple people at multiple stages; might not be &quot;archivist,&quot; but could be. Could be subfields: Phone Number, E-mail Address, Institutional Affiliation, Mailing Address, &amp; Social Media Handle'
+    person_who_processed_the_interview_name:
+      '#type': checkbox
+      '#title': 'Person who processed the interview name'
+      '#description': 'Could be subfields: Full Name, Alternate Name'
+    preservation_copy_format_derivative_materials_:
+      '#type': checkbox
+      '#title': 'Preservation copy format (derivative materials)'
+      '#description': 'Repeatable if there are multiple materials. Could be transcripts, indices, tape logs, captions, etc. For example: .PDF, .TIFF'
+    preservation_copy_format_recording_:
+      '#type': checkbox
+      '#title': 'Preservation copy format (recording)'
+    preservation_copy_format_supplemental_materials_:
+      '#type': checkbox
+      '#title': 'Preservation copy format (supplemental materials)'
+      '#description': 'Any additional materials given by interviewee or gathered during the research / interview process. Can include preparatory materials used for research by interviewers. Can be open for public use or closed.'
+    preservation_copy_storage_location_supplemental_materials_:
+      '#type': checkbox
+      '#title': 'Preservation copy storage location (supplemental materials)'
+      '#description': 'Repeatable if there are multiple locations for various formats and interview components'
+    preservation_master_media_digital_storage_location_recording_:
+      '#type': checkbox
+      '#title': 'Preservation master media digital storage location (recording) '
+      '#description': 'For example: server, folder names'
+    preservation_master_storage_location_recording_:
+      '#type': checkbox
+      '#title': 'Preservation master storage location (recording) '
+    preservation_master_storage_location_transcript_:
+      '#type': checkbox
+      '#title': 'Preservation master storage location (derivative materials) '
+      '#description': 'Repeatable if there are multiple materials or locations. Could be transcripts, indices, tape logs, captions, etc. For example: server, folder names.'
+    preservation_methods:
+      '#type': checkbox
+      '#title': 'Preservation methods'
+      '#description': 'Methods used to capture, process, or move interviews into a preservation environment. For example: baking tapes, descriptions of physical storage evironments, processing workflows'
+    processing_hardware_used:
+      '#type': checkbox
+      '#title': 'Processing hardware used'
+      '#description': 'Repeatable for names and/or models of hardware used in the processing or preservation of interview; for example: transcription pedals, scanners, digitization decks'
+    processing_milestone_dates:
+      '#type': checkbox
+      '#title': 'Processing milestone dates'
+      '#description': 'For example: &quot;date interview recording received,&quot; &quot;date captions added,&quot; &quot;date draft transcript sent to interviewee,&quot; &quot;date signed consent form received by archives,&quot; etc.'
+    processing_software_used:
+      '#type': checkbox
+      '#title': 'Processing software used'
+      '#description': 'Repeatable for names and/or versions of software used at any point in the processing or preservation of interview; for example: DAMS, editing and captioning software'
+    subjects_discussed:
+      '#type': checkbox
+      '#title': 'Subjects discussed'
+      '#description': 'For example: historic events, social movements, subcultures, individuals, organizations, places (geolocation, GPS coordinates, street addresses etc.), including geographic places explored during interview (i.e., neighborhood tours); any of these categories could be broken out within a customized controlled vocabulary or retained in narrative form'
+    title_of_interview:
+      '#type': checkbox
+      '#title': 'Title of interview'
+      '#description': 'Name given to the interview, could contain series info'
+    topical_date_range:
+      '#type': checkbox
+      '#title': 'Topical date range'
+      '#description': 'Could be narrative or numeric description; for example, &quot;1960s&quot; or &quot;This interview took place 10 years after X event&quot;'
+    total_number_of_interviews_at_institution:
+      '#type': checkbox
+      '#title': 'Total number of interviews at institution'
+      '#description': 'All interviews across all groups'
+    transcriber_contact_info:
+      '#type': checkbox
+      '#title': 'Transcriber contact info'
+      '#description': 'Could be subfields: Phone Number, E-mail Address, Institutional Affiliation, Mailing Address &amp; Social Media Handle'
+    transcriber_name:
+      '#type': checkbox
+      '#title': 'Transcriber name'
+      '#description': 'Could be subfields: Full Name, Alternate Name'
+    transcript:
+      '#type': checkbox
+      '#title': Transcript
+      '#description': 'Could be used to indicate the existance of a transcript, or to store the transcript content'
+    transcript_editor_contact_info:
+      '#type': checkbox
+      '#title': 'Transcript editor contact info'
+      '#description': 'Could be subfields: Phone Number, E-mail Address, Institutional Affiliation, Mailing Address &amp; Social Media Handle'
+    transcript_editor_name:
+      '#type': checkbox
+      '#title': 'Transcript editor name'
+      '#description': 'Could be subfields: Full Name, Alternate Name'
+    unique_identifier:
+      '#type': checkbox
+      '#title': 'Unique identifier'
+      '#description': 'Could be alpha or numeric, could accomodate local vocabularies and naming conventions'
+  disseminate:
+    '#type': webform_wizard_page
+    '#title': Disseminate
+    processed_text_04:
+      '#type': processed_text
+      '#text': |
+        <h3>Metadata concerning access of interview materials</h3>
+        
+      '#format': basic_html
+    access_copy_digital_storage_location_recording_:
+      '#type': checkbox
+      '#title': 'Access copy digital storage location (recording) '
+      '#description': 'For example: server, folder names'
+    access_copy_format_derivative_materials_:
+      '#type': checkbox
+      '#title': 'Access copy format (derivative materials)'
+      '#description': 'Repeatable if there are multiple materials. Could be transcripts, indices, tape logs, captions, etc. For example: .PDF, .TIFF'
+    access_copy_format_recording_:
+      '#type': checkbox
+      '#title': 'Access copy format (recording)'
+      '#description': 'Could include mezzanine higher quality access copies as well as public facing/user access copies'
+    access_copy_format_supplemental_materials_:
+      '#type': checkbox
+      '#title': 'Access copy format (supplemental materials)'
+      '#description': 'Any additional materials given by interviewee or gathered during the research / interview process. Can include preparatory materials used for research by interviewers. Can be open for public use or closed.'
+    access_copy_storage_location_transcript_:
+      '#type': checkbox
+      '#title': 'Access copy storage location (derivative materials)'
+      '#description': 'Repeatable if there are multiple materials or locations. Could be transcripts, indices, tape logs, captions, etc. For example: server, folder names.'
+    access_copy_storage_location_recording_:
+      '#type': checkbox
+      '#title': 'Access copy storage location (recording)'
+      '#description': 'Repeatable if there are multiple locations for various formats and interview components'
+    access_copy_storage_location_supplemental_materials_:
+      '#type': checkbox
+      '#title': 'Access copy storage location (supplemental materials)'
+      '#description': 'Repeatable if there are multiple locations for various formats and interview components'
+    date_made_open_for_research:
+      '#type': checkbox
+      '#title': 'Date made open for research'
+      '#description': 'Repeatable (for instance if the transcript becomes available earlier than the audio recording); also known as embargo date'
+    derivative_works_citing_the_interview:
+      '#type': checkbox
+      '#title': 'Derivative works citing the interview'
+      '#description': 'For example: citations for documentaries, articles, or live performances'
+    digital_storage_size:
+      '#type': checkbox
+      '#title': 'Digital storage size'
+      '#description': 'Could be size of an individual file such as an access copy of an interview, or all files associated with an interview or group of interviews.'
+    format_migration_process:
+      '#type': checkbox
+      '#title': 'Format migration process'
+      '#description': 'Additional information about migration circumstances and processes implemented'
+    holder_of_preservation_copies_contact_info:
+      '#type': checkbox
+      '#title': 'Holder of preservation copies contact info'
+      '#description': 'Organization or individual. Could be subfields: Phone Number, E-mail Address, Institutional Affiliation, Mailing Address &amp; Social Media Handle.'
+    holder_of_preservation_copies_name:
+      '#type': checkbox
+      '#title': 'Holder of preservation copies name'
+      '#description': 'Could be subfields: Name and Alternate Name of organization or individual'
+    length_derivative_materials_:
+      '#type': checkbox
+      '#title': 'Length (derivative materials)'
+      '#description': 'For example: page count or word count of transcripts, indices, tape logs, captions, etc.'
+    location_of_materials_on_the_web_url_:
+      '#type': checkbox
+      '#title': 'Location of materials on the web (URL)'
+    on_site_access_location:
+      '#type': checkbox
+      '#title': 'On-site access info'
+      '#description': 'Could be location or hours of operation. For example: reading room'
+    permalink:
+      '#type': checkbox
+      '#title': Permalink
+    preferred_citation:
+      '#type': checkbox
+      '#title': 'Preferred citation'
+      '#description': 'Wording required for a citation, or simply the repository location; could also be an acknowledgement statement'
+    process_for_digital_verification_:
+      '#type': checkbox
+      '#title': 'Process for digital verification '
+      '#description': 'Description of process, including use of check sums, file naming conventions, decision trees, backup infrastructure'
+    publisher_contact_info:
+      '#type': checkbox
+      '#title': 'Publisher contact info'
+      '#description': 'Could be subfields: Phone Number, E-mail Address, Institutional Affiliation, Mailing Address &amp; Social Media Handle'
+    publisher_name:
+      '#type': checkbox
+      '#title': 'Publisher name'
+      '#description': 'Could be subfields: Full Name, Alternate Name'
+    related_resources:
+      '#type': checkbox
+      '#title': 'Related resources'
+      '#description': 'Names and locations of related archival resources, published materials, exhibitions, etc. This could be within or beyond the interview&#39;s respository'
+    repository:
+      '#type': checkbox
+      '#title': Repository
+      '#description': 'Could be organizational information, institutional description, location information, or reference to the name of a repository represented in an online portal. Could be used in conjunction with &quot;On-Site Access Info&quot; element.'
+    restriction_conditions:
+      '#type': checkbox
+      '#title': 'Restriction conditions'
+      '#description': 'Use and access instructions from the interviewee, administrators, copyright holder, repository, etc.'
+    schedule_for_format_migration_and_fixity_verification:
+      '#type': checkbox
+      '#title': 'Schedule for format migration and fixity verification'
+      '#description': 'Could be date of next activity or span of time between processes'
+    terms_of_use_online_and_or_onsite_:
+      '#type': checkbox
+      '#title': 'Terms of use (online and/or on-site)'
+      '#description': 'Restrictions requested by donor or based on institutional policy; licensing rules; rules for how/if data can be extracted/manipulated'
+    user_of_interview_contact_info:
+      '#type': checkbox
+      '#title': 'User of interview contact info'
+      '#description': 'Could be an individuals or organizations making use of the interview for the purposes of research, creative projects, etc. Could be subfields: Phone Number, E-mail Address, Institutional Affiliation, Mailing Address &amp; Social Media Handle'
+    user_of_interview_name:
+      '#type': checkbox
+      '#title': 'User of interview name'
+      '#description': 'Could be an individuals or organizations making use of the interview for the purposes of research, creative projects, etc. Could be subfields: Full Name, Alternate Name'
+  your_info:
+    '#type': webform_wizard_page
+    '#title': 'Your info'
+    processed_text_05:
+      '#type': processed_text
+      '#text': |
+        <p>Please provide your email address and preview your submission. Your submission is not complete until you press the "Submit your choices" button.</p>
+        
+      '#format': basic_html
+    label:
+      '#type': textfield
+      '#title': Title
+      '#description': '<p>Please provide a Title for your Element Set using this format: <em>Firstname Lastname : YYYY-MM-DD : Brief subtitle related to Element Set</em></p>'
+      '#help_title': 'Element Set Title Help'
+      '#help': |
+        Example Title:<br />
+        <br />
+        <em>Jane Doe : 2020-10-05 : Oral Histories for Public Libraries</em><br />
+        &nbsp;
+        
+      '#required': true
+      '#required_error': 'A Title for your Element Set is required'
+      '#format_items': comma
+      '#access_create_roles':
+        - authenticated
+      '#access_update_roles':
+        - authenticated
+      '#access_view_roles':
+        - authenticated
+    your_email:
+      '#type': webform_email_confirm
+      '#title': 'Your email'
+      '#description': 'This email address will be used to send you a copy of your results'
+      '#autocomplete': 'off'
+      '#required': true
+      '#required_error': 'Your email address is required'
+      '#default_value': '[current-user:mail]'
+      '#access_create_roles':
+        - anonymous
+        - administrator
+      '#access_update_roles':
+        - anonymous
+        - administrator
+      '#confirm__title': 'Please confirm your email address'
+    captcha:
+      '#type': captcha
+      '#captcha_type': captcha/Math
+      '#captcha_title': 'Please answer this simple question'
+  oh_metadata_choices:
+    '#type': webform_attachment_twig
+    '#title': 'Download your chosen Elements in CSV format'
+    '#display_on': both
+    '#filename': OHMetadataChoices.csv
+    '#link_title': 'Download file'
+    '#template': |
+      "use","field_title","field_description","Where we store","Your Mapping"
+      "Elements you selected will appear on the top of this list with a 'yes' next to them, followed by rows of elements you did not choose, indicated by a 'no.'","These are the names of the elements.","These are the descriptions of how these elements can be used and understood.","If you wish, you can use this column to note where you keep this information. This could be a record type, 'Dublin Core record' or it could be the name of a document or database where you store the information, 'MS Access database,' or 'Pre-interview Questionnaire'","If you wish, you can create a mapping here of what record tag or field where you store this element information. For example, '245' in a MARC record or 'Source' in a VRA Core record. You can get as specific as it would be helpful for your team to document."
+      {% apply spaceless %}
+      {% for element_key, element_value in data %}
+      {% set token_desc = "[webform:element:" ~ element_key ~ ":description]" %}
+      {% set token_desc_rendered = webform_token(token_desc, webform_submission, [], options) %}
+      {% if token_desc_rendered == token_desc %}
+      {% set token_desc_rendered = "-" %}
+      {% elseif token_desc_rendered['#markup'] is defined %}
+      {% set token_desc_rendered = token_desc_rendered['#markup'] %}
+      {% elseif token_desc_rendered['#markup'] is iterable %}
+      {% set token_desc_rendered = token_desc_rendered[0] %}
+      {% endif %}
+      {% set token_title = "[webform:element:" ~ element_key ~ ":title]" %}
+      {% if element_value == '1' %}
+      "YES",{{ webform_token(token_title, webform_submission, [], options)|json_encode|raw }},{{ token_desc_rendered|json_encode|raw }},"",""
+      {% elseif element_value == '0' %}
+      "NO",{{ webform_token(token_title, webform_submission, [], options)|json_encode|raw }},{{ token_desc_rendered|json_encode|raw }},"",""
+      {% endif %}
+      {% endfor %}
+      {% endapply %}
+      
+  oh_metadata_choices_pdf:
+    '#type': 'webform_entity_print_attachment:pdf'
+    '#title': 'Download your chosen Elements in PDF format'
+    '#display_on': both
+    '#filename': OHMetadataChoices.pdf
+    '#link_title': 'Download file'
+    '#download': true
+  actions:
+    '#type': webform_actions
+    '#title': 'Submit button(s)'
+    '#submit__label': 'Submit your choices'
+    '#reset__label': 'Clear Form'
+    '#preview_prev_hide': true
+css: ''
+javascript: ''
+settings:
+  ajax: true
+  ajax_scroll_top: ''
+  ajax_progress_type: ''
+  ajax_effect: ''
+  ajax_speed: null
+  page: true
+  page_submit_path: ''
+  page_confirm_path: ''
+  page_theme_name: ''
+  form_title: source_entity_webform
+  form_submit_once: false
+  form_exception_message: ''
+  form_open_message: ''
+  form_close_message: ''
+  form_previous_submissions: false
+  form_confidential: false
+  form_confidential_message: ''
+  form_remote_addr: true
+  form_convert_anonymous: false
+  form_prepopulate: false
+  form_prepopulate_source_entity: false
+  form_prepopulate_source_entity_required: false
+  form_prepopulate_source_entity_type: ''
+  form_reset: true
+  form_disable_autocomplete: false
+  form_novalidate: false
+  form_disable_inline_errors: false
+  form_required: false
+  form_unsaved: true
+  form_disable_back: false
+  form_submit_back: true
+  form_autofocus: false
+  form_details_toggle: false
+  form_access_denied: default
+  form_access_denied_title: ''
+  form_access_denied_message: ''
+  form_access_denied_attributes: {  }
+  form_file_limit: ''
+  share: false
+  share_node: false
+  share_theme_name: ''
+  share_title: true
+  share_page_body_attributes: {  }
+  submission_label: ''
+  submission_log: true
+  submission_views: {  }
+  submission_views_replace: {  }
+  submission_user_columns:
+    - serial
+    - created
+    - remote_addr
+    - label
+    - completed
+    - changed
+    - langcode
+    - element__label
+    - operations
+  submission_user_duplicate: true
+  submission_access_denied: login
+  submission_access_denied_title: ''
+  submission_access_denied_message: ''
+  submission_access_denied_attributes: {  }
+  submission_exception_message: ''
+  submission_locked_message: ''
+  submission_excluded_elements: {  }
+  submission_exclude_empty: false
+  submission_exclude_empty_checkbox: false
+  previous_submission_message: ''
+  previous_submissions_message: ''
+  autofill: false
+  autofill_message: ''
+  autofill_excluded_elements: {  }
+  wizard_progress_bar: true
+  wizard_progress_pages: true
+  wizard_progress_percentage: false
+  wizard_progress_link: true
+  wizard_progress_states: true
+  wizard_auto_forward: true
+  wizard_start_label: ''
+  wizard_preview_link: false
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
+  wizard_track: ''
+  wizard_prev_button_label: ''
+  wizard_next_button_label: ''
+  wizard_toggle: true
+  wizard_toggle_show_label: ''
+  wizard_toggle_hide_label: ''
+  preview: 1
+  preview_label: ''
+  preview_title: ''
+  preview_message: ''
+  preview_attributes: {  }
+  preview_excluded_elements: {  }
+  preview_exclude_empty: true
+  preview_exclude_empty_checkbox: true
+  draft: all
+  draft_multiple: false
+  draft_auto_save: false
+  draft_saved_message: ''
+  draft_loaded_message: ''
+  draft_pending_single_message: ''
+  draft_pending_multiple_message: ''
+  confirmation_type: inline
+  confirmation_title: ''
+  confirmation_message: 'Thanks for filling up this form. You should get an email with your results soon.'
+  confirmation_url: ''
+  confirmation_attributes: {  }
+  confirmation_back: true
+  confirmation_back_label: ''
+  confirmation_back_attributes: {  }
+  confirmation_exclude_query: false
+  confirmation_exclude_token: false
+  confirmation_update: false
+  limit_total: null
+  limit_total_interval: null
+  limit_total_message: ''
+  limit_total_unique: false
+  limit_user: null
+  limit_user_interval: null
+  limit_user_message: ''
+  limit_user_unique: false
+  entity_limit_total: null
+  entity_limit_total_interval: null
+  entity_limit_user: null
+  entity_limit_user_interval: null
+  purge: draft
+  purge_days: 10
+  results_disabled: false
+  results_disabled_ignore: false
+  results_customize: false
+  token_view: false
+  token_update: false
+access:
+  create:
+    roles:
+      - anonymous
+      - authenticated
+    users: {  }
+    permissions: {  }
+  view_any:
+    roles:
+      - administrator
+      - metadata_pro
+    users: {  }
+    permissions: {  }
+  update_any:
+    roles:
+      - administrator
+      - metadata_pro
+    users: {  }
+    permissions: {  }
+  delete_any:
+    roles:
+      - administrator
+      - metadata_pro
+    users: {  }
+    permissions: {  }
+  purge_any:
+    roles:
+      - administrator
+    users: {  }
+    permissions: {  }
+  view_own:
+    roles:
+      - anonymous
+      - authenticated
+    users: {  }
+    permissions: {  }
+  update_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  administer:
+    roles:
+      - administrator
+      - metadata_pro
+    users: {  }
+    permissions: {  }
+  test:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  configuration:
+    roles:
+      - administrator
+    users: {  }
+    permissions: {  }
+handlers:
+  a_strawberryfield_harvester:
+    id: strawberryField_webform_handler
+    label: 'A strawberryField harvester'
+    handler_id: a_strawberryfield_harvester
+    status: true
+    conditions: {  }
+    weight: 0
+    settings:
+      submission_url: 'https://api.example.org/SOME/ENDPOINT2'
+      upload_scheme: s3
+      operation: null
+      ado_settings:
+        bundles: digital_object
+        bundled_fields:
+          langcode:
+            value: ''
+          revision_timestamp:
+            value: ''
+          revision_uid:
+            target_id: ''
+          revision_log:
+            value: ''
+          status:
+            value: ''
+          uid:
+            target_id: '[current-user:uid]'
+          title:
+            value: 'input:label'
+          created:
+            value: ''
+          changed:
+            value: ''
+          promote:
+            value: ''
+          sticky:
+            value: ''
+          default_langcode:
+            value: ''
+          revision_default:
+            value: ''
+          ds_switch:
+            value: ''
+          body:
+            value: ''
+            format: ''
+            summary: ''
+        sbf_fields:
+          description_of_supplemental_materials: field_descriptive_metadata
+          expertise_qualifications_of_interviewer_: field_descriptive_metadata
+          intended_audience: field_descriptive_metadata
+          interviewee_biographical_history_info: field_descriptive_metadata
+          interviewer_interviewee_connection: field_descriptive_metadata
+          interviewer_preparation: field_descriptive_metadata
+          interviewer_selection_process: field_descriptive_metadata
+          organizations_supporting_interview_process: field_descriptive_metadata
+          purpose: field_descriptive_metadata
+          reason_for_selection_of_this_interviewee: field_descriptive_metadata
+          researcher_contact_info: field_descriptive_metadata
+          researcher_name: field_descriptive_metadata
+          sponsor_funder_contact_info: field_descriptive_metadata
+          sponsor_funder_name: field_descriptive_metadata
+          stakeholder_notes_and_questions: field_descriptive_metadata
+          additional_information_about_interview_recording_room: field_descriptive_metadata
+          age_of_interviewee_at_time_of_interview: field_descriptive_metadata
+          original_storage_location_supplemental_materials_: field_descriptive_metadata
+          people_mentioned_during_the_interview_contact_info: field_descriptive_metadata
+          people_mentioned_during_the_interview_name: field_descriptive_metadata
+          person_who_processed_the_interview_contact_info: field_descriptive_metadata
+          person_who_processed_the_interview_name: field_descriptive_metadata
+          preservation_copy_format_derivative_materials_: field_descriptive_metadata
+          preservation_copy_format_recording_: field_descriptive_metadata
+          preservation_copy_format_supplemental_materials_: field_descriptive_metadata
+          preservation_copy_storage_location_supplemental_materials_: field_descriptive_metadata
+          preservation_master_media_digital_storage_location_recording_: field_descriptive_metadata
+          preservation_master_storage_location_recording_: field_descriptive_metadata
+          preservation_master_storage_location_transcript_: field_descriptive_metadata
+          preservation_methods: field_descriptive_metadata
+          processing_hardware_used: field_descriptive_metadata
+          processing_milestone_dates: field_descriptive_metadata
+          processing_software_used: field_descriptive_metadata
+          subjects_discussed: field_descriptive_metadata
+          title_of_interview: field_descriptive_metadata
+          topical_date_range: field_descriptive_metadata
+          total_number_of_interviews_at_institution: field_descriptive_metadata
+          transcriber_contact_info: field_descriptive_metadata
+          transcriber_name: field_descriptive_metadata
+          transcript: field_descriptive_metadata
+          transcript_editor_contact_info: field_descriptive_metadata
+          transcript_editor_name: field_descriptive_metadata
+          unique_identifier: field_descriptive_metadata
+          access_copy_digital_storage_location_recording_: field_descriptive_metadata
+          access_copy_format_derivative_materials_: field_descriptive_metadata
+          access_copy_format_recording_: field_descriptive_metadata
+          access_copy_format_supplemental_materials_: field_descriptive_metadata
+          access_copy_storage_location_transcript_: field_descriptive_metadata
+          access_copy_storage_location_recording_: field_descriptive_metadata
+          access_copy_storage_location_supplemental_materials_: field_descriptive_metadata
+          date_made_open_for_research: field_descriptive_metadata
+          derivative_works_citing_the_interview: field_descriptive_metadata
+          digital_storage_size: field_descriptive_metadata
+          format_migration_process: field_descriptive_metadata
+          holder_of_preservation_copies_contact_info: field_descriptive_metadata
+          holder_of_preservation_copies_name: field_descriptive_metadata
+          length_derivative_materials_: field_descriptive_metadata
+          location_of_materials_on_the_web_url_: field_descriptive_metadata
+          on_site_access_location: field_descriptive_metadata
+          permalink: field_descriptive_metadata
+          preferred_citation: field_descriptive_metadata
+          process_for_digital_verification_: field_descriptive_metadata
+          publisher_contact_info: field_descriptive_metadata
+          publisher_name: field_descriptive_metadata
+          related_resources: field_descriptive_metadata
+          repository: field_descriptive_metadata
+          restriction_conditions: field_descriptive_metadata
+          schedule_for_format_migration_and_fixity_verification: field_descriptive_metadata
+          terms_of_use_online_and_or_onsite_: field_descriptive_metadata
+          user_of_interview_contact_info: field_descriptive_metadata
+          user_of_interview_name: field_descriptive_metadata
+          label: field_descriptive_metadata
+          your_email: field_descriptive_metadata
+          oh_metadata_choices: field_descriptive_metadata
+          oh_metadata_choices_pdf: field_descriptive_metadata
+        entity_revision: 1
+      ado_crud_enabled: true
+      states:
+        - completed
+      ado_prepopulate_enabled: true
+  email:
+    id: email
+    label: Email
+    handler_id: email
+    status: true
+    conditions: {  }
+    weight: 0
+    settings:
+      states:
+        - completed
+        - updated
+      to_mail: '[webform_submission:values:your_email:raw]'
+      to_options: {  }
+      cc_mail: 'dpino@metro.org, Natalie.M.Milbrodt@queenslibrary.org'
+      cc_options: {  }
+      bcc_mail: ''
+      bcc_options: {  }
+      from_mail: _default
+      from_options: {  }
+      from_name: _default
+      subject: 'OH Taskforce Metadata Elements poll'
+      body: |
+        Thanks for using the Oral History Metadata Tool<br />
+        <br />
+        Your selected elements<br />
+        [webform_submission:values]<br />
+        <br />
+        Attached you will also find a CSV file including selected and not selected elements with their descriptions and a PDF too<br />
+        <br />
+        Thank you for participating!<br />
+        <br />
+        Sincerely,<br />
+        The Oral History Association Metadata Task Force
+      excluded_elements:
+        description_of_group_of_interviews: description_of_group_of_interviews
+        captcha: captcha
+      ignore_access: true
+      exclude_empty: true
+      exclude_empty_checkbox: true
+      exclude_attachments: true
+      html: true
+      attachments: true
+      twig: false
+      debug: false
+      reply_to: ''
+      return_path: ''
+      sender_mail: ''
+      sender_name: ''
+      theme_name: ''
+      parameters: {  }
+  email_1:
+    id: email
+    label: Email_only_diego
+    handler_id: email_1
+    status: false
+    conditions: {  }
+    weight: 2
+    settings:
+      states:
+        - completed
+        - updated
+      to_mail: '[webform_submission:values:your_email:raw]'
+      to_options: {  }
+      cc_mail: 'dpino@metro.org,Natalie.M.Milbrodt@queenslibrary.org'
+      cc_options: {  }
+      bcc_mail: ''
+      bcc_options: {  }
+      from_mail: _default
+      from_options: {  }
+      from_name: _default
+      subject: 'OH Taskforce Metadata Elements poll'
+      body: |
+        Your submitted values are<br />
+        <br />
+        Testing partial output with comments (2 fields)<br />
+        [webform_submission:values:description_of_group_of_interviews:value]<br />
+        [webform:element:description_of_group_of_interviews:description]<br />
+        <br />
+        Full output<br />
+        [webform_submission:values]<br />
+        <br />
+        Thank you for participating!<br />
+        <br />
+        Sincerely,<br />
+        The Oral History Association Metadata Task Force
+      excluded_elements:
+        description_of_group_of_interviews: description_of_group_of_interviews
+      ignore_access: true
+      exclude_empty: true
+      exclude_empty_checkbox: true
+      exclude_attachments: false
+      html: true
+      attachments: false
+      twig: false
+      debug: false
+      reply_to: ''
+      return_path: ''
+      sender_mail: ''
+      sender_name: ''
+      theme_name: ''
+      parameters: {  }
+variants: {  }

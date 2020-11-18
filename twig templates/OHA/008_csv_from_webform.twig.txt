@@ -1,0 +1,24 @@
+{# "use","field_title","Where we store","field name / tag","field_description","Your Mapping"
+{% apply spaceless %}
+{% for element_key, element_value in data %}
+{% if element_value == '1' %}
+"YES",{{ data_webform_elements[element_key]['#title']|json_encode|raw }},"","",{{ data_webform_elements[element_key]['#description']|json_encode|raw }},""
+{% else %}
+"NO",{{ data_webform_elements[element_key]['#title']|json_encode|raw }},"","",{{ data_webform_elements[element_key]['#description']|json_encode|raw }},""
+{% endif %}
+{% endfor %}
+{% endapply %} #}
+"use","field_title","field_description","Where we store","Your Mapping"
+"Elements you selected will appear on the top of this list with a 'yes' next to them, followed by rows of elements you did not choose, indicated by a 'no.'","These are the names of the elements.","These are the descriptions of how these elements can be used and understood.","If you wish, you can use this column to note where you keep this information. This could be a record type, 'Dublin Core record' or it could be the name of a document or database where you store the information, 'MS Access database,' or 'Pre-interview Questionnaire'","If you wish, you can create a mapping here of what record tag or field where you store this element information. For example, '245' in a MARC record or 'Source' in a VRA Core record. You can get as specific as it would be helpful for your team to document."
+{% apply spaceless %}
+{% for element_key, element_value in data %}
+{% if element_value == '1' %}
+{#
+"YES",{{ data_webform_elements[element_key]['#title']|json_encode|raw }},{{ data_webform_elements[element_key]['#description']|convert_encoding('UTF-8', 'HTML-ENTITIES')|json_encode|replace({'\"': '""'})|raw }},"",""
+#}
+"YES","{{ data_webform_elements[element_key]['#title']|convert_encoding('UTF-8', 'HTML-ENTITIES')|replace({'\"': '""'})|raw }}","{{ data_webform_elements[element_key]['#description']|convert_encoding('UTF-8', 'HTML-ENTITIES')|replace({'\"': '""'})|raw }}","",""
+{% elseif element_value == '0'%}
+"NO","{{ data_webform_elements[element_key]['#title']|convert_encoding('UTF-8', 'HTML-ENTITIES')|replace({'\"': '""'})|raw }}","","","{{ data_webform_elements[element_key]['#description']|convert_encoding('UTF-8', 'HTML-ENTITIES')|replace({'\"': '""'})|raw }}","",""
+{% endif %}
+{% endfor %}
+{% endapply %}
