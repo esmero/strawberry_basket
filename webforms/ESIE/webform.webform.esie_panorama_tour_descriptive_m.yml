@@ -1,0 +1,427 @@
+uuid: cedade20-1073-4040-9f36-bb18d9816c88
+langcode: en
+status: open
+dependencies:
+  module:
+    - webform_strawberryfield
+open: null
+close: null
+weight: 0
+uid: 1
+template: false
+archive: false
+id: esie_panorama_tour_descriptive_m
+title: 'ESIE Webform for Panorama Tour'
+description: 'This form adds Digital Object&#39;s metadata to your archipelago for Panorama Tours'
+category: Archipel
+elements: |
+  panorama_builder_step:
+    '#type': webform_wizard_page
+    '#title': 'Panorama Hotspots'
+    '#next_button_label': 'Move on to next step'
+    label:
+      '#type': textfield
+      '#title': Title
+      '#placeholder': 'Title of this Panorama Tour Object'
+      '#required': true
+      '#required_error': 'A title for this Panorama Tour Object is required'
+      '#format_items': comma
+    panorama_tour:
+      '#type': webform_metadata_panoramatour
+      '#title': panorama_tour
+      '#format_items': ol
+      '#scene__title': 'Select a Panorama Scene'
+  metadata:
+    '#type': webform_wizard_page
+    '#title': Metadata
+    '#access_create_roles':
+      - administrator
+      - metadata_pro
+    '#access_update_roles':
+      - authenticated
+    '#access_view_roles':
+      - authenticated
+    '#prev_button_label': 'Back to previous step'
+    '#next_button_label': 'Move on to next step'
+    type:
+      '#type': hidden
+      '#title': 'Media type'
+      '#default_value': PanoramaTour
+    description:
+      '#type': textarea
+      '#title': Description
+      '#title_display': before
+      '#rows': 4
+      '#autocomplete': 'off'
+      '#required': true
+      '#required_error': 'Please describe this object. It''s super needed.'
+      '#label_attributes':
+        class:
+          - custom-form-input-heading
+      '#format_items': comma
+    geographic_location:
+      '#type': webform_metadata_nominatim
+      '#title': 'Location of Panorama'
+      '#help_title': 'Location Help'
+      '#help': |
+        This field is meant to describe the geographic location closely related to the panorama. Such as the origin of the photo or where it was created.&nbsp;E.g.&nbsp;Central Park, Manhattan, New York County, New York, United States of America<br />
+        <br />
+        <em>Note:&nbsp;</em>Be sure to search OpenStreet Maps for the geographic information related to your digital object by <strong>clicking the&nbsp;<em>Search OpenStreet Maps&nbsp;</em>button&nbsp;</strong>and selecting the result you wish to use.
+        
+      '#title_display': before
+      '#description_display': before
+      '#format_items': ol
+      '#value__title': ''
+      '#value__placeholder': 'Location, Place or Address'
+      '#lat__access': true
+      '#lng__access': true
+      '#display_name__access': true
+      '#locality__access': true
+      '#city__access': true
+      '#country__access': true
+    date_created:
+      '#type': date
+      '#title': 'Date Created'
+      '#format_items': comma
+      '#datepicker': true
+      '#required': true
+    subject_wikidata:
+      '#type': webform_metadata_wikidata
+      '#title': 'Subjects: Wikidata'
+      '#multiple': 4
+      '#title_display': before
+      '#multiple__header': true
+      '#multiple__min_items': 1
+      '#multiple__empty_items': 0
+      '#multiple__sorting': false
+      '#multiple__add_more': false
+      '#multiple__add_more_button_label': ''
+      '#multiple__add_more_input_label': ''
+      '#label_attributes':
+        class:
+          - custom-form-input-heading
+      '#access_create_roles':
+        - administrator
+        - curator
+      '#label__required': true
+      '#uri__required': true
+    term_aat_getty:
+      '#type': webform_metadata_getty
+      '#title': 'Getty Vocabulary AAT term'
+      '#multiple': 3
+      '#multiple__min_items': 1
+      '#multiple__empty_items': 0
+      '#multiple__sorting': false
+      '#multiple__add_more': false
+      '#multiple__add_more_input': false
+      '#access_create_roles':
+        - administrator
+        - curator
+      '#label__required': true
+      '#uri__required': true
+    subject_loc:
+      '#type': webform_metadata_loc
+      '#title': 'Subjects: Library of Congress'
+      '#multiple': 4
+      '#states':
+        enabled:
+          '':
+            '': ''
+      '#multiple__header': true
+      '#multiple__min_items': 1
+      '#multiple__empty_items': 0
+      '#multiple__sorting': false
+      '#multiple__add_more': false
+      '#multiple__add_more_button_label': ''
+      '#multiple__add_more_input_label': ''
+      '#format_items': ol
+      '#access_create_roles':
+        - administrator
+        - curator
+      '#access_update_roles':
+        - authenticated
+      '#access_view_roles':
+        - authenticated
+    edm_agent:
+      '#type': webform_metadata_wikidataagent
+      '#title': 'Person/Agent and their role'
+      '#multiple': 3
+      '#multiple__sorting': false
+      '#multiple__add_more': false
+      '#label_attributes':
+        class:
+          - custom-form-input-heading
+      '#access_create_roles':
+        - administrator
+        - curator
+      '#role_label__title': 'This Agent''s Role'
+      '#role_uri__title': 'Role URL'
+  relationship_to_other_objects:
+    '#type': webform_wizard_page
+    '#title': Collections
+    '#access_create_roles':
+      - administrator
+      - curator
+    '#prev_button_label': 'Back to previous step'
+    '#next_button_label': 'Move on to next step'
+    ismemberof:
+      '#type': entity_autocomplete
+      '#title': 'Collection Membership'
+      '#unique': true
+      '#format_items': comma
+      '#target_type': node
+      '#selection_handler': 'default:node'
+      '#selection_settings':
+        target_bundles:
+          digital_object_collection: digital_object_collection
+        sort:
+          field: title
+          direction: ASC
+  media:
+    '#type': webform_wizard_page
+    '#title': 'Attach Files'
+    '#open': true
+    '#prev_button_label': 'Back to previous step'
+    images:
+      '#type': webform_image_file
+      '#title': 'Upload image to be used as a preview'
+      '#multiple': 10
+      '#description': 'This image will be used as a preview for the panorama tour.'
+      '#format': custom
+      '#format_html': '<img src="{{  item.link }}">'
+      '#format_items': ol
+      '#access_create_roles':
+        - authenticated
+      '#access_update_roles':
+        - authenticated
+      '#access_view_roles':
+        - authenticated
+      '#uri_scheme': s3
+      '#max_filesize': '256'
+      '#file_extensions': 'jp2 jpg jpeg png svg tiff'
+      '#file_name': '[random:hash:sha1]-[webform_submission:langcode]-image-[random:hash:sha1]'
+      '#sanitize': true
+  actions:
+    '#type': webform_actions
+    '#title': 'Submit button(s)'
+    '#submit__label': 'Save Metadata'
+    '#reset__label': 'Clear Form'
+    '#preview_prev_hide': true
+css: |
+  /* Autocomplete */
+  .ui-autocomplete {  display: flex;  flex-wrap: wrap !important;  align-self: flex-start !important;  max-width: 570px !important;}
+  .ui-autocomplete .ui-menu-item-wrapper {  display: block !important;  background-color: #eee !important;border: 1px solid rgba(217, 217, 217, 1) !important;  width: 240px !important; height:auto;}
+  .ui-autocomplete .ui-menu-item {
+    padding: 5px;
+    height: auto; 
+    margin: 10px;
+  }
+  .ui-autocomplete .ui-menu-item-wrapper img {width:220px; height:auto}
+  .ui-autocomplete .ui-menu-item-wrapper label {font-size:1em}
+  .ui-autocomplete .ui-menu-item-wrapper.ui-state-active {  border: 1px solid rgba(217, 217, 217, 1) !important; background-color: rgba(217, 217, 217, 1) !important;}
+  /* Checkbox and radios */
+  
+  .webform-entity-reference-options .fieldset-wrapper > div {  display: flex;  flex-wrap: wrap;  align-self: flex-start;}
+  .webform-entity-reference-options .form-item {  position: relative;}
+  .webform-entity-reference-options .form-item input {  position: absolute;  top: 20px;  left: 20px; }
+  .webform-entity-reference-options .form-item label {  display: block;  border: 1px solid #ccc;  background-color: #eee;  width: 240px;  margin: 0 10px 10px 0;    padding: 10px;  }
+  .webform-entity-reference-options .form-item input:checked + label {  display: block;  border: 1px solid #ccc;  background-color: #ffc;  width: 100px;  margin: 0 10px 10px 0;    padding: 10px;  }
+  .webform-entity-reference-options label.option img {  width:80px; height:auto; display: block;  margin: 0 0 5px 0;  }
+javascript: ''
+settings:
+  ajax: true
+  ajax_scroll_top: ''
+  ajax_progress_type: throbber
+  ajax_effect: fade
+  ajax_speed: null
+  page: true
+  page_submit_path: ''
+  page_confirm_path: ''
+  page_theme_name: ''
+  form_title: source_entity_webform
+  form_submit_once: false
+  form_exception_message: ''
+  form_open_message: ''
+  form_close_message: ''
+  form_previous_submissions: false
+  form_confidential: false
+  form_confidential_message: ''
+  form_remote_addr: false
+  form_convert_anonymous: false
+  form_prepopulate: false
+  form_prepopulate_source_entity: false
+  form_prepopulate_source_entity_required: false
+  form_prepopulate_source_entity_type: ''
+  form_reset: false
+  form_disable_autocomplete: false
+  form_novalidate: false
+  form_disable_inline_errors: false
+  form_required: false
+  form_unsaved: true
+  form_disable_back: false
+  form_submit_back: true
+  form_autofocus: false
+  form_details_toggle: false
+  form_access_denied: default
+  form_access_denied_title: ''
+  form_access_denied_message: ''
+  form_access_denied_attributes: {  }
+  form_file_limit: ''
+  share: false
+  share_node: false
+  share_theme_name: ''
+  share_title: true
+  share_page_body_attributes: {  }
+  submission_label: ''
+  submission_log: false
+  submission_views: {  }
+  submission_views_replace: {  }
+  submission_user_columns:
+    - serial
+    - created
+    - remote_addr
+    - label
+    - completed
+    - changed
+    - langcode
+    - element__label
+    - operations
+  submission_user_duplicate: false
+  submission_access_denied: login
+  submission_access_denied_title: ''
+  submission_access_denied_message: ''
+  submission_access_denied_attributes: {  }
+  submission_exception_message: ''
+  submission_locked_message: ''
+  submission_excluded_elements: {  }
+  submission_exclude_empty: false
+  submission_exclude_empty_checkbox: false
+  previous_submission_message: ''
+  previous_submissions_message: ''
+  autofill: false
+  autofill_message: ''
+  autofill_excluded_elements: {  }
+  wizard_progress_bar: true
+  wizard_progress_pages: false
+  wizard_progress_percentage: false
+  wizard_progress_link: false
+  wizard_progress_states: false
+  wizard_auto_forward: true
+  wizard_start_label: ''
+  wizard_preview_link: false
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
+  wizard_track: ''
+  wizard_prev_button_label: ''
+  wizard_next_button_label: ''
+  wizard_toggle: true
+  wizard_toggle_show_label: ''
+  wizard_toggle_hide_label: ''
+  preview: 1
+  preview_label: ''
+  preview_title: ''
+  preview_message: ''
+  preview_attributes: {  }
+  preview_excluded_elements: {  }
+  preview_exclude_empty: true
+  preview_exclude_empty_checkbox: false
+  draft: none
+  draft_multiple: false
+  draft_auto_save: false
+  draft_saved_message: ''
+  draft_loaded_message: ''
+  draft_pending_single_message: ''
+  draft_pending_multiple_message: ''
+  confirmation_type: inline
+  confirmation_title: ''
+  confirmation_message: ''
+  confirmation_url: ''
+  confirmation_attributes: {  }
+  confirmation_back: true
+  confirmation_back_label: ''
+  confirmation_back_attributes: {  }
+  confirmation_exclude_query: false
+  confirmation_exclude_token: false
+  confirmation_update: false
+  limit_total: null
+  limit_total_interval: null
+  limit_total_message: ''
+  limit_total_unique: false
+  limit_user: null
+  limit_user_interval: null
+  limit_user_message: ''
+  limit_user_unique: false
+  entity_limit_total: null
+  entity_limit_total_interval: null
+  entity_limit_user: null
+  entity_limit_user_interval: null
+  purge: draft
+  purge_days: 10
+  results_disabled: true
+  results_disabled_ignore: false
+  results_customize: false
+  token_view: false
+  token_update: false
+access:
+  create:
+    roles:
+      - authenticated
+    users: {  }
+    permissions: {  }
+  view_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  purge_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  view_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  administer:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  test:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  configuration:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+handlers:
+  a_strawberryfield_harvester:
+    id: strawberryField_webform_handler
+    label: 'A strawberryField harvester'
+    handler_id: a_strawberryfield_harvester
+    status: true
+    conditions: {  }
+    weight: 0
+    settings:
+      submission_url: 'https://api.example.org/SOME/ENDPOINT'
+      upload_scheme: s3
+      operation: null
+      ado_settings: {  }
+      ado_crud_enabled: false
+      states: null
+      ado_prepopulate_enabled: false
+variants: {  }

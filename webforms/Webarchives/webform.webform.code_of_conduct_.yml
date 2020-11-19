@@ -1,0 +1,283 @@
+uuid: 8ee2bfa2-9a2c-4e4b-9a29-22b40d98afdf
+langcode: en
+status: open
+dependencies: {  }
+open: null
+close: null
+weight: 0
+uid: 1
+template: false
+archive: false
+id: code_of_conduct_
+title: 'Report a Code of Conduct Violation'
+description: ''
+category: ''
+elements: |
+  markup:
+    '#type': webform_markup
+    '#markup': "<p>Please read our published <a href=\"https://github.com/esmero/archipelago-documentation/blob/8.x-1.0-beta1/CODE_OF_CONDUCT.md\" target=\"_blank\">Code of Conduct</a></p>\r\nThis form allows you to report, anonymoulsy if you choose so, any <strong>Code of Conduct</strong> violations you have experienced or wittness while interacting with members of this project and community. If unsure that what you experienced falls under our published rules, please contact us anyway. We are here to help.\r\n\r\n<h4><br />\r\nWho will read this?</h4>\r\nA rotating and elected group of two people from our community acting as Code of Conduct&nbsp;liaison.<br />\r\n<br />\r\nFall 2019-Spring 2020\r\n<ul>\r\n\t<li>Esther Jackons,&nbsp;Public Services Librarian at&nbsp;The New York Botanical Garden</li>\r\n\t<li>Nate Hill, Director of the Metropolitan New York Library Council</li>\r\n</ul>\r\nIf your situation involves any of the names listed here, please make sure you Check the <strong>&quot;I&#39;m reporting an issue that involves the Code of Conduct Team&quot;</strong> and we will make sure to share your information only with a group of alternative recipients.<br />\r\n<br />\r\nThanks for helping us building a better, inclusive and respectful Archipelago Commons community."
+  message:
+    '#type': textarea
+    '#title': 'Please describe the situation you experienced'
+    '#description': 'Please describe as thorough as possible the reason you are contacting us so we can be as helpful as possible. Since this is a Violation of Code of Conduct form we urge you to give us as much references as possible. Your data will be anonymous if you choose not to provide <strong>Contact Information</strong> and will never be shared with any community members, systema admins or developers outside of our Code of Conduct Team.'
+    '#required': true
+    '#format_items': comma
+  contact_information:
+    '#type': webform_contact
+    '#title': 'Contact information (optional)'
+    '#title_display': before
+    '#format_items': ol
+    '#company__access': false
+    '#city__access': false
+    '#state_province__access': false
+    '#postal_code__access': false
+  my_issue_involves_the_code_of_conduct_liason_team:
+    '#type': checkbox
+    '#title': 'I''m reporting an issue that involves the Code of Conduct Team'
+    '#description': 'Please check if the issue you are reporting involves one or more members of&nbsp; our Code of Conduct team.'
+css: ''
+javascript: ''
+settings:
+  ajax: true
+  ajax_scroll_top: form
+  ajax_progress_type: ''
+  ajax_effect: ''
+  ajax_speed: null
+  page: true
+  page_submit_path: code-of-conduct
+  page_confirm_path: ''
+  page_admin_theme: false
+  form_title: source_entity_webform
+  form_submit_once: false
+  form_exception_message: ''
+  form_open_message: ''
+  form_close_message: ''
+  form_previous_submissions: true
+  form_confidential: true
+  form_confidential_message: 'This Form is confidential and we will not track IP addresses or any contact information you decide not to provide. Please Log out of this site to proceed.'
+  form_remote_addr: true
+  form_convert_anonymous: false
+  form_prepopulate: false
+  form_prepopulate_source_entity: false
+  form_prepopulate_source_entity_required: false
+  form_prepopulate_source_entity_type: ''
+  form_reset: false
+  form_disable_autocomplete: false
+  form_novalidate: false
+  form_disable_inline_errors: false
+  form_required: false
+  form_unsaved: false
+  form_disable_back: false
+  form_submit_back: false
+  form_autofocus: false
+  form_details_toggle: false
+  form_access_denied: login
+  form_access_denied_title: ''
+  form_access_denied_message: ''
+  form_access_denied_attributes: {  }
+  form_file_limit: ''
+  submission_label: ''
+  submission_log: true
+  submission_views: {  }
+  submission_views_replace:
+    webform_routes: {  }
+    node_routes: {  }
+  submission_user_columns: {  }
+  submission_user_duplicate: false
+  submission_access_denied: default
+  submission_access_denied_title: ''
+  submission_access_denied_message: ''
+  submission_access_denied_attributes: {  }
+  submission_exception_message: ''
+  submission_locked_message: ''
+  submission_excluded_elements: {  }
+  submission_exclude_empty: false
+  submission_exclude_empty_checkbox: false
+  previous_submission_message: ''
+  previous_submissions_message: ''
+  autofill: false
+  autofill_message: ''
+  autofill_excluded_elements: {  }
+  wizard_progress_bar: false
+  wizard_progress_pages: false
+  wizard_progress_percentage: false
+  wizard_progress_link: false
+  wizard_progress_states: false
+  wizard_start_label: ''
+  wizard_preview_link: false
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
+  wizard_track: ''
+  preview: 2
+  preview_label: 'Preview before reporting'
+  preview_title: ''
+  preview_message: ''
+  preview_attributes: {  }
+  preview_excluded_elements: {  }
+  preview_exclude_empty: true
+  preview_exclude_empty_checkbox: false
+  draft: none
+  draft_multiple: false
+  draft_auto_save: false
+  draft_saved_message: ''
+  draft_loaded_message: ''
+  draft_pending_single_message: ''
+  draft_pending_multiple_message: ''
+  confirmation_type: page
+  confirmation_title: ''
+  confirmation_message: ''
+  confirmation_url: ''
+  confirmation_attributes: {  }
+  confirmation_back: true
+  confirmation_back_label: ''
+  confirmation_back_attributes: {  }
+  confirmation_exclude_query: false
+  confirmation_exclude_token: false
+  confirmation_update: false
+  limit_total: null
+  limit_total_interval: null
+  limit_total_message: ''
+  limit_total_unique: false
+  limit_user: null
+  limit_user_interval: null
+  limit_user_message: ''
+  limit_user_unique: false
+  entity_limit_total: null
+  entity_limit_total_interval: null
+  entity_limit_user: null
+  entity_limit_user_interval: null
+  purge: none
+  purge_days: null
+  results_disabled: true
+  results_disabled_ignore: false
+  token_view: false
+  token_update: true
+access:
+  create:
+    roles:
+      - anonymous
+      - authenticated
+    users: {  }
+    permissions: {  }
+  view_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  purge_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  view_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  administer:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  test:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  configuration:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+handlers:
+  email:
+    id: email
+    label: Email
+    notes: ''
+    handler_id: email
+    status: true
+    conditions:
+      enabled:
+        ':input[name="my_issue_involves_the_code_of_conduct_liason_team"]':
+          unchecked: true
+    weight: 0
+    settings:
+      states:
+        - completed
+      to_mail: archipelago-community@metro.org
+      to_options: {  }
+      cc_mail: ''
+      cc_options: {  }
+      bcc_mail: ''
+      bcc_options: {  }
+      from_mail: _default
+      from_options: {  }
+      from_name: _default
+      subject: _default
+      body: _default
+      excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
+      exclude_empty_checkbox: false
+      exclude_attachments: false
+      html: true
+      attachments: false
+      twig: false
+      debug: false
+      reply_to: ''
+      return_path: ''
+      sender_mail: ''
+      sender_name: ''
+      theme_name: ''
+      parameters: {  }
+  email_1:
+    id: email
+    label: Email
+    notes: ''
+    handler_id: email_1
+    status: true
+    conditions:
+      enabled:
+        ':input[name="my_issue_involves_the_code_of_conduct_liason_team"]':
+          checked: true
+    weight: 1
+    settings:
+      states:
+        - completed
+      to_mail: nhill@metro.org
+      to_options: {  }
+      cc_mail: ''
+      cc_options: {  }
+      bcc_mail: ''
+      bcc_options: {  }
+      from_mail: _default
+      from_options: {  }
+      from_name: _default
+      subject: _default
+      body: _default
+      excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
+      exclude_empty_checkbox: false
+      exclude_attachments: false
+      html: true
+      attachments: false
+      twig: false
+      debug: false
+      reply_to: ''
+      return_path: ''
+      sender_mail: ''
+      sender_name: ''
+      theme_name: ''
+      parameters: {  }
+variants: {  }

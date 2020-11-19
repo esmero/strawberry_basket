@@ -1,0 +1,308 @@
+uuid: 070bffa4-fec7-4704-beec-83d709ace56d
+langcode: en
+status: open
+dependencies:
+  module:
+    - webform_strawberryfield
+open: null
+close: null
+weight: 0
+uid: 4
+template: false
+archive: false
+id: edited_webform_for_contributor_r
+title: 'ESIE Webform for Contributor role'
+description: 'Help prompts before element in larger font; &quot;More help&quot; box example'
+category: Archipel
+elements: |
+  label:
+    '#type': textfield
+    '#title': Title
+    '#description': '<span style="font-size:12pt; font-variant:normal; white-space:pre-wrap"><span style="font-family:Georgia"><span style="color:#000000"><span style="font-weight:400"><span style="font-style:normal"><span style="text-decoration:none">Please enter a brief, descriptive, and unique Title. </span></span></span></span></span></span>'
+    '#help_title': 'Title help'
+    '#help': 'I<span style="font-size:12pt; font-variant:normal; white-space:pre-wrap"><span style="font-family:Georgia"><span style="color:#000000"><span style="font-weight:400"><span style="font-style:normal"><span style="text-decoration:none">nclude details that identify the specific location within a building, park, property or street location. For example: </span></span></span></span></span></span><span style="font-size:12pt; font-variant:normal; white-space:pre-wrap"><span style="font-family:Georgia"><span style="color:#000000"><span style="font-weight:400"><em style="font-style:italic"><span style="text-decoration:none">E.H. Butler Library main entrance : interior, 1st floor</span></em></span></span></span></span> &nbsp;'
+    '#more_title': 'Help with unique Titles'
+    '#more': |
+      <span style="font-size:12pt; font-variant:normal; white-space:pre-wrap"><span style="font-family:Georgia"><span style="color:#000000"><span style="font-weight:400"><span style="font-style:normal"><span style="text-decoration:none">If there are multiple digital objects with the same title, additional information is needed to make each title unique. This could be a date, a location, or a number. For example: </span></span></span></span></span></span><br />
+      <span style="font-size:12pt; font-variant:normal; white-space:pre-wrap"><span style="font-family:Georgia"><span style="color:#000000"><span style="font-weight:400"><em style="font-style:italic"><span style="text-decoration:none">Street view of E.H. Butler Library, August 2020 (1)</span></em></span></span></span></span><br />
+      <span style="font-size:12pt; font-variant:normal; white-space:pre-wrap"><span style="font-family:Georgia"><span style="color:#000000"><span style="font-weight:400"><em style="font-style:italic"><span style="text-decoration:none">Street view of E.H. Butler Library, August 2020 (2)</span></em></span></span></span></span>
+      
+    '#description_display': before
+    '#placeholder': Title
+    '#required': true
+    '#required_error': 'A title for this Panorama Object is required'
+    '#format_items': comma
+  images:
+    '#type': webform_image_file
+    '#title': 'Select Panorama'
+    '#required': true
+    '#format_items': comma
+    '#file_preview': ':image'
+    '#max_filesize': '8'
+    '#file_extensions': 'jpg jpeg'
+    '#sanitize': true
+  type:
+    '#type': hidden
+    '#title': 'Media Type'
+    '#default_value': Panorama
+  description:
+    '#type': textarea
+    '#title': Description
+    '#description': '<span style="font-size:12pt; font-variant:normal; white-space:pre-wrap"><span style="font-family:Georgia"><span style="color:#000000"><span style="font-weight:400"><span style="font-style:normal"><span style="text-decoration:none">Brief description of the contents of the image, video, audio, or document. For panorama photographs and videos, make sure to consider the full 360 degree range of content captured.</span></span></span></span></span></span>'
+    '#help_title': 'Title help'
+    '#help': '<span style="font-size:12pt; font-variant:normal; white-space:pre-wrap"><span style="font-family:Georgia"><span style="color:#000000"><span style="font-weight:400"><span style="font-style:normal"><span style="text-decoration:none">Use proper spelling and grammar. Complete sentences not required. </span></span></span></span></span></span>'
+    '#description_display': before
+    '#rows': 4
+    '#placeholder': 'Please enter a brief description of the contents of the image, video, audio, or document. Use proper spelling and grammar. Complete sentences not required. For panorama photographs and videos, make sure to consider the full 360 degree range of content captured. '
+    '#required': true
+  geographic_location:
+    '#type': webform_metadata_nominatim
+    '#title': 'Street Address'
+    '#description': 'Nearest street address related to the geographic location where a panorama photograph or video was taken. For example: <em>Central Park, Manhattan, New York County, New York, United States of America</em>'
+    '#help_title': 'Location help'
+    '#help': '<em>Note:&nbsp;</em>Be sure to search OpenStreet Maps for the geographic information related to your digital object by <strong>clicking the&nbsp;<em>Search OpenStreet Maps&nbsp;</em>button&nbsp;</strong>and selecting the result you wish to use.'
+    '#title_display': before
+    '#description_display': before
+    '#required': true
+    '#value__title': ''
+    '#value__placeholder': 'Location, Place or Address'
+    '#display_name__title': 'Display Name'
+    '#geolocation': true
+  creator:
+    '#type': textfield
+    '#title': Creator
+    '#description': 'Who captured this panorama? Please type the full name using <em>Last Name, First Name</em> notation. E.g.&nbsp;<em>Doe, Jane</em>'
+    '#title_display': before
+    '#description_display': before
+    '#minlength': 3
+    '#size': 128
+    '#required': true
+  date_created:
+    '#type': date
+    '#title': 'Original Date'
+    '#description': '<span style="font-size:12pt; font-variant:normal; white-space:pre-wrap"><span style="font-family:Georgia"><span style="color:#000000"><span style="font-weight:400"><span style="font-style:normal"><span style="text-decoration:none">Date the digital object was created (date the photograph was taken, video or audio file was recorded, document was created)</span></span></span></span></span></span>'
+    '#help_title': 'Help with date information'
+    '#help': '<span style="font-size:12pt; font-variant:normal; white-space:pre-wrap"><span style="font-family:Georgia"><span style="color:#000000"><span style="font-weight:400"><span style="font-style:normal"><span style="text-decoration:none">Select the date from the pop-up calendar</span></span></span></span></span></span>'
+    '#description_display': before
+    '#required': true
+    '#format_items': comma
+    '#datepicker': true
+  terms_of_service:
+    '#type': webform_terms_of_service
+    '#title': 'I agree to the {terms of service}'
+    '#required': true
+    '#required_error': 'You need to agree to the License Agreement'
+    '#terms_title': 'Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License'
+    '#terms_content': |
+      <h2>Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</h2>
+      <br />
+      You agree on publishing your Panorama Image under&nbsp;<br />
+      <br />
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">https://creativecommons.org/licenses/by-nc-sa/4.0/</a><br />
+      &nbsp;
+      <h3 rel="cc:permits" resource="http://creativecommons.org/ns#Reproduction">You are accepting that other users will be free to</h3>
+      
+      <ul>
+      	<li rel="cc:permits" resource="http://creativecommons.org/ns#Distribution"><strong>Share</strong>&nbsp;&mdash; copy and redistribute the material in any medium or format</li>
+      	<li rel="cc:permits" resource="http://creativecommons.org/ns#DerivativeWorks"><strong>Adapt</strong>&nbsp;&mdash; remix, transform, and build upon the materia</li>
+      </ul>
+      You, the licensor cannot revoke these freedoms as long as other users follow the license terms.
+      
+  actions:
+    '#type': webform_actions
+    '#title': 'Submit button(s)'
+    '#submit__label': Save
+css: ''
+javascript: ''
+settings:
+  ajax: true
+  ajax_scroll_top: form
+  ajax_progress_type: ''
+  ajax_effect: ''
+  ajax_speed: null
+  page: true
+  page_submit_path: ''
+  page_confirm_path: ''
+  page_theme_name: ''
+  form_title: both
+  form_submit_once: false
+  form_exception_message: ''
+  form_open_message: ''
+  form_close_message: ''
+  form_previous_submissions: true
+  form_confidential: false
+  form_confidential_message: ''
+  form_remote_addr: true
+  form_convert_anonymous: false
+  form_prepopulate: false
+  form_prepopulate_source_entity: false
+  form_prepopulate_source_entity_required: false
+  form_prepopulate_source_entity_type: ''
+  form_reset: false
+  form_disable_autocomplete: false
+  form_novalidate: false
+  form_disable_inline_errors: false
+  form_required: false
+  form_unsaved: false
+  form_disable_back: false
+  form_submit_back: false
+  form_autofocus: false
+  form_details_toggle: false
+  form_access_denied: default
+  form_access_denied_title: ''
+  form_access_denied_message: ''
+  form_access_denied_attributes: {  }
+  form_file_limit: ''
+  share: false
+  share_node: false
+  share_theme_name: ''
+  share_title: true
+  share_page_body_attributes: {  }
+  submission_label: ''
+  submission_log: false
+  submission_views: {  }
+  submission_views_replace: {  }
+  submission_user_columns: {  }
+  submission_user_duplicate: false
+  submission_access_denied: default
+  submission_access_denied_title: ''
+  submission_access_denied_message: ''
+  submission_access_denied_attributes: {  }
+  submission_exception_message: ''
+  submission_locked_message: ''
+  submission_excluded_elements: {  }
+  submission_exclude_empty: false
+  submission_exclude_empty_checkbox: false
+  previous_submission_message: ''
+  previous_submissions_message: ''
+  autofill: false
+  autofill_message: ''
+  autofill_excluded_elements: {  }
+  wizard_progress_bar: true
+  wizard_progress_pages: false
+  wizard_progress_percentage: false
+  wizard_progress_link: false
+  wizard_progress_states: false
+  wizard_auto_forward: true
+  wizard_start_label: ''
+  wizard_preview_link: false
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
+  wizard_track: ''
+  wizard_prev_button_label: ''
+  wizard_next_button_label: ''
+  wizard_toggle: false
+  wizard_toggle_show_label: ''
+  wizard_toggle_hide_label: ''
+  preview: 0
+  preview_label: ''
+  preview_title: ''
+  preview_message: ''
+  preview_attributes: {  }
+  preview_excluded_elements: {  }
+  preview_exclude_empty: true
+  preview_exclude_empty_checkbox: false
+  draft: none
+  draft_multiple: false
+  draft_auto_save: false
+  draft_saved_message: ''
+  draft_loaded_message: ''
+  draft_pending_single_message: ''
+  draft_pending_multiple_message: ''
+  confirmation_type: inline
+  confirmation_title: ''
+  confirmation_message: ''
+  confirmation_url: ''
+  confirmation_attributes: {  }
+  confirmation_back: true
+  confirmation_back_label: ''
+  confirmation_back_attributes: {  }
+  confirmation_exclude_query: false
+  confirmation_exclude_token: false
+  confirmation_update: false
+  limit_total: null
+  limit_total_interval: null
+  limit_total_message: ''
+  limit_total_unique: false
+  limit_user: null
+  limit_user_interval: null
+  limit_user_message: ''
+  limit_user_unique: false
+  entity_limit_total: null
+  entity_limit_total_interval: null
+  entity_limit_user: null
+  entity_limit_user_interval: null
+  purge: none
+  purge_days: null
+  results_disabled: true
+  results_disabled_ignore: false
+  results_customize: false
+  token_view: false
+  token_update: false
+access:
+  create:
+    roles:
+      - anonymous
+      - authenticated
+    users: {  }
+    permissions: {  }
+  view_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  purge_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  view_own:
+    roles:
+      - contributor
+    users: {  }
+    permissions: {  }
+  update_own:
+    roles:
+      - contributor
+    users: {  }
+    permissions: {  }
+  delete_own:
+    roles:
+      - contributor
+    users: {  }
+    permissions: {  }
+  administer:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  test:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  configuration:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+handlers:
+  a_strawberryfield_harvester:
+    id: strawberryField_webform_handler
+    label: 'A strawberryField harvester'
+    handler_id: a_strawberryfield_harvester
+    status: true
+    conditions: {  }
+    weight: 0
+    settings:
+      submission_url: 'https://api.example.org/SOME/ENDPOINT'
+      upload_scheme: s3
+      operation: null
+      ado_settings: {  }
+      ado_crud_enabled: false
+      states: null
+      ado_prepopulate_enabled: false
+variants: {  }

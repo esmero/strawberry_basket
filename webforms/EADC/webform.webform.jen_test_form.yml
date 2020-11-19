@@ -1,0 +1,815 @@
+uuid: 2238c8f3-3a8b-4850-94e7-302f141d6fb8
+langcode: en
+status: open
+dependencies:
+  module:
+    - webform_strawberryfield
+open: null
+close: null
+weight: 0
+uid: 1
+template: false
+archive: false
+id: jen_test_form
+title: 'Jen Test Form'
+description: 'For Jen to test working on form building'
+category: Archipel
+elements: |
+  finding_aid_info:
+    '#type': webform_wizard_page
+    '#title': 'Finding Aid Info'
+    mainagencycode:
+      '#type': hidden
+      '#title': mainagencycode
+      '#default_value': '[current-user:field_loc_marc_code]'
+    finding_aid_title:
+      '#type': textfield
+      '#title': 'Finding Aid Title'
+    finding_aid_author:
+      '#type': textfield
+      '#title': 'Finding Aid Author'
+    publisher:
+      '#type': textfield
+      '#title': Publisher
+      '#required': true
+      '#default_value': '[current-user:field_repository:value]'
+    publisher_address:
+      '#type': webform_address
+      '#title': 'Publisher Address'
+      '#default_value':
+        address: '[current-user:field_addressline:0]'
+        address_2: '[current-user:field_addressline:1]'
+        city: '[current-user:field_city]'
+        state_province: 'New York'
+        postal_code: '[current-user:field_zip]'
+        country: 'United States'
+    encoded_by:
+      '#type': textfield
+      '#title': 'Encoded By'
+      '#default_value': 'Finding aid created with Archipelago by [current-user:field_first_name] [current-user:field_last_name].'
+    date_encoded:
+      '#type': textfield
+      '#title': 'Date Encoded'
+      '#default_value': '[current-date:html_date]'
+    language_of_finding_aid:
+      '#type': select
+      '#title': 'Language of Finding Aid'
+      '#options': languages
+      '#default_value': English
+  collection_info:
+    '#type': webform_wizard_page
+    '#title': 'Collection Info'
+    '#prev_button_label': Previous
+    '#next_button_label': Next
+    markup_01:
+      '#type': webform_markup
+      '#markup': '<h4>The form elements on this page are required to create an EmpireADC-compliant finding aid. Please completely fill out this page of the form.</h4>'
+    level_of_description:
+      '#type': select
+      '#title': 'Level of Description'
+      '#help': 'Select the highest level of description of your finding aid, which in most instances will be Collection.'
+      '#options':
+        Class: Class
+        Collection: Collection
+        File: File
+        Fonds: Fonds
+        Item: Item
+        'Record Group': 'Record Group'
+        Series: Series
+        Subfonds: Subfonds
+        Subgroup: Subgroup
+        Subseries: Subseries
+        'Other Level': 'Other Level'
+      '#default_value': Collection
+    type:
+      '#type': hidden
+      '#title': type
+      '#default_value': ArchiveComponent
+    label:
+      '#type': textfield
+      '#title': 'Collection Title'
+      '#help': |
+        Enter the title of the collection you are describing. Most titles will include the name of the creator(s) or collector(s) followed by the nature of the materials in the collection. If the collection consists of a particular form of material, the title should identify the form.<br />
+        <br />
+        Example: John D. Morrell photographs<br />
+        <br />
+        <a href="https://saa-ts-dacs.github.io/dacs/06_part_I/03_chapter_02/03_title.html" target="_blank">DACS 2.3</a>
+        
+      '#required': true
+      '#format_items': comma
+    collection_id:
+      '#type': textfield
+      '#title': 'Collection ID'
+      '#help': |
+        Provide a unique identifier for the materials being described in accordance with your institution&#39;s local convention.<br />
+        <br />
+        <a href="https://saa-ts-dacs.github.io/dacs/06_part_I/03_chapter_02/01_reference_code.html" target="_blank">DACS 2.1.3</a>
+        
+    size_of_collection:
+      '#type': textfield
+      '#title': 'Size of Collection'
+      '#help': |
+        Enter the size of the collection in cubic or linear feet combined with a box, volume, or item count.<br />
+        <br />
+        <a href="https://saa-ts-dacs.github.io/dacs/06_part_I/03_chapter_02/05_extent.html" target="_blank">DACS 2.5</a>
+        
+    language_of_material:
+      '#type': select
+      '#title': 'Language of Material'
+      '#multiple': true
+      '#help': 'Select the languages used in the collection materials. Use the Control key to select multiple languages.'
+      '#options': languages
+      '#default_value':
+        - English
+    abstract:
+      '#type': textarea
+      '#title': Abstract
+      '#help': 'Briefly describe the collection. The abstract should include information about creators, content and formats.'
+    collection_dates:
+      '#type': details
+      '#title': 'Collection Dates'
+      '#help': |
+        Provide the date or date range covering the creation of the materials in the collection.<br />
+        <br />
+        If the materials span a period of time, record the earliest date and the latest date in Inclusive Dates. If the dates pertaining to the majority of the collection differ significantly from the inclusive dates, provide the predominate dates in Bulk Dates.<br />
+        <br />
+        <a href="https://saa-ts-dacs.github.io/dacs/06_part_I/03_chapter_02/04_date.html" target="_blank">DACS 2.4</a>
+        
+      '#title_tag': h3
+      inclusive_dates:
+        '#type': webform_metadata_date
+        '#title': 'Inclusive Dates'
+        '#date_date_min': '1615-01-01'
+        '#date_date_max': '2022-01-01'
+        '#showfreeformalways': true
+        '#datepicker': true
+      bulk_dates:
+        '#type': webform_metadata_date
+        '#title': 'Bulk Dates'
+        '#date_date_min': '1615-01-01'
+        '#date_date_max': '2022-01-01'
+        '#showfreeformalways': true
+        '#datepicker': true
+        '#date_date_format': 'Y'
+    collection_creator:
+      '#type': details
+      '#title': 'Collection Creator'
+      '#help': |
+        Record the person(s), family, or corporate body who created or collected the material in the collection.<br />
+        <br />
+        Examples:<br />
+        <br />
+        Hancock, Clarence Eugene, 1885-1948<br />
+        <br />
+        Zabriskie family<br />
+        <br />
+        Buffalo Courier Express, inc.<br />
+        <br />
+        <br />
+        <a href="https://saa-ts-dacs.github.io/dacs/06_part_I/03_chapter_02/06_name_of_creators.html" target="_blank">DACS 2.6</a>
+        
+      creator:
+        '#type': webform_metadata_multiagent
+        '#title': Creator
+        '#multiple': 5
+        '#agent_type__placeholder': 'Select Creator Type'
+        '#name_label__title': 'Creator Name'
+        '#name_uri__title': 'Creator URL'
+        '#role_label__title': 'Creator Role'
+        '#role_uri__title': 'Creator Role URL'
+        '#vocab_personal_name': rdftype
+        '#rdftype_personal_name': PersonalName
+        '#vocab_corporate_name': rdftype
+        '#rdftype_corporate_name': CorporateName
+        '#vocab_family_name': rdftype
+        '#rdftype_family_name': FamilyName
+        '#role_type': loc
+    administrative_biographical_history:
+      '#type': details
+      '#title': 'Administrative/Biographical History'
+      '#help': |
+        Provide a biographical or administrative history of the collection creator(s). This note should be a concise description of the relevant historical facts and circumstances required to understand the materials specifically in your collection.<br />
+        <br />
+        <a href="https://saa-ts-dacs.github.io/dacs/06_part_I/03_chapter_02/07_administrative_biographical_history.html" target="_blank">DACS 2.7</a>
+        
+      admin_bio_note:
+        '#type': textarea
+        '#title': 'Admin / Bio Note'
+        '#multiple': true
+        '#title_display': none
+    scope_and_content:
+      '#type': details
+      '#title': 'Scope and Content'
+      '#help': |
+        Provide&nbsp;information about the nature of the materials and activities reflected in the collection. Scope and Content generally includes information about types of materials, dates, topics of note, geographic references and/or any other detail that will help the researcher assess the collection for their uses.<br />
+        <br />
+        <a href="https://saa-ts-dacs.github.io/dacs/06_part_I/04_chapter_03/01_scope_and_content.html" target="_blank">DACS 3.1</a>
+        
+      scope_and_content_note:
+        '#type': textarea
+        '#title': 'Scope and Content Note'
+        '#multiple': true
+        '#title_display': none
+    access_restrict:
+      '#type': details
+      '#title': 'Access Restrictions'
+      '#help': |
+        Record conditions affecting access to the collection or parts of the collection. An access restriction note serves to warn researchers if a collection is stored off-site, if special permission is needed to access material, or if there are restrictions that may limit access to materials.<br />
+        <br />
+        <a href="https://saa-ts-dacs.github.io/dacs/06_part_I/05_chapter_04/01_conditions_governing_access.html" target="_blank">DACS 4.1</a>
+        
+      access_restrictions_note:
+        '#type': textarea
+        '#title': 'Access Note'
+        '#multiple': true
+        '#title_display': none
+    use_restrict:
+      '#type': details
+      '#title': 'Use Restrictions'
+      '#help': |
+        Record conditions that affect use of the materials (reproduction, publication, quotation) once a collection has been accessed. Limitations on use may be imposed by donors or copyright law. This element may be used to indicate the absence of any limitations on use.<br />
+        <br />
+        <a href="https://saa-ts-dacs.github.io/dacs/06_part_I/05_chapter_04/04_conditions_governing_reproduction_and_use.html">DACS 4.4</a>
+        
+      use_restrictions_note:
+        '#type': textarea
+        '#title': 'Use Information'
+        '#multiple': true
+        '#title_display': none
+    repository:
+      '#type': textfield
+      '#title': Repository
+      '#default_value': '[current-user:field_repository]'
+    repository_address:
+      '#type': webform_address
+      '#title': 'Repository Address'
+      '#default_value':
+        address: '[current-user:field_addressline:0]'
+        address_2: '[current-user:field_addressline:1]'
+        city: '[current-user:field_city]'
+        state_province: 'New York'
+        postal_code: '[current-user:field_zip]'
+        country: 'United States'
+    repository_url:
+      '#type': textfield
+      '#title': 'Repository URL'
+  controlled_access_headings:
+    '#type': webform_wizard_page
+    '#title': 'Controlled Access Headings'
+    markup:
+      '#type': webform_markup
+      '#markup': '<h4>Controlled Access Headings include the names, places, subjects and formats associated with the collection being described. Please assign at least one.</h4>'
+    subjects:
+      '#type': webform_section
+      '#title': Subjects
+      loc_subject_headings:
+        '#type': details
+        '#title': 'Library of Congress Subject Headings (LCSH)'
+        lcsh_subjects:
+          '#type': webform_metadata_loc
+          '#title': LCSH
+          '#multiple': 10
+          '#multiple__header': true
+          '#label__title': 'Subject Label'
+          '#rdftype': ''
+      wikidata_item:
+        '#type': details
+        '#title': 'Wikidata Items'
+        wikidata_items:
+          '#type': webform_metadata_wikidata
+          '#title': 'Wikidata Items'
+          '#multiple': 10
+          '#multiple__header': true
+          '#label__title': 'Wikidata Item Label'
+          '#uri__title': 'Wikidata Item URL'
+      local_subject_headings:
+        '#type': details
+        '#title': 'Local Subject Headings'
+        local_subjects:
+          '#type': textfield
+          '#title': 'Local Subjects'
+          '#multiple': 10
+    personal_names:
+      '#type': webform_section
+      '#title': 'Personal Names'
+      loc_personal_names:
+        '#type': details
+        '#title': 'Library of Congress Personal Names (LCNAF)'
+        lcnaf_personal_names:
+          '#type': webform_metadata_loc
+          '#title': LCNAF
+          '#multiple': 10
+          '#multiple__header': true
+          '#multiple__add_more_input_label': 'more LCNAF names'
+          '#label__title': 'LCNAF Name Label'
+          '#uri__title': 'LCNAF Name URL'
+          '#vocab': rdftype
+          '#rdftype': PersonalName
+      viaf_personal:
+        '#type': details
+        '#title': 'Virtual International Authority File Personal Names (VIAF)'
+        viaf_personal_names:
+          '#type': webform_metadata_viaf
+          '#title': VIAF
+          '#multiple': 10
+          '#multiple__header': true
+          '#multiple__add_more_input_label': 'more VIAF names'
+          '#label__title': 'VIAF Name Label'
+          '#uri__title': 'VIAF Name URL'
+      wikidata_item_2:
+        '#type': details
+        '#title': 'Wikidata Items'
+        wikidata_personal_names:
+          '#type': webform_metadata_wikidata
+          '#title': 'Wikidata Items'
+          '#multiple': 10
+          '#multiple__header': true
+      local_personal_name_headings:
+        '#type': details
+        '#title': 'Local Personal Names'
+        local_personal_names:
+          '#type': textfield
+          '#title': 'Local Personal Names'
+          '#multiple': 10
+    corporate_names:
+      '#type': webform_section
+      '#title': 'Corporate Names'
+      loc_corporate_names:
+        '#type': details
+        '#title': 'Library of Congress Corporate Names (LCNAF)'
+        lcnaf_corporate_names:
+          '#type': webform_metadata_loc
+          '#title': LCNAF
+          '#multiple': 10
+          '#multiple__header': true
+          '#label__title': 'LCNAF Name Label'
+          '#uri__title': 'LCNAF Name URL'
+          '#vocab': rdftype
+          '#rdftype': CorporateName
+      viaf_corporate:
+        '#type': details
+        '#title': 'Virtual International Authority File Corporate Names (VIAF)'
+        viaf_corporate_names:
+          '#type': webform_metadata_viaf
+          '#title': VIAF
+          '#multiple': 10
+          '#multiple__header': true
+          '#label__title': 'VIAF Name Label'
+          '#uri__title': 'VIAF Name URL'
+      wikidata_item_3:
+        '#type': details
+        '#title': 'Wikidata Items'
+        wikidata_corporate_names:
+          '#type': webform_metadata_wikidata
+          '#title': 'Wikidata Items'
+          '#multiple': 10
+          '#multiple__header': true
+      local_corporate_name_headings:
+        '#type': details
+        '#title': 'Local Corporate Names'
+        local_corporate_names:
+          '#type': textfield
+          '#title': 'Local Corporate Names'
+          '#multiple': 10
+    family_names:
+      '#type': webform_section
+      '#title': 'Family Names'
+      local_family_name_headings:
+        '#type': details
+        '#title': 'Local Family Names'
+        local_family_names:
+          '#type': textfield
+          '#title': 'Local Family Names'
+          '#multiple': 10
+    geographic_locations:
+      '#type': webform_section
+      '#title': 'Geographic Locations'
+      loc_geographic_names:
+        '#type': details
+        '#title': 'Library of Congress Geographic Names (LCNAF)'
+        lcnaf_geographic_names:
+          '#type': webform_metadata_loc
+          '#title': LCNAF
+          '#multiple': 10
+          '#multiple__header': true
+          '#label__title': 'LCNAF Name Label'
+          '#uri__title': 'LCNAF Name URL'
+          '#vocab': rdftype
+          '#rdftype': Geographic
+      local_geographic:
+        '#type': details
+        '#title': 'Local Geographic Names'
+        local_geographic_names:
+          '#type': textfield
+          '#title': 'Local Geographic Names'
+          '#multiple': 10
+    formats_genres:
+      '#type': webform_section
+      '#title': 'Formats / Genres'
+      lc_genre_form_terms:
+        '#type': details
+        '#title': 'Library of Congress Genre/Form Terms (LCGFT) '
+        lcgft_terms:
+          '#type': webform_metadata_loc
+          '#title': LCGFT
+          '#multiple': 10
+          '#multiple__header': true
+          '#multiple__add_more_input_label': 'more LCGF terms'
+          '#label__title': 'LCGFT Term Label'
+          '#uri__title': 'LCGFT Term URL'
+          '#vocab': genreForms
+          '#rdftype': ''
+      getty_aat_terms:
+        '#type': details
+        '#title': 'Getty Art & Architecture Thesaurus Terms (AAT)'
+        aat_terms:
+          '#type': webform_metadata_getty
+          '#title': AAT
+          '#multiple': 10
+          '#multiple__header': true
+          '#multiple__add_more_input_label': 'more AAT terms'
+          '#label__title': 'AAT Term Label'
+          '#uri__title': 'AAT Term URL'
+      local_genre_form:
+        '#type': details
+        '#title': 'Local Genre/Form Terms'
+        local_genre_form_terms:
+          '#type': textfield
+          '#title': 'Local Genre/Form Terms'
+          '#multiple': 10
+  additional_elements:
+    '#type': webform_wizard_page
+    '#title': 'Additional Elements'
+    markup_02:
+      '#type': webform_markup
+      '#markup': '<h4>The form elements on this page are optional.</h4>'
+    url_to_online_items:
+      '#type': textfield
+      '#title': 'URL to Online Items'
+      '#help': 'If the collection (or a portion of the collection) is available online, you may provide a link here.'
+    pref_citation:
+      '#type': details
+      '#title': 'Preferred Citation'
+      '#help': 'See <a href="http://saa-ts-dacs.github.io/dacs/06_part_I/08_chapter_07/01_notes.html" target="_blank">DACS 7.1.5</a>'
+      preferred_citation:
+        '#type': textarea
+        '#title': Citation
+    processing_information:
+      '#type': details
+      '#title': 'Processing Information'
+      '#help': 'See <a href="http://saa-ts-dacs.github.io/dacs/06_part_I/08_chapter_07/01_notes.html" target="_blank">DACS 7.1.8</a>'
+      processing_note:
+        '#type': textarea
+        '#title': 'Processing Note'
+        '#multiple': 5
+    system_of_arrangement:
+      '#type': details
+      '#title': 'System of Arrangement'
+      '#help': 'See <a href="http://saa-ts-dacs.github.io/dacs/06_part_I/04_chapter_03/02_system_of_arrangement.html" target="_blank">DACS 3.2</a>'
+      arrangement_note:
+        '#type': textarea
+        '#title': 'Arrangement Note'
+        '#multiple': 5
+    immediate_source_of_acquisition:
+      '#type': details
+      '#title': 'Immediate Source of Acquisition'
+      '#help': 'See <a href="https://saa-ts-dacs.github.io/dacs/06_part_I/06_chapter_05/02_immediate_source_of_acquisition.html" target="_blank">DACS 5.2</a>'
+      acquisition_note:
+        '#type': textarea
+        '#title': 'Acquisition Note'
+        '#multiple': 5
+    custodial_history:
+      '#type': details
+      '#title': 'Custodial History'
+      '#help': 'See <a href="https://saa-ts-dacs.github.io/dacs/06_part_I/06_chapter_05/01_custodial_history.html" target="_blank">DACS 5.1</a>'
+      custodial_history_note:
+        '#type': textarea
+        '#title': 'Custodial History Note'
+        '#multiple': 5
+    accruals:
+      '#type': details
+      '#title': Accruals
+      '#help': 'See <a href="https://saa-ts-dacs.github.io/dacs/06_part_I/06_chapter_05/04_accruals.html" target="_blank">DACS 5.4</a>'
+      accruals_note:
+        '#type': textarea
+        '#title': 'Accruals Note'
+        '#multiple': 5
+    existence_and_location_of_originals:
+      '#type': details
+      '#title': 'Existence and Location of Originals'
+      '#help': 'See <a href="https://saa-ts-dacs.github.io/dacs/06_part_I/07_chapter_06/01_existence_and_location_of_originals.html" target="_blank">DACS 6.1</a>'
+      location_of_originals:
+        '#type': textarea
+        '#title': 'Location of Originals'
+        '#multiple': 5
+    existence_and_location_of_copies:
+      '#type': details
+      '#title': 'Existence and Location of Copies'
+      '#help': 'See <a href="https://saa-ts-dacs.github.io/dacs/06_part_I/07_chapter_06/02_existence_and_location_of_copies.html" target="_blank">DACS 6.2</a>'
+      location_of_copies:
+        '#type': textarea
+        '#title': 'Location of Copies'
+        '#multiple': 5
+    related_archival_materials:
+      '#type': details
+      '#title': 'Related Archival Materials'
+      '#help': 'See <a href="https://saa-ts-dacs.github.io/dacs/06_part_I/07_chapter_06/03_related_archival_materials.html" target="_blank">DACS 6.3</a>'
+      related_materials_note:
+        '#type': textarea
+        '#title': 'Related Materials Note'
+        '#multiple': 5
+    separated_archival_materials:
+      '#type': details
+      '#title': 'Separated Archival Materials'
+      '#help': 'See <a href="https://saa-ts-dacs.github.io/dacs/06_part_I/07_chapter_06/03_related_archival_materials.html" target="_blank">DACS 6.3</a>'
+      separated_materials_note:
+        '#type': textarea
+        '#title': 'Separated Materials Note'
+        '#multiple': 10
+    publication_information:
+      '#type': details
+      '#title': 'Publication Information'
+      '#help': 'See <a href="https://saa-ts-dacs.github.io/dacs/06_part_I/07_chapter_06/04_publication_note.html" target="_blank">DACS 6.4</a>'
+      publication_note:
+        '#type': textarea
+        '#title': 'Publication Note'
+        '#multiple': 5
+    appraisal_destruction_and_scheduling_information:
+      '#type': details
+      '#title': 'Appraisal, Destruction, and Scheduling Information'
+      '#help': 'See <a href="https://saa-ts-dacs.github.io/dacs/06_part_I/06_chapter_05/03_appraisal_destruction_and_scheduling_information.html" target="_blank">DACS 5.3</a>'
+      appraisal_destruction_and_scheduling_note:
+        '#type': textarea
+        '#title': 'Appraisal, Destruction, and Scheduling Note'
+        '#multiple': 5
+    physical_access:
+      '#type': details
+      '#title': 'Physical Access'
+      '#help': 'See <a href="https://saa-ts-dacs.github.io/dacs/06_part_I/05_chapter_04/02_physical_access.html" target="_blank">DACS 4.2</a>'
+      physical_access_note:
+        '#type': textarea
+        '#title': 'Physical Access Note'
+        '#multiple': 5
+    technical_access:
+      '#type': details
+      '#title': 'Technical Access'
+      '#help': 'See <a href="https://saa-ts-dacs.github.io/dacs/06_part_I/05_chapter_04/03_technical_access.html" target="_blank">DACS 4.3</a>'
+      technical_access_note:
+        '#type': textarea
+        '#title': 'Technical Access Note'
+        '#multiple': 5
+    ot_finding_aids:
+      '#type': details
+      '#title': 'Other Finding Aids'
+      '#help': 'See <a href="https://saa-ts-dacs.github.io/dacs/06_part_I/05_chapter_04/06_finding_aids.html" target="_blank">DACS 4.6</a>'
+      other_finding_aids:
+        '#type': textarea
+        '#title': 'Finding Aids'
+        '#multiple': 5
+    description_control:
+      '#type': details
+      '#title': 'Description Control'
+      description_rules:
+        '#type': textfield
+        '#title': 'Description Rules'
+        '#multiple': 5
+        '#help': 'See <a href="https://saa-ts-dacs.github.io/dacs/06_part_I/09_chapter_08/01_description_control.html" target="_blank">DACS 8.1</a>'
+      works_cited:
+        '#type': textarea
+        '#title': 'Works Cited'
+        '#multiple': 5
+        '#help': 'Record any sources used in writing the finding aid.'
+    gen_note:
+      '#type': details
+      '#title': 'General Note'
+      general_note:
+        '#type': textarea
+        '#title': Note
+        '#multiple': 5
+  full_inventory:
+    '#type': webform_wizard_page
+    '#title': 'Full Inventory'
+    dsc_csv:
+      '#type': webform_metadata_csv_file
+      '#title': 'Provide Full Inventory via a CSV file (EAD2002 equivalent of /dcs/c elements)'
+      '#format_items': comma
+      '#file_extensions': csv
+    upload_external_file:
+      '#type': webform_document_file
+      '#title': 'Upload External File'
+      '#file_placeholder': 'If you have a container list or full finding aid, you may upload it here.'
+      '#sanitize': true
+      '#button': true
+      '#button__title': 'Upload File'
+  actions:
+    '#type': webform_actions
+    '#title': 'Submit button(s)'
+    '#submit__label': 'Submit Finding AID'
+    '#wizard_prev__label': 'Previous '
+    '#wizard_next__label': Next
+css: |
+  .red-alert {
+    color:red;
+    font-size:24em;
+  }
+  
+  
+  
+  
+  
+javascript: |
+  
+  
+  
+  
+  
+  
+settings:
+  ajax: false
+  ajax_scroll_top: ''
+  ajax_progress_type: ''
+  ajax_effect: ''
+  ajax_speed: null
+  page: true
+  page_submit_path: ''
+  page_confirm_path: ''
+  page_theme_name: ''
+  form_title: source_entity_webform
+  form_submit_once: false
+  form_exception_message: ''
+  form_open_message: ''
+  form_close_message: ''
+  form_previous_submissions: true
+  form_confidential: false
+  form_confidential_message: ''
+  form_remote_addr: true
+  form_convert_anonymous: false
+  form_prepopulate: false
+  form_prepopulate_source_entity: false
+  form_prepopulate_source_entity_required: false
+  form_prepopulate_source_entity_type: ''
+  form_reset: true
+  form_disable_autocomplete: false
+  form_novalidate: false
+  form_disable_inline_errors: false
+  form_required: false
+  form_unsaved: true
+  form_disable_back: false
+  form_submit_back: false
+  form_autofocus: false
+  form_details_toggle: false
+  form_access_denied: default
+  form_access_denied_title: ''
+  form_access_denied_message: ''
+  form_access_denied_attributes: {  }
+  form_file_limit: ''
+  share: false
+  share_node: false
+  share_theme_name: ''
+  share_title: true
+  share_page_body_attributes: {  }
+  submission_label: ''
+  submission_log: false
+  submission_views: {  }
+  submission_views_replace: {  }
+  submission_user_columns: {  }
+  submission_user_duplicate: false
+  submission_access_denied: default
+  submission_access_denied_title: ''
+  submission_access_denied_message: ''
+  submission_access_denied_attributes: {  }
+  submission_exception_message: ''
+  submission_locked_message: ''
+  submission_excluded_elements: {  }
+  submission_exclude_empty: false
+  submission_exclude_empty_checkbox: false
+  previous_submission_message: ''
+  previous_submissions_message: ''
+  autofill: false
+  autofill_message: ''
+  autofill_excluded_elements: {  }
+  wizard_progress_bar: true
+  wizard_progress_pages: false
+  wizard_progress_percentage: false
+  wizard_progress_link: false
+  wizard_progress_states: false
+  wizard_auto_forward: true
+  wizard_start_label: ''
+  wizard_preview_link: false
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
+  wizard_track: ''
+  wizard_prev_button_label: ''
+  wizard_next_button_label: ''
+  wizard_toggle: true
+  wizard_toggle_show_label: ''
+  wizard_toggle_hide_label: ''
+  preview: 1
+  preview_label: ''
+  preview_title: ''
+  preview_message: ''
+  preview_attributes: {  }
+  preview_excluded_elements: {  }
+  preview_exclude_empty: true
+  preview_exclude_empty_checkbox: false
+  draft: none
+  draft_multiple: false
+  draft_auto_save: false
+  draft_saved_message: ''
+  draft_loaded_message: ''
+  draft_pending_single_message: ''
+  draft_pending_multiple_message: ''
+  confirmation_type: inline
+  confirmation_title: ''
+  confirmation_message: ''
+  confirmation_url: ''
+  confirmation_attributes: {  }
+  confirmation_back: true
+  confirmation_back_label: ''
+  confirmation_back_attributes: {  }
+  confirmation_exclude_query: false
+  confirmation_exclude_token: false
+  confirmation_update: false
+  limit_total: null
+  limit_total_interval: null
+  limit_total_message: ''
+  limit_total_unique: false
+  limit_user: null
+  limit_user_interval: null
+  limit_user_message: ''
+  limit_user_unique: false
+  entity_limit_total: null
+  entity_limit_total_interval: null
+  entity_limit_user: null
+  entity_limit_user_interval: null
+  purge: none
+  purge_days: null
+  results_disabled: true
+  results_disabled_ignore: false
+  results_customize: false
+  token_view: false
+  token_update: false
+access:
+  create:
+    roles:
+      - anonymous
+      - authenticated
+    users: {  }
+    permissions: {  }
+  view_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  purge_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  view_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  administer:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  test:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  configuration:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+handlers:
+  a_strawberryfield_harvester:
+    id: strawberryField_webform_handler
+    label: 'A strawberryField harvester'
+    handler_id: a_strawberryfield_harvester
+    status: true
+    conditions: {  }
+    weight: 0
+    settings:
+      submission_url: 'https://api.example.org/SOME/ENDPOINT'
+      upload_scheme: s3
+      operation: null
+      ado_settings: {  }
+      ado_crud_enabled: false
+      states: null
+      ado_prepopulate_enabled: false
+variants: {  }

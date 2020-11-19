@@ -1,0 +1,514 @@
+uuid: 1d0db811-686e-4555-8b93-70f4fdc9606a
+langcode: en
+status: closed
+dependencies:
+  module:
+    - webform_strawberryfield
+open: null
+close: null
+weight: 0
+uid: 3
+template: false
+archive: false
+id: ead_2002_master_backup
+title: 'EAD 2002 Master BACKUP'
+description: 'Please don&#39;t change so we can compare notes'
+category: Archipel
+elements: |
+  finding_aid_info:
+    '#type': webform_wizard_page
+    '#title': 'Finding Aid Info'
+    type:
+      '#type': hidden
+      '#title': type
+      '#default_value': ArchiveComponent
+    label:
+      '#type': textfield
+      '#title': 'Finding Aid Title'
+      '#help': 'The finding aid title is the title of the finding aid you are encoding. &ldquo;Finding Aid Title&rdquo; should not be confused with &quot;Collection Title&quot;, which is the title of the actual collection.'
+      '#required': true
+      '#format_items': comma
+    finding_aid_author:
+      '#type': textfield
+      '#title': 'Finding Aid Author'
+    publisher:
+      '#type': textfield
+      '#title': 'Finding Aid Publisher'
+    publisher_address:
+      '#type': webform_address
+      '#title': 'Publisher Address'
+      '#state_province__placeholder': 'New York'
+      '#country__access': false
+    publisher_geolocation:
+      '#type': webform_metadata_nominatim
+      '#title': 'Finding Aid Publisher Address'
+      '#format_items': ol
+      '#city__access': true
+      '#postcode__access': true
+      '#country__access': true
+    finding_aid_creation_date:
+      '#type': date
+      '#title': 'Finding Aid Creation Date'
+    language_of_finding_aid:
+      '#type': textfield
+      '#title': 'Language of Finding Aid'
+      '#default_value': 'Finding aid is written in English'
+  collection_info:
+    '#type': webform_wizard_page
+    '#title': 'Collection Info'
+    level_of_description:
+      '#type': select
+      '#title': 'Level of Description'
+      '#options':
+        collection: Collection
+        file: File
+        fonds: Fonds
+        item: Item
+        recordgrp: 'Record Group'
+        series: Series
+        subfonds: Subfonds
+        subgrp: Subgroup
+        subseries: Subseries
+        otherlevel: 'Other Level'
+      '#states':
+        required:
+          '':
+            '': ''
+      '#default_value': collection
+    collection_title:
+      '#type': textfield
+      '#title': 'Collection Title'
+      '#help': |
+        The title of the collection you are describing. Most titles will include the name of the creator(s) or collector(s) followed by the nature of the materials in the collection. If the collection consists of a particular form of material, the title should identify the form.<br />
+        <br />
+        Example: John D. Morrell photographs<br />
+        <br />
+        <a href="https://www2.archivists.org/standards/DACS/part_I/chapter_2/3_title#.VztEfoQrKHs" target="_blank">DACS 2.3</a>
+        
+    collection_creator:
+      '#type': item
+      '#title': 'Collection Creator'
+    collection_creator_type:
+      '#type': webform_buttons
+      '#title': 'Type of Creator'
+      '#options':
+        corpname: 'Corporate Name'
+        famname: 'Family Name'
+        persname: 'Personal Name'
+    collection_dates:
+      '#type': item
+      '#title': 'Collection Dates'
+    inclussive_date_details:
+      '#type': details
+      '#title': 'Inclusive Dates'
+      inclussive_date:
+        '#type': webform_metadata_date
+        '#title': 'Inclusive Date'
+        '#multiple': 2
+        '#date_date_min': '1615-01-01'
+        '#date_date_max': '2022-01-01'
+        '#datepicker': true
+        '#date_date_format': 'Y'
+    bulk_date_details:
+      '#type': details
+      '#title': 'Bulk Dates'
+      bulk_date:
+        '#type': webform_metadata_date
+        '#title': 'Bulk Date'
+        '#multiple': 2
+        '#date_date_min': '1615-01-01'
+        '#date_date_max': '2022-01-01'
+        '#datepicker': true
+        '#date_date_format': 'Y'
+    language_of_material:
+      '#type': select
+      '#title': 'Language of Material'
+      '#multiple': true
+      '#help': 'Language of the material being described. Default is set to English, but can be changed. To select more than one language, hold the Control key while making your selections.'
+      '#options': languages
+      '#default_value':
+        - English
+    abstract:
+      '#type': textarea
+      '#title': Abstract
+      '#help': 'Briefly describe the types of material in the collection as well as information about the content and creator of the collection. This is meant to be a summary of the key points in the Scope and Content Note and the Biographical/Historical Note.'
+    access_restrictions:
+      '#type': textarea
+      '#title': 'Access Restrictions'
+    use_restrictions:
+      '#type': textarea
+      '#title': 'Use Restrictions'
+    size_of_the_collection_extent_:
+      '#type': textfield
+      '#title': 'Size of the Collection'
+      '#multiple': true
+      '#help': |
+        Ideally expressed in cubic or linear feet and/or box, volume, or item count.<br />
+        <br />
+        <a href="https://www2.archivists.org/standards/DACS/part_I/chapter_2/5_extent#.V0JxWfkrKHs" target="_blank">DACS 2.5</a>
+        
+    scope_and_content_note:
+      '#type': textarea
+      '#title': 'Scope and Content Note'
+      '#multiple': true
+  biographical_historical_information:
+    '#type': webform_wizard_page
+    '#title': 'Biographical / Historical Information'
+    biographical_historical_note:
+      '#type': textarea
+      '#title': 'Biographical / Historical Note'
+      '#multiple': true
+    chronology:
+      '#type': details
+      '#title': 'Chronology List'
+      chronology_items:
+        '#type': webform_custom_composite
+        '#title': 'Chronology items'
+        '#element':
+          event:
+            '#type': textarea
+            '#title': Event
+          date:
+            '#type': webform_metadata_date
+            '#title': 'Metadata Date'
+            '#date_date_min': '1615-01-01'
+            '#date_date_max': '2022-01-01'
+            '#datepicker': true
+            '#date_date_format': 'Y'
+  controlled_access_headings:
+    '#type': webform_wizard_page
+    '#title': 'Controlled Access Headings'
+    subjects:
+      '#type': details
+      '#title': Subject
+      interface_type:
+        '#type': webform_buttons
+        '#title': 'Interface Type'
+        '#options':
+          sub_lcsh: LCSH
+          sub_local: Local
+      library_of_congress_subject_headings:
+        '#title': 'Interface Type'
+        '#options':
+          fg_aat: 'Getty AAT'
+          fg_local: Local
+      getty_art_architecture_terms:
+        '#type': webform_metadata_getty
+        '#title': 'Getty Art & Architecture Terms'
+        '#multiple': true
+        '#states':
+          visible:
+            ':input[name="fg_interface_type"]':
+              value: fg_aat
+        '#label__title': 'Search Getty AAT'
+      local_genre_form_term:
+        '#type': textfield
+        '#title': 'Local Genre/Form Term'
+        '#multiple': true
+        '#states':
+          visible:
+            ':input[name="fg_interface_type"]':
+              value: fg_local
+    corporate_name:
+      '#type': details
+      '#title': 'Corporate Name'
+      controlaccess_corpname_loc:
+        '#type': webform_metadata_loc
+        '#title': 'Library of Congress Corporate Names'
+        '#more': 'See CorporateName type as defined in http://id.loc.gov/ontologies/madsrdf/v1.html'
+        '#label__title': 'Corporate Name'
+        '#uri__title': 'Corporate Name LoC URL'
+        '#vocab': rdftype
+        '#rdftype': CorporateName
+    family_name:
+      '#type': details
+      '#title': 'Family Name'
+      controlaccess_familyname_loc:
+        '#type': webform_metadata_loc
+        '#title': 'Library of Congress Family Names'
+        '#more': 'See FamiliyName type as defined in http://id.loc.gov/ontologies/madsrdf/v1.html'
+        '#format_items': ol
+        '#label__title': 'Family Name'
+        '#uri__title': 'Family Name LoC URL'
+        '#vocab': rdftype
+        '#rdftype': FamilyName
+      controlaccess_geographicname_loc:
+        '#type': webform_metadata_loc
+        '#title': 'Library of Congress Geographic Name'
+        '#more': 'See <a href="http://id.loc.gov/ontologies/madsrdf/v1.html#c_Geographic">Geographic</a> type as defined in http://id.loc.gov/ontologies/madsrdf/v1.html'
+        '#format_items': ol
+        '#label__title': Geographic
+        '#uri__title': 'Geographic LoC URL'
+        '#vocab': rdftype
+        '#rdftype': Geographic
+    function:
+      '#type': details
+      '#title': Function
+      controlaccess_function_aat:
+        '#type': webform_metadata_getty
+        '#title': 'Getty AAT Function'
+        '#description': 'See&nbsp; <a href="https://www.loc.gov/ead/tglib/elements/function.html" target="_blank">https://www.loc.gov/ead/tglib/elements/function.html</a>'
+        '#format_items': ol
+    geographic_name:
+      '#type': details
+      '#title': 'Geographic Name'
+    name:
+      '#type': details
+      '#title': Name
+    occupation:
+      '#type': details
+      '#title': Occupation
+    personal_name:
+      '#type': details
+      '#title': 'Personal Name'
+    title:
+      '#type': details
+      '#title': Title
+  extras:
+    '#type': webform_wizard_page
+    '#title': Extras
+    type_of_heading:
+      '#type': select
+      '#title': 'Type of Heading'
+      '#options':
+        cah_corpname: 'Corporate Name'
+        cah_famname: 'Family Name'
+        cah_function: Function
+        cah_genreform: 'Genre / Form'
+        cah_geoname: 'Geographical Name'
+        cah_name: Name
+        cah_occupation: Occupation
+        cah_persname: 'Personal Name'
+        cah_subject: Subject
+        cah_title: Title
+      '#empty_option': 'Select One'
+    subjects_test:
+      '#type': container
+      subject_type:
+        '#type': webform_buttons
+        '#title': 'Subject Type'
+        '#options':
+          LCSH: LCSH
+          Local: Local
+    form_genre:
+      '#type': fieldset
+      '#title': 'Form / Genre'
+      term_type:
+        '#type': webform_buttons
+        '#title': 'Term Type'
+        '#options':
+          'Getty AAT': 'Getty AAT'
+          'Local Term': 'Local Term'
+      search_getty_aat:
+        '#type': webform_metadata_getty
+        '#title': 'Search Getty AAT'
+        '#multiple': true
+        '#states':
+          visible:
+            ':input[name="term_type"]':
+              value: 'Getty AAT'
+    upload_container_list:
+      '#type': managed_file
+      '#title': 'Upload Container List'
+      '#file_preview': name
+      '#sanitize': true
+      '#button': true
+      '#button__title': Upload
+  actions:
+    '#type': webform_actions
+    '#title': 'Submit button(s)'
+    '#states':
+      visible:
+        '':
+          '': ''
+    '#submit__label': 'Finish Describing'
+    '#reset_hide': true
+    '#reset__label': 'Clear Form'
+    '#preview_prev_hide': true
+css: ''
+javascript: ''
+settings:
+  ajax: true
+  ajax_scroll_top: ''
+  ajax_progress_type: ''
+  ajax_effect: ''
+  ajax_speed: null
+  page: true
+  page_submit_path: ''
+  page_confirm_path: ''
+  page_admin_theme: false
+  form_title: source_entity_webform
+  form_submit_once: false
+  form_exception_message: ''
+  form_open_message: ''
+  form_close_message: ''
+  form_previous_submissions: true
+  form_confidential: false
+  form_confidential_message: ''
+  form_remote_addr: true
+  form_convert_anonymous: false
+  form_prepopulate: false
+  form_prepopulate_source_entity: false
+  form_prepopulate_source_entity_required: false
+  form_prepopulate_source_entity_type: ''
+  form_reset: true
+  form_disable_autocomplete: false
+  form_novalidate: false
+  form_disable_inline_errors: false
+  form_required: false
+  form_unsaved: true
+  form_disable_back: false
+  form_submit_back: false
+  form_autofocus: false
+  form_details_toggle: false
+  form_access_denied: default
+  form_access_denied_title: ''
+  form_access_denied_message: ''
+  form_access_denied_attributes: {  }
+  form_file_limit: ''
+  submission_label: ''
+  submission_log: false
+  submission_views: {  }
+  submission_views_replace: {  }
+  submission_user_columns: {  }
+  submission_user_duplicate: false
+  submission_access_denied: default
+  submission_access_denied_title: ''
+  submission_access_denied_message: ''
+  submission_access_denied_attributes: {  }
+  submission_exception_message: ''
+  submission_locked_message: ''
+  submission_excluded_elements: {  }
+  submission_exclude_empty: false
+  submission_exclude_empty_checkbox: false
+  previous_submission_message: ''
+  previous_submissions_message: ''
+  autofill: false
+  autofill_message: ''
+  autofill_excluded_elements: {  }
+  wizard_progress_bar: true
+  wizard_progress_pages: false
+  wizard_progress_percentage: false
+  wizard_progress_link: false
+  wizard_start_label: ''
+  wizard_preview_link: false
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
+  wizard_track: ''
+  preview: 1
+  preview_label: ''
+  preview_title: ''
+  preview_message: ''
+  preview_attributes: {  }
+  preview_excluded_elements: {  }
+  preview_exclude_empty: true
+  preview_exclude_empty_checkbox: false
+  draft: none
+  draft_multiple: false
+  draft_auto_save: false
+  draft_saved_message: ''
+  draft_loaded_message: ''
+  draft_pending_single_message: ''
+  draft_pending_multiple_message: ''
+  confirmation_type: inline
+  confirmation_title: ''
+  confirmation_message: ''
+  confirmation_url: ''
+  confirmation_attributes: {  }
+  confirmation_back: true
+  confirmation_back_label: ''
+  confirmation_back_attributes: {  }
+  confirmation_exclude_query: false
+  confirmation_exclude_token: false
+  confirmation_update: false
+  limit_total: null
+  limit_total_interval: null
+  limit_total_message: ''
+  limit_total_unique: false
+  limit_user: null
+  limit_user_interval: null
+  limit_user_message: ''
+  limit_user_unique: false
+  entity_limit_total: null
+  entity_limit_total_interval: null
+  entity_limit_user: null
+  entity_limit_user_interval: null
+  purge: none
+  purge_days: null
+  results_disabled: true
+  results_disabled_ignore: false
+  token_update: false
+  page_theme_name: ''
+  share: false
+  share_node: false
+  share_theme_name: ''
+  share_title: true
+  share_page_body_attributes: {  }
+  wizard_progress_states: false
+  wizard_auto_forward: true
+  wizard_prev_button_label: ''
+  wizard_next_button_label: ''
+  wizard_toggle: true
+  wizard_toggle_show_label: ''
+  wizard_toggle_hide_label: ''
+  results_customize: false
+  token_view: false
+access:
+  create:
+    roles:
+      - anonymous
+      - authenticated
+    users: {  }
+    permissions: {  }
+  view_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  purge_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  view_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  administer:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  test:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  configuration:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+handlers:
+  a_strawberryfield_harvester:
+    id: strawberryField_webform_handler
+    label: 'A strawberryField harvester'
+    handler_id: a_strawberryfield_harvester
+    status: true
+    conditions: {  }
+    weight: 0
+    settings:
+      submission_url: 'https://api.example.org/SOME/ENDPOINT'
+      upload_scheme: s3
+variants: {  }

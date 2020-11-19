@@ -1,0 +1,680 @@
+uuid: 52311379-656d-48c0-8a1e-4d80c3198f5e
+langcode: en
+status: open
+dependencies:
+  module:
+    - webform_strawberryfield
+open: null
+close: null
+weight: 0
+uid: 1
+template: false
+archive: false
+id: olin_metadata
+title: 'Olin Metadata'
+description: 'This form adds metadata to your Digital Object.'
+category: Archipel
+elements: |
+  metadata:
+    '#type': webform_wizard_page
+    '#title': Metadata
+    '#access_create_roles':
+      - administrator
+      - metadata_pro
+      - curator
+    '#access_update_roles':
+      - authenticated
+    '#access_view_roles':
+      - authenticated
+    '#next_button_label': 'Move on to next step'
+    label:
+      '#type': textfield
+      '#title': Title
+      '#help': 'Primary title given to described resource'
+      '#minlength': '3'
+      '#maxlength': '256'
+      '#placeholder': 'Title of this Object'
+      '#required': true
+      '#label_attributes':
+        class:
+          - custom-form-input-heading
+      '#format_items': comma
+      '#access_create_roles':
+        - administrator
+      '#access_update_roles':
+        - administrator
+    author:
+      '#type': textfield
+      '#title': Author
+      '#help_title': 'Author, photographer, director, creator, etc.'
+      '#required': true
+      '#states':
+        disabled:
+          ':input[name="type[select]"]':
+            value: 'Course Catalog/Registration'
+      '#states_clear': false
+      '#default_value': 'Olin College'
+    co_authors:
+      '#type': textfield
+      '#title': Co-authors
+      '#multiple': true
+      '#states':
+        invisible:
+          ':input[name="type[select]"]':
+            value: 'Course Catalog/Registration'
+    type:
+      '#type': webform_select_other
+      '#title': 'Media type'
+      '#options': schema_org_creative_works
+      '#required': true
+    3d_model_media_type:
+      '#type': webform_autocomplete
+      '#title': '3D Model Media Type'
+      '#states':
+        visible:
+          ':input[name="type[select]"]':
+            value: 3DModel
+      '#autocomplete_existing': true
+    chapter_or_page_numbers:
+      '#type': textfield
+      '#title': 'Chapter or Page Numbers'
+      '#states':
+        invisible:
+          ':input[name="type[select]"]':
+            '!value': Book
+    research_data_set_type:
+      '#type': webform_autocomplete
+      '#title': 'Research/Data Set Type'
+      '#required': true
+      '#states':
+        invisible:
+          ':input[name="type[select]"]':
+            '!value': Dataset
+      '#autocomplete_items':
+        - 'Data Set'
+        - Survey
+        - 'Research Findings'
+      '#autocomplete_existing': true
+    conference_document_type:
+      '#type': webform_autocomplete
+      '#title': 'Conference Document Type'
+      '#required': true
+      '#states':
+        invisible:
+          ':input[name="type[select]"]':
+            '!value': 'Conference Document'
+      '#autocomplete_items':
+        - Proposal
+        - Paper
+        - Schedule
+        - Slides
+        - Abstract
+      '#autocomplete_match': '1'
+    course_catalog_registration_type:
+      '#type': webform_autocomplete
+      '#title': 'Course Catalog/Registration Type'
+      '#required': true
+      '#states':
+        invisible:
+          ':input[name="type[select]"]':
+            '!value': 'Course Catalog/Registration'
+      '#autocomplete_items':
+        - Catalog
+        - Registration
+        - 'Co-curricular Offerings'
+    course_document_type:
+      '#type': webform_autocomplete
+      '#title': 'Course Document Type'
+      '#states':
+        invisible:
+          ':input[name="type[select]"]':
+            '!value': 'Course Document'
+      '#autocomplete_items':
+        - Syllabus
+        - Assignment
+        - Worksheet
+      '#autocomplete_match': '1'
+    abstract_or_description:
+      '#type': textarea
+      '#title': 'Abstract or Description'
+      '#states':
+        invisible:
+          - ':input[name="type[select]"]':
+              value: '3D Model'
+          - or
+          - ':input[name="type[select]"]':
+              value: 'Course Catalog/Registration'
+          - or
+          - ':input[name="type[select]"]':
+              value: 'Course Document'
+          - or
+          - ':input[name="type[select]"]':
+              value: Image
+          - or
+          - ':input[name="type[select]"]':
+              value: Video
+      '#required': true
+    description:
+      '#type': textarea
+      '#title': Description
+      '#title_display': before
+      '#rows': '4'
+      '#autocomplete': 'off'
+      '#states':
+        invisible:
+          - ':input[name="type[select]"]':
+              '!value': '3D Model'
+          - or
+          - ':input[name="type[select]"]':
+              '!value': Image
+          - or
+          - ':input[name="type[select]"]':
+              '!value': Video
+      '#label_attributes':
+        class:
+          - custom-form-input-heading
+      '#format_items': comma
+    date_created:
+      '#type': date
+      '#title': 'Date Created'
+      '#required': true
+      '#states':
+        invisible:
+          - ':input[name="type[select]"]':
+              '!value': '3D Model'
+          - or
+          - ':input[name="type[select]"]':
+              '!value': Image
+          - or
+          - ':input[name="type[select]"]':
+              '!value': Poster
+          - or
+          - ':input[name="type[select]"]':
+              '!value': Research/Data-set
+          - or
+          - ':input[name="type[select]"]':
+              '!value': Video
+      '#date_date_format': ''
+    publication_date:
+      '#type': textarea
+      '#title': 'Publication Date'
+      '#help_title': 'This could be publication, submission, completion, or any other significant date'
+      '#required': true
+      '#states':
+        visible:
+          - ':input[name="type[select]"]':
+              value: Article
+          - or
+          - ':input[name="type[select]"]':
+              value: Book
+          - or
+          - ':input[name="type[select]"]':
+              value: 'Book Chapter'
+          - or
+          - ':input[name="type[select]"]':
+              value: Thesis/Dissertation
+    subject:
+      '#type': textfield
+      '#title': Subject
+      '#required': true
+      '#states':
+        visible:
+          ':input[name="type[select]"]':
+            value: 'Course Catalog/Registration'
+    publication_name:
+      '#type': textfield
+      '#title': 'Publication Name'
+      '#states':
+        invisible:
+          ':input[name="type[select]"]':
+            '!value': Article
+      '#required': true
+    publisher:
+      '#type': textfield
+      '#title': Publisher
+      '#required': true
+      '#states':
+        invisible:
+          - ':input[name="type[select]"]':
+              '!value': Book
+          - or
+          - ':input[name="type[select]"]':
+              '!value': 'Book Chapter'
+    contributors:
+      '#type': textfield
+      '#title': Contributors
+      '#multiple': true
+      '#states':
+        invisible:
+          ':input[name="type[select]"]':
+            '!value': 'Course Catalog/Registration'
+    url:
+      '#type': url
+      '#title': URL
+    language:
+      '#type': textfield
+      '#title': Language
+    keywords:
+      '#type': textarea
+      '#title': Keywords
+      '#help_title': 'One keyword per line.'
+    date:
+      '#type': date
+      '#title': Date
+      '#states':
+        invisible:
+          - ':input[name="type[select]"]':
+              '!value': 'Course Catalog/Registration'
+          - or
+          - ':input[name="type[select]"]':
+              '!value': 'Course Document'
+          - or
+          - ':input[name="type[select]"]':
+              '!value': Thesis/Dissertation
+      '#datepicker': true
+      '#datepicker_button': true
+      '#date_date_format': 'l, F j, Y'
+    presentation_type:
+      '#type': webform_autocomplete
+      '#title': 'Presentation Type'
+      '#states':
+        invisible:
+          ':input[name="type[select]"]':
+            '!value': 'Non-conference Presentation'
+      '#autocomplete_items':
+        - Slides
+        - Poster
+      '#autocomplete_existing': true
+      '#autocomplete_match': '1'
+      '#autocomplete_match_operator': STARTS_WITH
+    poster_type:
+      '#type': webform_autocomplete
+      '#title': 'Poster Type'
+      '#states':
+        invisible:
+          ':input[name="type[select]"]':
+            '!value': Poster
+      '#autocomplete_items':
+        - Web
+        - Print
+      '#autocomplete_existing': true
+      '#autocomplete_match': '1'
+    course_number:
+      '#type': textfield
+      '#title': 'Course Number'
+      '#states':
+        invisible:
+          ':input[name="type[select]"]':
+            '!value': 'Course Document'
+    presentation_date:
+      '#type': date
+      '#title': 'Presentation Date'
+      '#required': true
+      '#states':
+        invisible:
+          ':input[name="type[select]"]':
+            '!value': 'Non-conference Presentation'
+      '#date_date_format': ''
+    location:
+      '#type': textfield
+      '#title': Location
+      '#states':
+        invisible:
+          - ':input[name="type[select]"]':
+              '!value': Image
+          - or
+          - ':input[name="type[select]"]':
+              '!value': Video
+  conference_details:
+    '#type': webform_wizard_page
+    '#title': 'Conference Details'
+    '#states':
+      visible:
+        ':input[name="type[select]"]':
+          value: 'Conference Document'
+    conference_name:
+      '#type': textfield
+      '#title': 'Conference Name'
+      '#required': true
+      '#states':
+        invisible:
+          ':input[name="type[select]"]':
+            '!value': 'Conference Document'
+    conference_venue:
+      '#type': textfield
+      '#title': 'Conference Venue'
+      '#required': true
+      '#states':
+        visible:
+          ':input[name="type[select]"]':
+            '!value': 'Conference Document'
+    conference_date_s_:
+      '#type': date
+      '#title': 'Conference Date(s)'
+      '#multiple': 2
+      '#required': true
+      '#states':
+        invisible:
+          ':input[name="type[select]"]':
+            '!value': 'Conference Document'
+      '#datepicker': true
+      '#date_date_format': 'l, F j, Y'
+  article_details:
+    '#type': webform_wizard_page
+    '#title': 'Article Details'
+    '#states':
+      visible:
+        ':input[name="type[select]"]':
+          value: Article
+    publication_status:
+      '#type': textfield
+      '#title': 'Publication Status'
+    peer_reviewed_:
+      '#type': checkbox
+      '#title': 'Peer-Reviewed?'
+      '#help_title': 'Check the box for yes, leave empty for no.'
+    page_numbers:
+      '#type': textfield
+      '#title': 'Page Numbers'
+    edition_version:
+      '#type': textfield
+      '#title': Edition/Version
+    volume:
+      '#type': textfield
+      '#title': Volume
+    issue:
+      '#type': textfield
+      '#title': Issue
+    journal_date:
+      '#type': date
+      '#title': 'Journal Date'
+      '#datepicker': true
+    doi:
+      '#type': textfield
+      '#title': DOI
+  relationship_to_other_objects:
+    '#type': webform_wizard_page
+    '#title': Collections
+    '#prev_button_label': 'Back: Linked Data'
+    '#next_button_label': 'Next: Upload Files'
+    ismemberof:
+      '#type': entity_autocomplete
+      '#title': 'Collection Membership'
+      '#unique': true
+      '#format_items': comma
+      '#target_type': node
+      '#selection_handler': 'default:node'
+      '#selection_settings':
+        target_bundles:
+          digital_object_collection: digital_object_collection
+        sort:
+          field: title
+          direction: ASC
+  media:
+    '#type': webform_wizard_page
+    '#title': 'Attach Files'
+    '#open': true
+    '#prev_button_label': 'Back to Collections'
+    images:
+      '#type': webform_image_file
+      '#title': 'Upload Associated Images'
+      '#multiple': 10
+      '#description': 'This image will be used as a preview thumbnail.'
+      '#format': custom
+      '#format_html': '<img src="{{  item.link }}">'
+      '#format_items': ol
+      '#access_create_roles':
+        - authenticated
+      '#access_update_roles':
+        - authenticated
+      '#access_view_roles':
+        - authenticated
+      '#uri_scheme': s3
+      '#max_filesize': '256'
+      '#file_extensions': 'jp2 jpg jpeg png svg tiff'
+      '#file_name': '[random:hash:sha1]-[webform_submission:langcode]-image-[random:hash:sha1]'
+      '#sanitize': true
+    documents:
+      '#type': webform_document_file
+      '#title': 'Upload Associated Documents'
+      '#multiple': 1000
+      '#states':
+        visible:
+          - ':input[name="type"]':
+              value: DigitalDocument
+          - xor
+          - ':input[name="type"]':
+              value: Thesis
+          - xor
+          - ':input[name="type"]':
+              value: Book
+      '#file_name': '[random:hash:sha1]-[webform_submission:langcode]-doc-[random:hash:sha1]'
+      '#sanitize': true
+    videos:
+      '#type': webform_video_file
+      '#title': Videos
+      '#states':
+        visible:
+          ':input[name="type[select]"]':
+            value: Video
+      '#states_clear': false
+      '#format_items': comma
+      '#file_preview': file
+      '#max_filesize': '50'
+      '#file_extensions': mp4
+    models:
+      '#type': managed_file
+      '#title': '3D Models'
+      '#states':
+        visible:
+          ':input[name="type[select]"]':
+            value: '3D Model'
+      '#states_clear': false
+      '#format_items': comma
+      '#max_filesize': '50'
+      '#file_extensions': stl
+  actions:
+    '#type': webform_actions
+    '#title': 'Submit button(s)'
+    '#submit__label': 'Save Metadata'
+    '#reset__label': 'Clear Form'
+    '#preview_prev_hide': true
+css: ''
+javascript: ''
+settings:
+  ajax: true
+  ajax_scroll_top: ''
+  ajax_progress_type: ''
+  ajax_effect: ''
+  ajax_speed: null
+  page: true
+  page_submit_path: ''
+  page_confirm_path: ''
+  page_theme_name: ''
+  form_title: both
+  form_submit_once: true
+  form_exception_message: ''
+  form_open_message: ''
+  form_close_message: ''
+  form_previous_submissions: true
+  form_confidential: false
+  form_confidential_message: ''
+  form_remote_addr: true
+  form_convert_anonymous: false
+  form_prepopulate: false
+  form_prepopulate_source_entity: false
+  form_prepopulate_source_entity_required: false
+  form_prepopulate_source_entity_type: ''
+  form_reset: true
+  form_disable_autocomplete: false
+  form_novalidate: false
+  form_disable_inline_errors: false
+  form_required: false
+  form_unsaved: true
+  form_disable_back: false
+  form_submit_back: true
+  form_autofocus: false
+  form_details_toggle: false
+  form_access_denied: default
+  form_access_denied_title: ''
+  form_access_denied_message: ''
+  form_access_denied_attributes: {  }
+  form_file_limit: ''
+  share: false
+  share_node: false
+  share_theme_name: ''
+  share_title: true
+  share_page_body_attributes: {  }
+  submission_label: ''
+  submission_log: true
+  submission_views: {  }
+  submission_views_replace: {  }
+  submission_user_columns:
+    - serial
+    - created
+    - remote_addr
+    - sid
+    - label
+    - completed
+    - changed
+    - langcode
+    - element__label
+    - operations
+  submission_user_duplicate: false
+  submission_access_denied: login
+  submission_access_denied_title: ''
+  submission_access_denied_message: ''
+  submission_access_denied_attributes: {  }
+  submission_exception_message: ''
+  submission_locked_message: ''
+  submission_excluded_elements: {  }
+  submission_exclude_empty: false
+  submission_exclude_empty_checkbox: false
+  previous_submission_message: ''
+  previous_submissions_message: ''
+  autofill: true
+  autofill_message: ''
+  autofill_excluded_elements: {  }
+  wizard_progress_bar: true
+  wizard_progress_pages: false
+  wizard_progress_percentage: false
+  wizard_progress_link: false
+  wizard_progress_states: false
+  wizard_auto_forward: true
+  wizard_auto_forward_hide_next_button: false
+  wizard_keyboard: true
+  wizard_start_label: ''
+  wizard_preview_link: false
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
+  wizard_track: ''
+  wizard_prev_button_label: ''
+  wizard_next_button_label: ''
+  wizard_toggle: false
+  wizard_toggle_show_label: ''
+  wizard_toggle_hide_label: ''
+  preview: 1
+  preview_label: ''
+  preview_title: ''
+  preview_message: ''
+  preview_attributes: {  }
+  preview_excluded_elements: {  }
+  preview_exclude_empty: true
+  preview_exclude_empty_checkbox: false
+  draft: none
+  draft_multiple: false
+  draft_auto_save: false
+  draft_saved_message: ''
+  draft_loaded_message: ''
+  draft_pending_single_message: ''
+  draft_pending_multiple_message: ''
+  confirmation_type: inline
+  confirmation_title: ''
+  confirmation_message: ''
+  confirmation_url: ''
+  confirmation_attributes: {  }
+  confirmation_back: true
+  confirmation_back_label: ''
+  confirmation_back_attributes: {  }
+  confirmation_exclude_query: false
+  confirmation_exclude_token: false
+  confirmation_update: false
+  limit_total: null
+  limit_total_interval: null
+  limit_total_message: ''
+  limit_total_unique: false
+  limit_user: null
+  limit_user_interval: null
+  limit_user_message: ''
+  limit_user_unique: false
+  entity_limit_total: null
+  entity_limit_total_interval: null
+  entity_limit_user: null
+  entity_limit_user_interval: null
+  purge: draft
+  purge_days: 10
+  results_disabled: false
+  results_disabled_ignore: false
+  results_customize: false
+  token_view: false
+  token_update: false
+  serial_disabled: false
+access:
+  create:
+    roles:
+      - authenticated
+    users: {  }
+    permissions: {  }
+  view_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  purge_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  view_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  administer:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  test:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  configuration:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+handlers:
+  a_strawberryfield_harvester:
+    id: strawberryField_webform_handler
+    label: 'A strawberryField harvester'
+    notes: ''
+    handler_id: a_strawberryfield_harvester
+    status: true
+    conditions: {  }
+    weight: 0
+    settings:
+      submission_url: 'https://api.example.org/SOME/ENDPOINT2'
+      upload_scheme: s3
+variants: {  }
