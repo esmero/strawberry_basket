@@ -1,0 +1,67 @@
+{#
+This twig template is meant to serve as playground for learning data structures
+data: Sept 22nd 2020 
+#}
+{% if attribute(data, 'subject_wikidata') %}
+  {% if attribute(data, 'subject_wikidata') is iterable %}
+  It worked and it contains {{ attribute(data, 'subject_wikidata')|length }}<br>
+    {% for subject in attribute(data, 'subject_wikidata') %}
+      {% if attribute(subject, 'label') %}
+        {% if loop.index == 2 %}
+        -- this is the second!
+        {% endif %}
+       *  {{ subject.label }} <br>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endif %}
+
+{# iterating over things i do not know how they are named #}
+<h2> Iterating over the unknown </h2>
+{% if attribute(data, 'subject_wikidata') %}
+  {% if attribute(data, 'subject_wikidata') is iterable %}
+  It worked and it contains {{ attribute(data, 'subject_wikidata')|length }}<br>
+    {% for subject in attribute(data, 'subject_wikidata') %}
+       {% for name_of_property, property_of_subject in subject %} 
+       {{ name_of_property }} => {{ property_of_subject }} <br>
+       {% endfor %}
+    {% endfor %}
+  {% endif %}
+{% endif %}
+{# end iterating #}
+
+
+{% if data["subject_wikidata"] %}
+  {% if data["subject_wikidata"] is iterable %}
+   It worked second time <br>
+  {% endif %}
+{% endif %}
+
+{% if data.subject_wikidata %}
+  {% if data.subject_wikidata is iterable %}
+  It worked third time <br>
+    {% for subject in data.subject_wikidata %}
+      {% if subject.label %}
+        {% if loop.index == 2 and subject.label|length > 25 %}
+        -- this is the second and its longer than 25 characters!
+        {% endif %}
+       *  {{ subject.label }} <br>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endif %}
+
+{# <----  here i'm checking if data.descdasdsad sadsaldsafdsmf as,Ddslkfdaw  ----- #}
+
+{% if data.description_many %}
+  {% if data.description_many is iterable %}
+  Hi, i have many descriptions
+  {% for description in data.description_many %}
+    {{ description }} <br>
+  {% endfor %}
+  {% else %}
+  Hi, i have a single description
+  {{ data.description_many }} <br>
+  {% endif %} 
+{% endif %}
+{# ---- end checking dabbal ----> #}   
