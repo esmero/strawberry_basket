@@ -1,0 +1,135 @@
+{# This Template generates IIIF 2.1 Presentation API Manifest from a Strawberry Field
+JSON.
+
+This Manifest does not Work with Mirador Yet (same image repeated). Reason for that Mirador needs
+to call a info.json for every image referenced, and can not work without a service key. 
+Cantaloupe is not able serve a per page info.json and always returns the same one
+
+On our IA Book Archive code there is already an override pull that fixes that, so at least on that
+side we have access to seeing every page correctly
+
+It also requires a 'pageCount' property in the given as:document.someid JSON xpath,
+
+See https://github.com/esmero/format_strawberryfield/pull/73
+
+Structures passed from Archipelago are
+- node
+  The full Node entity
+- data
+  The Full JSON Structure converted in an Array
+- iiif_server
+  The publicly available IIIF Server (Global Setting)
+
+Since JSON was decoded into the 'data' values are valid PHP but could not
+be valid JSON when outputting. So We use data.description|json_encode|raw
+Without Double quotes.
+
+#}
+{% set Webserverurl =  url('<front>')|render|replace({':8001/':''}) ~ ':8183/iiif/2/' %}
+{% set IIIFserverurl = iiif_server ? iiif_server ~ '/': Webserverurl %}
+  {% if node.id %}
+     {% set nodeurl = url('entity.node.canonical', {'node': node.id}, {'absolute': true}) %}
+  {% else %}
+     {% set nodeurl = '<current>' ~ '/iiif/manifest' %}
+  {% endif%}
+{
+"@context": [
+"http://www.w3.org/ns/anno.jsonld",
+"http://iiif.io/api/presentation/2/context.json"
+],
+"@type": "sc:Manifest",
+"@id": "{{ nodeurl }} ",
+"label": "{{ node.label }}",
+"description": {{ data.description|json_encode|raw }},
+"metadata": [
+{% for agent in attribute(data, 'edm_agent') %}
+    {
+    "label": {{ agent.role_label|json_encode|raw }},
+    "value": {{ agent.name_label|json_encode|raw }}
+    },
+{% endfor %}
+{
+"label": "description",
+"value": {{ data.description|json_encode|raw }}
+},
+{
+"label": "type",
+"value": {{ data.type|json_encode|raw }}
+},
+{
+"label": "navDate",
+"value": "{{ node.getChangedTime|date("F jS \\a\\t g:ia") }}"
+},
+{
+"label": "license",
+"value": "http://rightsstatements.org/vocab/InC-EDU/1.0/"
+},
+{
+"label": "attribution",
+"value": "Provided by Archipelago's demo"
+}
+],
+{% if attribute(data, 'memberof') %}
+    {% set currentnode = 'node/' ~ data.memberof %}
+    "within": "{{ url(currentnode) }}",
+{% else %}
+    {% set currentnode = '<current>' %}
+{% endif %}
+"sequences": [
+{
+"@id": "{{ nodeurl }}/sequence/normal",
+"@type": "sc:Sequence",
+"label": "Current Page Order",
+"viewingDirection": "left-to-right",
+"viewingHint": "paged",
+"canvases": [
+{% for document in attribute(data, 'as:document') if document.pageCount %}
+{% set cantaloupeid  = IIIFserverurl ~ document['url']|replace({'s3://':''})|replace({'private://':''})|url_encode %}
+{# Only Fetch the first Document #}
+{% if loop.index == 1 %} 
+  {% set pageCount =  document.pageCount %}
+  {% for pagenumber in 1..pageCount %}
+    {
+    "@id": "{{ nodeurl }}/iiif/{{ document['dr:uuid'] }}/canvas/p{{ loop.index }}",
+    "@type": "sc:Canvas",
+    "label": "p. {{ loop.index }}",
+    "width": 3,
+    "height": 4,
+    "images": [{
+    "@type": "oa:Annotation",
+    "motivation": "sc:painting",
+    "resource":{
+      "@id": "{{ cantaloupeid }}/full/full/0/default.jpg?page={{ pagenumber }}",
+      "@type": "dctypes:Image",
+      "format": "image/jpeg",
+      "width": 1200,
+      "service": {
+        "@context": "http://iiif.io/api/image/2/context.json",
+        "@id": "{{ cantaloupeid }}",
+        "profile": "http://iiif.io/api/image/2/level2.json"
+       }
+    },
+    "on": "{{ nodeurl }}/iiif/{{ document['dr:uuid'] }}/canvas/p{{ loop.index }}"
+    }]
+    }{{ not loop.last ? ',' : '' }}
+  {% endfor %}
+{% endif %}
+{% endfor %}
+]
+}],
+"structures": [{
+"@id": "{{ nodeurl }}/range/r1",
+"@type": "sc:Range",
+"label": "Introduction",
+"canvases": [
+{% for document in attribute(data, 'as:document') if document.pageCount %}
+{% if loop.index == 1 %} 
+  {% set pageCount =  document.pageCount %}
+{% for pagenumber in 1..pageCount %}
+    "{{ nodeurl }}/iiif/{{ document['dr:uuid'] }}/canvas/p{{ loop.index }}"{{ not loop.last ? ',' : '' }}
+{% endfor %}
+{% endif %}
+{% endfor %}
+]
+}]
+}

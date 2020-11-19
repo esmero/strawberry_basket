@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd" version="3.6">
+<titleInfo>
+<title>{{ node.label.value|escape('html_attr')  }}</title>
+</titleInfo>
+<name type="personal">
+{% for people in attribute(data, 'edm_agent') %}
+<namePart>{{ people.name_label|escape('html_attr') }}</namePart>
+{% endfor %} 
+</name>
+<typeOfResource>{{ data.type|escape('html_attr') }}</typeOfResource>
+<originInfo>
+<place>
+<placeTerm type="text">{{ data.geographic_place|escape('html_attr') }}</placeTerm></place>
+<publisher>Archipelago Commons</publisher>
+<dateIssued>{{ data.date_published|date("Y-m-d") }}</dateIssued>
+</originInfo>
+<language>
+<languageTerm type="code" authority="iso639-2b">eng</languageTerm></language>
+<physicalDescription>
+<form authority="marcform">electronic</form>
+<form authority="gmd">electronic resource</form>
+<form>{{ data.type|escape('html_attr') }}</form>
+</physicalDescription>
+<abstract type="Summary">
+{{ data.description|escape('html_attr') }}
+</abstract>
+<note type="statement of responsibility" altRepGroup="00">Archipelago Demo</note>
+<note>This is a demo MODS record, not all data in this repository was mapped to MODS elements.</note>
+<subject authority="lcsh">
+{% for subjectinfo in attribute(data, 'subject_loc') %}
+<topic>{{ subjectinfo.label|escape('html_attr') }}</topic>
+{% endfor %} 
+</subject>
+<subject>
+{% for subjectinfowikidata in attribute(data, 'subject_wikidata') %}
+<topic authority="wikidata" valueURI="{{ subjectinfowikidata.uri }}">{{ subjectinfowikidata.label }}</topic>
+{% endfor %} 
+</subject>
+<location>
+<url displayLabel="electronic resource" usage="primary display">{{ url('<current>') }}</url>
+</location>
+<identifier type="local">{{ data.local_identifier }}</identifier>
+</mods>

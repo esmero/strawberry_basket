@@ -1,0 +1,6 @@
+<dl>
+<h6>Description</h6>
+<p class="small muted text-justify">{{ data.description }}</p>
+<h6>Type of Resource</h6>
+<p class="small muted">{{ data.type }}</p>
+</dl>

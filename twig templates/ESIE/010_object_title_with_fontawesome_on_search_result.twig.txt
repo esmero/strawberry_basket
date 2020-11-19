@@ -1,0 +1,14 @@
+<h2>
+{% set len = language.getId() ? language.getId() : "en" %}
+{% if data.type == "PanoramaTour" %}
+<i class="fas fa-street-view"></i>
+{% endif %}
+ {% if node.id %}
+     {% set nodeurl = url('entity.node.canonical', {'node': node.id}, {'absolute': true}) %}
+ {% else %}
+     {% set nodeurl = '#' %}
+{% endif%}
+<a href="{{ nodeurl }}" hreflen="{{ len }}">
+{{ node.title.value }}
+</a>
+</h2>

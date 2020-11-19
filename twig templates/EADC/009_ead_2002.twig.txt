@@ -1,0 +1,441 @@
+<!-- Based on EAD Cookbook Style 6 and dsc1 -->
+<blockquote class="blockquote">
+ {% if attribute(data, 'ismemberof') %}
+ {% if attribute(data, 'ismemberof') is iterable %}
+ {% for collection in attribute(data, 'ismemberof')%}
+   {% set parentnode = bamboo_load_entity('node', collection) %}
+   {% set parentnodeurl = url('entity.node.canonical', {'node': collection}, {'absolute': true}) %}
+ <footer class="blockquote-footer">In <cite title="{{ parentnode.title.value }}"><a href="{{ parentnodeurl }}">{{  parentnode.title.value }}</a></cite></footer>
+{% endfor %}
+{% else %}
+  {% set parentnode = bamboo_load_entity('node', attribute(data, 'ismemberof')) %}
+  {% set parentnodeurl = url('entity.node.canonical', {'node': attribute(data, 'ismemberof')}, {'absolute': true}) %}
+<footer class="blockquote-footer">In Collection <cite title="{{ parentnode.title.value }}"><a href="{{ parentnodeurl }}">{{  parentnode.title.value }}</a></cite></footer>
+{% endif %}
+{% endif %}
+</blockquote>
+<h2>Title</h2>
+<p>{{ data.label }}</p>
+<h2>Type of Resource</h2>
+<p>{{ data.type }}</p>
+{% if attribute(data, 'as:document') %}
+<h2>Documents referenced in this Digital Object</h2>
+<ul>
+{% for document in attribute(data, 'as:document') %}
+  <li><a download href="/do/{{ node.id }}/iiif/{{ document['dr:uuid'] }}/full/full/0/{{  document.name }}" target="_blank">Download {{ document.name }}</a></li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{# 
+@See https://raw.githubusercontent.com/saa-ead-roundtable/ead-stylesheets/master/print-friendly-html/eadprint-su.xsl
+# This is a test twig template that feeds from a JSON-ified (import) EAD 2002
+Header info comes from 
+"eadheader": {
+                "eadid": {
+                    "@value": "nbuc0008",
+                    "@attributes": {
+                        "countrycode": "US",
+                        "mainagencycode": "US-nbuc"
+                    }
+                },
+                "filedesc": {
+                    "titlestmt": {
+                        "author": "Hope Dunbar",
+                        "titleproper": "Guide to the Stephen and Rachel Cain Collection"
+                    },
+                    "publicationstmt": {
+                        "date": {
+                            "@value": "December 7, 2016",
+                            "@attributes": {
+                                "normal": "2016-12-07"
+                            }
+                        },
+                        "address": null,
+                        "publisher": "State University of New York, College at Buffalo"
+                    }
+                },
+                "@attributes": {
+                    "langencoding": "iso639-2b"
+                },
+                "profiledesc": {
+                    "creation": "Finding aid created with EADitor by user nbuc.",
+                    "langusage": "Finding aid is written in English"
+                }
+            }
+
+#}
+{% set eadheader = data["ap:importeddata"].content.eadheader ?? [] %}
+<!-- eadheader -->
+<h3>
+{{ eadheader.filedesc.titlestmt.titleproper['@value'] ?: eadheader.filedesc.titlestmt.titleproper|json_encode(constant('JSON_PRETTY_PRINT'))|striptags|raw }}
+</h3>
+<h4>
+{{ eadheader.filedesc.titlestmt.subtitle['@value'] ?: eadheader.filedesc.titlestmt.subtitle|json_encode(constant('JSON_PRETTY_PRINT'))|striptags|raw  }}
+</h4>
+
+<div>
+<!-- output information about the author(s) and date(s) of the finding aid -->
+<p class="fa fa-info">
+Finding aid created by: {{ eadheader.filedesc.titlestmt.author ?: 'no value' }}<br/>
+Date: {{ eadheader.filedesc.publicationstmt.date['@value']|date("F jS \\a\\t g:ia") }}<br/>
+</p>
+</div>
+<hr/>
+
+{#
+<details class="js-form-wrapper form-wrapper seven-details">
+  <summary role="button" aria-expanded="false" aria-pressed="false">
+      <span>Revision history</span>
+  </summary>
+<div class="container">
+{% for revisiondesc_item in eadheader.revisiondesc %}
+{% set rev = revisiondesc_item %}
+  <div class="row">
+    <div class="col-sm-6">
+    <!-- revdate -->
+      <p>rev[0]</p>
+    </div>
+    <div class="col-sm-6">
+     <!-- revdesc -->
+      <p>rev[1]</p>
+    </div>
+{% endfor %}
+</div>
+</details>
+#}
+
+<hr/>
+{#
+{
+  "did": {
+    "abstract": "Rachel Cain was a reporter, columnist and editor at the Buffalo Evening News. Her husband, Stephen Cain, worked for the Buffalo Evening and Sunday Times, Buffalo Evening News, and the Buffalo Courier-Express. National credits include stories in True and an original article in Reader’s Digest. The Cain Collection consists of three boxes of short stories, manuscripts, drafts, programs, poetry, notes, newspaper clippings, photocopies of newspaper clippings and some miscellaneous material, such as press credentials. The manuscripts include fiction and non-fiction works. Some of the documents are typed and some are hand-written; many of the documents contain hand-written notes and revisions.",
+    "physdesc": {
+      "extent": "3 linear ft."
+    },
+    "unitdate": {
+      "@value": "1930-1970",
+      "@attributes": {
+        "type": "inclusive"
+      }
+    },
+    "unittitle": "The Stephen and Rachel Cain Collection",
+    "repository": {
+      "address": null,
+      "subarea": "Archives & Special Collections",
+      "corpname": "State University of New York, College at Buffalo"
+    },
+    "origination": {
+      "persname": [
+        "Cain, Stephen P., 1901-1975.",
+        "Cain, Rachel K., 1914-1992."
+      ]
+    },
+    "langmaterial": {
+      "language": {
+        "@value": "English",
+        "@attributes": {
+          "langcode": "eng"
+        }
+      }
+    }
+  }
+}
+#}
+
+{% set did = data["ap:importeddata"].content.archdesc.did ?? [] %}
+{% set did_expected_properties = ['origination','unitdate','physdesc','abstract','physloc','langmaterial','repository','materialspec','note'] %}
+<div class="container">
+<div class="row">
+<h3>{{ did.unittitle|json_encode(constant('JSON_PRETTY_PRINT')) ?: 'No title' }}</h3>
+</div>
+{% for property,item in did_expected_properties %}
+{% if did[property] %}
+  <div class="row">
+    <div class="col-sm-3">
+      <p><b>{{ item['@attributes']['label'] ?: property }}</b></p>
+    </div>
+    <div class="col-sm-9">
+      <p>{{ item['@value']|json_encode(constant('JSON_PRETTY_PRINT')) ?: item|json_encode(constant('JSON_PRETTY_PRINT')) }}</p>
+    </div>
+  </div>
+{% endif %}   
+{% endfor %}
+</div>
+<hr/>
+{#  biographic description of the person or organization #}
+{% set bioghist = data["ap:importeddata"].content.archdesc.bioghist ?? [] %}
+<div class="container">
+<div class="row">
+<h3>{{ bioghist.head|json_encode(constant('JSON_PRETTY_PRINT')) ?: 'biographic description' }}</h3>
+</div>
+{% for p in bioghist.p%}
+<div class="row">
+{{ p|json_encode(constant('JSON_PRETTY_PRINT')) }}
+</div>
+{% endfor %}
+{% for note in bioghist.note.p%}
+<div class="row">
+{{ note|json_encode(constant('JSON_PRETTY_PRINT')) }}
+</div>
+{% endfor %}
+</div>
+<hr/>
+
+{#  Scopea/narrative #}
+{% set scopecontent = data["ap:importeddata"].content.archdesc.scopecontent ?? [] %}
+<div class="container">
+<div class="row">
+<h3>{{ scopecontent.head|json_encode(constant('JSON_PRETTY_PRINT')) ?: 'narrative description of the collection material' }}</h3>
+</div>
+{% for p in scopecontent.p%}
+<div class="row">
+{{ p|json_encode(constant('JSON_PRETTY_PRINT')) }}
+</div>
+{% endfor %}
+{% for note in scopecontent.note.p%}
+<div class="row">
+{{ note|json_encode(constant('JSON_PRETTY_PRINT')) }}
+</div>
+{% endfor %}
+</div>
+<hr/>
+
+{#  Arrangement #}
+{% set arrangement = data["ap:importeddata"].content.archdesc.arrangement ?? [] %}
+<div class="container">
+<div class="row">
+<h3>{{ arrangement.head|json_encode(constant('JSON_PRETTY_PRINT')) ?: 'Way in which the materials in the collection are arranged' }}</h3>
+</div>
+{% for p in arrangement.p%}
+<div class="row">
+{{ p|json_encode(constant('JSON_PRETTY_PRINT')) }}
+</div>
+{% endfor %}
+{% for note in arrangement.note.p%}
+<div class="row">
+{{ note|json_encode(constant('JSON_PRETTY_PRINT')) }}
+</div>
+{% endfor %}
+</div>
+<hr/>
+
+{#  Physical characteristics archdesc.phystech and archdesc/*/phystech #}
+{% set phystech = data["ap:importeddata"].content.archdesc.phystech ?? [] %}
+<div class="container">
+<div class="row">
+<h3>{{ phystech.head|json_encode(constant('JSON_PRETTY_PRINT')) ?: 'Physical characteristics and technical requirements note' }}</h3>
+</div>
+{% for p in phystech.p%}
+<div class="row">
+{{ p|json_encode(constant('JSON_PRETTY_PRINT')) }}
+</div>
+{% endfor %}
+{% for note in phystech.note.p%}
+<div class="row">
+{{ note|json_encode(constant('JSON_PRETTY_PRINT')) }}
+</div>
+{% endfor %}
+</div>
+<hr/>
+
+{#  Authorities archdesc.controlaccess and archdesc/*/controlaccess #}
+{% set controlaccess = data["ap:importeddata"].content.archdesc.controlaccess ?? [] %}
+<div class="container">
+<div class="row">
+<h3>Subject headings or keywords for the collection</h3>
+</div>
+{% for type,items in controlaccess%}
+<div class="row">
+    <div class="col-sm-3">
+      <p><b>{{ type|json_encode(constant('JSON_PRETTY_PRINT')) }}</b></p>
+    </div>
+    <div class="col-sm-9">
+      {% for item in items %}
+      <div class="container">
+        <div class="row">
+        {{ item|json_encode(constant('JSON_PRETTY_PRINT')) }}
+        </div>
+      </div>   
+     {% endfor %}
+    </div>
+</div>
+{% endfor %}
+</div>
+<hr/>
+
+{#  Authorities archdesc.odd and archdesc/*/odd #}
+{% set odd = data["ap:importeddata"].content.archdesc.odd?? [] %}
+<div class="container">
+<div class="row">
+<h3>{{ odd.head ? odd.head|json_encode(constant('JSON_PRETTY_PRINT')): 'Other descriptive data' }}</h3>
+</div>
+{% for p in odd.p%}
+<div class="row">
+{{ p|json_encode(constant('JSON_PRETTY_PRINT')) }}
+</div>
+{% endfor %}
+{% for note in odd.note.p%}
+<div class="row">
+{{ note|json_encode(constant('JSON_PRETTY_PRINT')) }}
+</div>
+{% endfor %}
+</div>
+<hr/>
+
+{#  otherfindaid archdesc.otherfindaid and archdesc/*/otherfindaid #}
+{% set otherfindaid = data["ap:importeddata"].content.archdesc.otherfindaid ?? [] %}
+<div class="container">
+<div class="row">
+<h3>{{ otherfindaid.head ? otherfindaid.head|json_encode(constant('JSON_PRETTY_PRINT')) : 'Other Finding Aid Notes' }}</h3>
+</div>
+{% for p in otherfindaid.p%}
+<div class="row">
+{{ p|json_encode(constant('JSON_PRETTY_PRINT')) }}
+</div>
+{% endfor %}
+{% for note in otherfindaid.note.p%}
+<div class="row">
+{{ note|json_encode(constant('JSON_PRETTY_PRINT')) }}
+</div>
+{% endfor %}
+</div>
+<hr/>
+{#
+
+This can be tricky. DSC Since we are not looking an uniquite tags
+But by casuality we could end with unique tags (like a single c03)
+We can either have an array or an object
+Also .did and e.g c02 are in the same level.
+Multiple c02 means really a single c02 with multiple objects, each one
+with its own .did
+I added a new extension to check for array/ object
+e.g citem is instanceof('array')
+but needs to be pulled agains a beta4.
+#}                
+
+{% set dsc = data["ap:importeddata"].content.archdesc.dsc ?? [] %}
+{% for item_level1 in dsc %}
+<div class="container">
+  {% set c01_items = dsc.c01 ?? item_level1['c01'] %}
+    {% for c01_item in c01_items %}
+    <div class="row">
+      {% set unittitle = c01_item.did.unittitle['@value'] ?? c01_item.did.unittitle %}
+       <summary class="btn btn-primary" data-toggle="collapse" href="#{{ 'c01_' ~ loop.index }}" role="button" aria-expanded="false" aria-controls="{{ 'c01_' ~ loop.index }}">
+       Expand {{ unittitle ~ c01_item['@attributes']['level'] ?: " DSC" }}
+       </summary>
+    </div>  
+    <div class="row">
+       <div class="col-sm-1">
+       </div>
+       <div class="col-sm-11">
+         <div class="collapse" id="{{ 'c01_' ~ loop.index }}">
+           <div class="card card-body">
+            {% set c02_items = c01_item['c02'] %}
+            {% if c02_items['did'] %}
+              {% set unittitle = c02_items.did.unittitle['@value'] ?? c02_items.did.unittitle %}
+            single c02 {{ unittitle }}
+            {% else %}	
+              {% for c02_item in c02_items %}
+               <div class="row">
+               {% set unittitle = c02_item.did.unittitle['@value'] ?? c02_item.did.unittitle %}
+                 <summary class="btn btn-primary" data-toggle="collapse" href="#{{ 'c02_' ~ loop.index }}" role="button" aria-expanded="false" aria-controls="{{ 'c02_' ~ loop.index }}">
+       		     Expand {{ unittitle ~ c02_item['@attributes']['level'] ?: " DSC" }}
+      		     </summary>
+               </div>
+               <div class="row">
+                 <div class="col-sm-2">
+                 </div>
+                 <div class="col-sm-10">
+                   <div class="collapse" id="{{ 'c02_' ~ loop.index }}">
+                     <div class="card card-body">
+                     {% set c03_items = c02_item['c03'] %}
+                     {% if c03_items['did'] %}
+                       {% set unittitle = c03_items.did.unittitle['@value'] ?? c03_items.did.unittitle %}
+                        single c03 {{ unittitle }}
+                     {% else %}	
+                       multiple c03
+                       {% for c03_item in c03_items %}
+                       <div class="row">
+                         {% set unittitle = c03_item.did.unittitle['@value'] ?? c03_item.did.unittitle %}
+                         <summary class="btn btn-primary" data-toggle="collapse" href="#{{ 'c03_' ~ loop.index }}" role="button" aria-expanded="false" aria-controls="{{ 'c03_' ~ loop.index }}">
+       		             Expand {{ unittitle ~ c03_item['@attributes']['level'] ?: " DSC" }}
+      		             </summary>
+                       </div>
+                       {% endfor %}  
+                     {% endif %}
+                   </div>
+                 </div>
+               </div>
+             </div>
+             {% endfor %}  
+           {% endif %}
+           </div>
+         </div>
+       </div>
+     </div>
+    {% endfor %}  
+  </div>
+{% endfor %}
+
+
+{# could be used as ToC 
+<ul>
+{% for item_level1 in dsc %}
+  {% set c01_items = dsc.c01 ?? item_level1['c01'] %}
+  <li>
+    <ul>
+    {% for c01_item in c01_items %}
+      <li> 
+      {% set unittitle = c01_item.did.unittitle['@value'] ?? c01_item.did.unittitle %}
+       <a class="btn btn-primary" data-toggle="collapse" href="#{{ 'c01_' ~ loop.index }}" role="button" aria-expanded="false" aria-controls="collapseExample">
+       Expand {{ unittitle ~ c01_item['@attributes']['level'] ?: " DSC" }}
+       </a>
+       <ul>
+        {% set c02_items = c01_item['c02'] %}
+        {% if c02_items['did'] %}
+        {% set unittitle = c02_items.did.unittitle['@value'] ?? c02_items.did.unittitle %}
+        <li>
+        single c02 {{ unittitle }}
+        </li>
+        {% else %}	
+           {% for c02_item in c02_items %}
+             <li>
+             {% set unittitle = c02_item.did.unittitle['@value'] ?? c02_item.did.unittitle %}
+                 <a class="btn btn-primary" data-toggle="collapse" href="#{{ 'c01_' ~ loop.index }}" role="button" aria-expanded="false" aria-controls="collapseExample">
+       				Expand {{ unittitle ~ c01_item['@attributes']['level'] ?: " DSC" }}
+      			 </a>
+             </li>    
+           {% endfor %}  
+        {% endif %}
+       </ul>
+      </li>
+    {% endfor %}  
+    </ul>
+  </li>
+{% endfor %}
+</ul>
+#}
+
+{#
+<div class="container">
+{% for clevel,item_level1 in dsc %}
+  <div class="row">
+  {% set clevelid = item_level2['@attributes']['id'] ?? 'dsc_' ~ clevel %}
+    <a class="btn btn-primary" data-toggle="collapse" href="#{{ clevelid }}" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Expand {{ item_level2['c02']['@attributes']['level'] ? " DSC" }}
+    </a>
+    <div class="collapse" id="{{ clevelid }}">
+      <div class="card card-body">
+
+      {% for clevel,item_level3 in item_level2['c02'] %}
+        <div class="row">2
+        {% set clevelid = item_level3['@attributes']['id'] ?? clevelid ~ '_' ~ clevel %}
+        {{ item_level3|json_encode(constant('JSON_PRETTY_PRINT')) }}
+        </div>
+      {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endfor %}
+</div> #}
