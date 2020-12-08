@@ -6,19 +6,26 @@ $arguments = getopt("i:o:");
 // -i is path our JSON file
 // -o is the output path for files (base one)
 // php dspace_oai_dim_to_json_individual_records.php -i "dim_connick.json" -o "mitJSONfiles/"
+// This file will also output JSON with every Authority Control Call made named "allreconciliated.json".
+// Future. Can be reused to not call everytime to external resource.
 $idprefix = "oai:dome.mit.edu:1721.3/";
 $idprefix_lenght = strlen($idprefix);
 $srcunix = preg_replace('/\s/i', '\ ',$arguments['i']);
 $destunix = preg_replace('/\s/i', '\ ',$arguments['o']);
+
 $fileurl = 'http://dome.mit.edu/bitstream/';
+
 $numberofrecords = 0;
 $json = file_get_contents($srcunix);
 $oaistream = json_decode($json, true);
+// Change to 0 for all records
 $maxrecords = 20;
 $newrecord = [];
+// used to keep every auth Control endpoint.
 $cache = [];
 
 // Setup reconciliation
+// Change to run against your Archipelago. DO NOT ADD the final Slash"
 $archipelago_server_base = "http://localhost:8001";
 $reconciliate['subject'] = [
   [
@@ -112,12 +119,18 @@ foreach($oaistream as $record) {
       // let's get contributors and creators.
       if (isset($newrecord['creator'])) {
         foreach((array)$newrecord['creator'] as $creator) {
-          $newrecord['creator_personal_name_loc'][] = reconciliate($archipelago_server_base, $creator, 'loc', 'rdftype', 'PersonalName', $cache);
+          $reconoutput = reconciliate($archipelago_server_base, $creator, 'loc', 'rdftype', 'PersonalName', $cache);
+          if ($reconoutput) {
+            $newrecord['creator_personal_name_loc'][] = $reconoutput;
+          }
         }
       }
       if (isset($newrecord['contributor'])) {
         foreach((array)$newrecord['contributor'] as $contributor) {
-          $newrecord['contributor_personal_name_loc'][] = reconciliate($archipelago_server_base, $contributor, 'loc', 'rdftype', 'PersonalName', $cache);
+          $reconoutput = reconciliate($archipelago_server_base, $contributor, 'loc', 'rdftype', 'PersonalName', $cache);
+          if ($reconoutput) {
+            $newrecord['contributor_personal_name_loc'][] = $reconoutput;
+          }
         }
       }
 
@@ -125,7 +138,10 @@ foreach($oaistream as $record) {
         if (isset($reconciliate[$key])) {
           foreach((array) $values as $value) {
             foreach ($reconciliate[$key] as $reconciliate_item) {
-              $newrecord[$reconciliate_item['key']][] = reconciliate($archipelago_server_base, $value, $reconciliate_item['source'], $reconciliate_item['vocab'],$reconciliate_item['type'], $cache);
+              $reconoutput = reconciliate($archipelago_server_base, $value, $reconciliate_item['source'], $reconciliate_item['vocab'],$reconciliate_item['type'], $cache);
+              if ($reconoutput) {
+                $newrecord[$reconciliate_item['key']][] = $reconoutput;
+              }
             }
           }
         }
@@ -189,3 +205,4 @@ function reconciliate($serverbase ,$value, $source = 'loc', $vocab = 'subjects',
 
   return $first_one;
 }
+
