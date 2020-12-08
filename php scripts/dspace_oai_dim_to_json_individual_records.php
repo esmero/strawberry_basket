@@ -111,7 +111,9 @@ foreach($oaistream as $record) {
 
       // let's get contributors and creators.
       if (isset($newrecord['creator'])) {
-        $newrecord['creator_personal_name_loc'] = reconciliate($archipelago_server_base, $newrecord['creator'], 'loc', 'rdftype', 'PersonalName', $cache);
+        foreach((array)$newrecord['creator'] as $creator) {
+          $newrecord['creator_personal_name_loc'][] = reconciliate($archipelago_server_base, $creator, 'loc', 'rdftype', 'PersonalName', $cache);
+        }
       }
       if (isset($newrecord['contributor'])) {
         foreach((array)$newrecord['contributor'] as $contributor) {
@@ -147,7 +149,7 @@ foreach($oaistream as $record) {
 
 function reconciliate($serverbase ,$value, $source = 'loc', $vocab = 'subjects', $type = 'thing', &$cache) {
   $value = trim($value);
-  $first_one = [];
+  $first_one = NULL;
   $endpoint = $serverbase."/webform_strawberry/auth_autocomplete/{$source}/{$vocab}/{$type}/10/?q=".urlencode($value);
   if (isset($cache[$endpoint])) {
     return $cache[$endpoint];
@@ -163,7 +165,7 @@ function reconciliate($serverbase ,$value, $source = 'loc', $vocab = 'subjects',
     if (empty($first_one)) {
       $first_one = reset($serviceresponse);
       if (!isset($first_one->value) || empty($first_one->value)) {
-        $first_one = ['label' => $value, 'value' => ''];
+        $first_one = NULL;
       } else {
         // Only case where we may have a 'desc'
         if (isset($first_one->desc))  {
@@ -181,10 +183,9 @@ function reconciliate($serverbase ,$value, $source = 'loc', $vocab = 'subjects',
   }
   else {
     // Means we got no response, we assume there is no match.
-    $first_one = ['label' => $value, 'value' => ''];
+    $first_one = NULL;
   }
   $cache[$endpoint] = $first_one;
 
   return $first_one;
 }
-
