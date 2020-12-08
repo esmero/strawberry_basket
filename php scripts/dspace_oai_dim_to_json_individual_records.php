@@ -154,7 +154,8 @@ foreach($oaistream as $record) {
       $newrecord['date_digital'] = $newrecord['date_available'];
 
       $recordinjson = json_encode($newrecord + $common_record_values);
-      file_put_contents($destunix . "/" . $itemid . ".json", $recordinjson);
+      $itemname = $newrecord['identifier'];
+      file_put_contents($destunix . "/" . $itemname . ".json", $recordinjson);
     }
 
 
