@@ -11,15 +11,16 @@ $idprefix_lenght = strlen($idprefix);
 $srcunix = preg_replace('/\s/i', '\ ',$arguments['i']);
 $destunix = preg_replace('/\s/i', '\ ',$arguments['o']);
 $fileurl = 'http://dome.mit.edu/bitstream/';
-$numberofrecords = 0;
+$numberofrecords = 0; // don't change
 $json = file_get_contents($srcunix);
 $oaistream = json_decode($json, true);
-$maxrecords = 0;
+$maxrecords = 0; // Set to the number you want to process or 0 for all
 $newrecord = [];
 $cache = [];
 
-// Setup reconciliation
+// Setup reconciliation (your server)
 $archipelago_server_base = "http://localhost:8001";
+
 $reconciliate['subject'] = [
   [
     'source' => 'loc',
@@ -43,6 +44,8 @@ $reconciliate['technique'] = [
     'key' => 'technique_aat_getty'
   ]
 ];
+// https://dome.archipelago.nyc/webform_strawberry/auth_autocomplete/loc/rdftype/personalName/10/?q=Diego
+// 'source' => 'loc', 'vocab'=>'rdftype', 'type'=>'personalName' key is where you want to save this.
 
 $reconciliate['worktype'] = [
   [
@@ -178,7 +181,7 @@ function reconciliate($serverbase ,$value, $source = 'loc', $vocab = 'subjects',
   if (!empty($serviceresponse)) {
     foreach($serviceresponse as $response) {
       if (trim($response->label) == $value) {
-        $first_one = ['label' => $response->label, 'value' => $response->value];
+        $first_one = ['label' => $response->label, 'uri' => $response->value];
         break;
       }//check first for complete match
     }
@@ -196,7 +199,7 @@ function reconciliate($serverbase ,$value, $source = 'loc', $vocab = 'subjects',
           $label = trim($first_one->label);
         }
         // Only case where we may have a 'desc'
-        $first_one = ['label' => $label, 'value' => $first_one->value];
+        $first_one = ['label' => $label, 'uri' => $first_one->value];
       }
 
     }
