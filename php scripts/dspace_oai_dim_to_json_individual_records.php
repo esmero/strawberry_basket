@@ -6,26 +6,19 @@ $arguments = getopt("i:o:");
 // -i is path our JSON file
 // -o is the output path for files (base one)
 // php dspace_oai_dim_to_json_individual_records.php -i "dim_connick.json" -o "mitJSONfiles/"
-// This file will also output JSON with every Authority Control Call made named "allreconciliated.json".
-// Future. Can be reused to not call everytime to external resource.
 $idprefix = "oai:dome.mit.edu:1721.3/";
 $idprefix_lenght = strlen($idprefix);
 $srcunix = preg_replace('/\s/i', '\ ',$arguments['i']);
 $destunix = preg_replace('/\s/i', '\ ',$arguments['o']);
-
 $fileurl = 'http://dome.mit.edu/bitstream/';
-
 $numberofrecords = 0;
 $json = file_get_contents($srcunix);
 $oaistream = json_decode($json, true);
-// Change to 0 for all records
-$maxrecords = 20;
+$maxrecords = 0;
 $newrecord = [];
-// used to keep every auth Control endpoint.
 $cache = [];
 
 // Setup reconciliation
-// Change to run against your Archipelago. DO NOT ADD the final Slash"
 $archipelago_server_base = "http://localhost:8001";
 $reconciliate['subject'] = [
   [
@@ -56,9 +49,19 @@ $reconciliate['worktype'] = [
     'source' => 'aat',
     'vocab' => 'exact',
     'type' => 'thing',
-    'key' => 'term_aat_getty'
+    'key' => 'worktype_aat_getty'
   ]
 ];
+
+$reconciliate['format_medium'] = [
+  [
+    'source' => 'aat',
+    'vocab' => 'exact',
+    'type' => 'thing',
+    'key' => 'format_medium_aat_getty'
+  ]
+];
+
 // All in this set share these
 $common_record_values = [
   "type" => "Photograph",
