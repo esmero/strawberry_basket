@@ -1,0 +1,111 @@
+<blockquote class="blockquote">
+ {% if attribute(data, 'ismemberof') %}
+ {% if attribute(data, 'ismemberof') is iterable %}
+ {% for collection in attribute(data, 'ismemberof')%}
+   {% set parentnode = bamboo_load_entity('node', collection) %}
+   {% set parentnodeurl = url('entity.node.canonical', {'node': collection}, {'absolute': true}) %}
+ <footer class="blockquote-footer">In <cite title="{{ parentnode.title.value }}"><a href="{{ parentnodeurl }}">{{  parentnode.title.value }}</a></cite></footer>
+{% endfor %}
+{% else %}
+  {% set parentnode = bamboo_load_entity('node', attribute(data, 'ismemberof')) %}
+  {% set parentnodeurl = url('entity.node.canonical', {'node': attribute(data, 'ismemberof')}, {'absolute': true}) %}
+<footer class="blockquote-footer">In <cite title="{{ parentnode.title.value }}"><a href="{{ parentnodeurl }}">{{  parentnode.title.value }}</a></cite></footer>
+{% endif %}
+{% endif %}
+</blockquote>
+  <h2>Title</h2>
+  <p>{{ data.label }}</p>
+  <h2>Creator</h2>
+    <p>
+     {% if data.creator %}
+     {% if data.creator is iterable %}
+     {% for creator in data.creator %}
+       {{ creator }} <br>
+     {% endfor %}
+     {% else %}
+     {{ data.creator }} <br>
+     {% endif %} 
+   {% endif %}
+  </p>
+  <h2>Description</h2>
+  <p>
+     {% if data.description %}
+     {% if data.description is iterable %}
+     {% for description in data.description %}
+       {{ description }} <br>
+     {% endfor %}
+     {% else %}
+     {{ data.description }} <br>
+     {% endif %} 
+   {% endif %}
+  </p>
+  <h2>Date</h2>
+  <p>{{ data.date }}</p>
+  <h2>Contributor</h2> 
+      <p>
+  	 {% if data.contributor %}
+     {% if data.contributor is iterable %}
+     {% for contributor in data.contributor %}
+       {{ contributor }} <br>
+     {% endfor %}
+     {% else %}
+     {{ data.contributor }} <br>
+     {% endif %} 
+   {% endif %}
+ <h2>Coverage</h2>
+  <p>{{ data.coverage }}</p>
+ <h2>Format</h2>
+  <p>{{ data.format }}</p>
+    <p>
+  	 {% if data.format %}
+     {% if data.format is iterable %}
+     {% for format in data.format %}
+       {{ format }} <br>
+     {% endfor %}
+     {% else %}
+     {{ data.format }} <br>
+     {% endif %} 
+   {% endif %} 
+ <h2>Publisher</h2>
+  <p>{{ data.publisher }}</p>
+ <h2>Type of Resource</h2>
+  <p>{{ data.type }}</p>
+ <h2>Rights</h2>
+  <p>{{ data.rights }}</p>
+ {# Remove enclosing bracket notation if you wish to reference a particular Rights statement, such as a CC license type instead of or in addition to a metadata key/value.
+  <p>
+  <a href="http://rightsstatements.org/vocab/InC-EDU/1.0/"><img src="https://rightsstatements.org/files/buttons/InC-EDU.white.svg" title="In Copyright - Educational Use Permitted" style="max-width:200px;height:auto;background-color:pink ;padding:1em"></a>
+#}
+
+{% if logged_in %} 
+ <h2>Language</h2>
+  <p>{{ data.language }}</p>
+ <h2>Relation</h2>
+  <p>{{ data.source }}</p>
+ <h2>Source</h2>
+  <p>{{ data.source }}</p>
+ <h2>Identifier</h2>
+  <p>{{ data.identifier }}</p>
+{% endif %}
+
+{# Remove enclosing bracket notation if you wish to make the files associated with Digital Object(s) available for direct download from an Object's Description page for authenticated users.
+{% if logged_in %}
+<p>
+<h2>Files referenced in this Digital Object</h2>
+<ul>
+{% if attribute(data, 'as:document') %}
+{% for document in attribute(data, 'as:document') %}
+  <li><a download href="/do/{{ node.id }}/iiif/{{ document['dr:uuid'] }}/full/full/0/{{  document.name }}" target="_blank">Download {{ document.name }}</a></li>
+{% endfor %}
+</ul>
+{% endif %}
+{% if attribute(data, 'as:image') %}
+  <h2>Images in this Digital Object</h2>
+  <ul>
+  {% for singleimage in attribute(data, 'as:image') %}
+  <li><a href="/do/{{ node.id }}/iiif/{{ singleimage['dr:uuid'] }}/full/full/0/{{  singleimage.name }}" target="_blank">Download Image {{ singleimage.name }}</a></li>
+  {% endfor %}
+  </ul>
+{% endif %}
+{% endif %}
+#}
