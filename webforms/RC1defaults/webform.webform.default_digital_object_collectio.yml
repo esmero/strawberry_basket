@@ -1,4 +1,4 @@
-uuid: ab66aeb4-ec4b-4a88-9729-49411b721de9
+uuid: 1110f3b9-0811-4c62-85fd-47dbf99fb7b6
 langcode: en
 status: open
 dependencies:
@@ -10,9 +10,9 @@ weight: 0
 uid: 1
 template: false
 archive: false
-id: default_descriptive_metadata
-title: 'Default Descriptive Metadata'
-description: 'Default Descriptive Metadata Webform: 1.0.0-RC1.'
+id: default_digital_object_collectio
+title: 'Default Digital Object Collection'
+description: 'Default Digital Object Collection Webform: 1.0.0-RC1.'
 category: Archipel
 elements: |
   metadata:
@@ -29,14 +29,14 @@ elements: |
     label:
       '#type': textfield
       '#title': Title
-      '#description': 'Please provide a brief title for this digital object.'
+      '#description': 'Please provide a brief title for this collection.'
       '#title_display': before
       '#description_display': before
       '#minlength': 3
       '#maxlength': 256
       '#placeholder': 'Title of this Object'
       '#required': true
-      '#required_error': 'Please provide a brief title for this digital object.'
+      '#required_error': 'Please provide a brief title for this collection.'
       '#label_attributes':
         class:
           - custom-form-input-heading
@@ -49,70 +49,13 @@ elements: |
         - metadata_pro
     type:
       '#type': select
-      '#title': 'Media Type'
-      '#help': 'Please select from the&nbsp;<a href="/admin/structure/webform/config/options/manage">predefined options</a>&nbsp;found in the Schema.org Creative Works list.'
+      '#title': 'Collection Media Type'
+      '#help': 'For Digital Object Collections, recommended selections from the&nbsp;<a href="/admin/structure/webform/config/options/manage">predefined options</a>&nbsp;found in the Schema.org Creative Works list are: Collection, Creative Work Series (Compound Object/Collection), Newspaper, or Periodical.'
       '#options': schema_org_creative_works
       '#required': true
       '#label_attributes':
         class:
           - custom-form-input-heading
-    issue_number:
-      '#type': webform_custom_composite
-      '#title': 'Volume and Issue Information'
-      '#multiple': false
-      '#states':
-        visible:
-          - ':input[name="type"]':
-              value: PublicationIssue
-          - or
-          - ':input[name="type"]':
-              value: NewspaperIssue
-      '#format_items': ol
-      '#element':
-        volume:
-          '#type': textfield
-          '#title': Volume
-        issue:
-          '#type': textfield
-          '#title': Issue
-        general_issue:
-          '#type': textfield
-          '#title': 'General Issue'
-          '#description': 'Such as "Spring 2021"'
-    interview_details:
-      '#type': webform_custom_composite
-      '#title': 'Oral History Interview Details'
-      '#multiple': false
-      '#states':
-        visible:
-          ':input[name="type"]':
-            value: Conversation
-      '#format': list
-      '#format_items': ol
-      '#element':
-        interviewee:
-          '#type': textfield
-          '#title': Interviewee
-          '#description': 'Name of person(s) being interviewed.'
-        interviewer:
-          '#type': textfield
-          '#title': Interviewer
-          '#description': 'Name of person(s) conducting the interview.'
-        duration:
-          '#type': textfield
-          '#title': Duration
-          '#description': 'Duration of the interview'
-    website_url:
-      '#type': url
-      '#title': 'URL of the original Website'
-      '#description': 'Please add a common base URL for this resource'
-      '#help_title': 'What is this field used for?'
-      '#help': 'When uploading a <em>WARC/WACZ file</em>, this is the <em>URL</em> that will be loaded initially on display. Please make sure it actually exists inside your Web Archive.'
-      '#states':
-        visible:
-          ':input[name="type"]':
-            value: WebPage
-      '#format_items': comma
     description:
       '#type': textarea
       '#title': Description
@@ -127,60 +70,6 @@ elements: |
         class:
           - custom-form-input-heading
       '#format_items': comma
-    date_created:
-      '#type': date
-      '#title': 'Date of original'
-      '#help_title': 'Date of origina)'
-      '#help': 'Date the original resource was created (date the photograph was taken, video or audio file was recorded, document or book was published)'
-      '#title_display': before
-      '#description_display': before
-      '#format_items': comma
-      '#datepicker': true
-    creator_details:
-      '#type': details
-      '#title': Creator
-      '#description': 'You may choose to use either the general Creator (unmapped, free-text) element, and/or use the Creator (Linked Data) element which allows you to select authorized Name headings from the&nbsp;Congress Name Authority File (LCNAF).'
-      '#help_title': Creator
-      '#help': 'Individual(s)/Organization(s) responsible for creating the original resource.'
-      '#states':
-        expanded:
-          '':
-            '': ''
-      creator_unmapped_details:
-        '#type': details
-        '#title': 'Creator (unmapped/free text)'
-        creator:
-          '#type': textfield
-          '#title': Creator
-          '#multiple': 5
-          '#title_display': before
-          '#description_display': before
-          '#multiple__item_label': Creator
-          '#multiple__min_items': 0
-          '#multiple__add_more_input_label': 'more Creators'
-          '#label_attributes':
-            class:
-              - custom-form-input-heading
-          '#format_items': comma
-      creator_lod_details:
-        '#type': details
-        '#title': 'Creator (Linked Data) '
-        '#description': 'You can select to search from the LCNAF&#39;s Personal, Corporate, or Family Names Classes (<a href="https://id.loc.gov/ontologies/madsrdf/v1.html">listed here</a>). Roles information is being sourced from <a href="https://id.loc.gov/vocabulary/relators.html">LoC Relators terms</a>.'
-        creator_lod:
-          '#type': webform_metadata_multiagent
-          '#title': 'Creator (Linked Data)'
-          '#format_items': ol
-          '#agent_type__placeholder': 'Select Creator Type'
-          '#name_label__title': 'Creator Name'
-          '#name_uri__title': 'Creator URI'
-          '#role_uri__title': 'Role URI'
-          '#vocab_personal_name': rdftype
-          '#rdftype_personal_name': PersonalName
-          '#vocab_corporate_name': rdftype
-          '#rdftype_corporate_name': CorporateName
-          '#vocab_family_name': rdftype
-          '#rdftype_family_name': FamilyName
-          '#role_type': loc
     publisher:
       '#type': textfield
       '#title': Publisher
@@ -199,12 +88,12 @@ elements: |
       '#autocomplete_items': languages
   collection_and_administrative_info:
     '#type': webform_wizard_page
-    '#title': 'Collection and Administrative Information'
+    '#title': 'Related Collection(s) and Administrative Information'
     '#prev_button_label': 'Back to the previous step'
     '#next_button_label': 'Move on to next step'
     ismemberof:
       '#type': entity_autocomplete
-      '#title': 'Collection Membership'
+      '#title': 'Related Collection(s) Membership'
       '#unique': true
       '#format_items': comma
       '#target_type': node
@@ -223,24 +112,6 @@ elements: |
         class:
           - custom-form-input-heading
       '#format_items': comma
-    local_identifier:
-      '#type': textfield
-      '#title': 'Local identifier'
-      '#title_display': before
-      '#autocomplete': 'off'
-      '#label_attributes':
-        class:
-          - custom-form-input-heading
-      '#format_items': comma
-    date_published:
-      '#type': date
-      '#title': 'Date (of Digital)'
-      '#help_title': 'Date (of Digital)'
-      '#help': 'Date digital resource was published'
-      '#title_display': before
-      '#description_display': before
-      '#format_items': comma
-      '#datepicker': true
     rights_statements:
       '#type': select
       '#title': 'Rights Statment'
@@ -437,86 +308,6 @@ elements: |
       '#file_preview': ':image'
       '#max_filesize': '256'
       '#file_extensions': 'jp2 jpg jpeg png tif tiff'
-    documents:
-      '#type': webform_document_file
-      '#title': 'Upload Document Files'
-      '#multiple': 1000
-      '#states':
-        visible:
-          - ':input[name="type"]':
-              value: NewspaperIssue
-          - xor
-          - ':input[name="type"]':
-              value: PublicationIssue
-          - xor
-          - ':input[name="type"]':
-              value: Article
-          - xor
-          - ':input[name="type"]':
-              value: DigitalDocument
-          - xor
-          - ':input[name="type"]':
-              value: Thesis
-          - xor
-          - ':input[name="type"]':
-              value: Book
-      '#file_placeholder': 'Archipelago is currently only configured to display pdfs, but can still enable download other file types.'
-      '#file_extensions': 'txt rtf pdf doc docx odt ppt pptx odp xls xlsx ods csv'
-      '#sanitize': true
-    audios:
-      '#type': webform_audio_file
-      '#title': 'Upload Audio Files'
-      '#states':
-        visible:
-          - ':input[name="type"]':
-              value: Podcast
-          - or
-          - ':input[name="type"]':
-              value: Conversation
-      '#states_clear': false
-      '#format_items': comma
-      '#file_preview': file
-      '#max_filesize': '512'
-      '#file_extensions': 'mp3 wav aif mp2'
-    videos:
-      '#type': webform_video_file
-      '#title': 'Upload Video Files'
-      '#states':
-        visible:
-          ':input[name="type"]':
-            value: Movie
-      '#states_clear': false
-      '#format_items': comma
-      '#file_preview': file
-      '#max_filesize': '512'
-      '#file_extensions': 'mp4 m4v mov'
-    models:
-      '#type': managed_file
-      '#title': 'Upload 3D Model Files'
-      '#states':
-        visible:
-          - ':input[name="type"]':
-              value: 3DModel
-          - or
-          - ':input[name="type"]':
-              value: Sculpture
-      '#states_clear': false
-      '#format_items': comma
-      '#max_filesize': '512'
-      '#file_extensions': 'stl obj'
-    upload_associated_warcs:
-      '#type': webform_document_file
-      '#title': 'Upload Web Archive Files'
-      '#states':
-        visible:
-          ':input[name="type"]':
-            value: WebPage
-      '#states_clear': false
-      '#format_items': comma
-      '#uri_scheme': s3
-      '#max_filesize': '512'
-      '#file_extensions': 'warc warc.gz wacz'
-      '#sanitize': true
   actions:
     '#type': webform_actions
     '#title': 'Submit button(s)'
