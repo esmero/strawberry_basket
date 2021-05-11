@@ -25,7 +25,7 @@ type_to_viewmode:
     active: true
     weight: -6
   -
-    jsontype: Datataset
+    jsontype: Dataset
     view_mode: Default
     active: true
     weight: -5
