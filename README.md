@@ -1,2 +1,2 @@
-# strawberry_basket
-A place where gardening under the stars is possible. Metadata tools, JSON weird transforms, scripts and workflows. Only go here if you want to get your hands dirty
+# strawberry_basket -- RC2 Archipelago Recyclables branch
+This space is being used to stage updated and revised Archipelago demo objects for RC2--prior to moving to the [Archipelago Recyclables repository](https://github.com/esmero/archipelago-recyclables).
