@@ -10,11 +10,10 @@
     "creator": [],
     "duration": "",
     "language": [],
-    "documents": [
-    ],
+    "documents": [],
     "edm_agent": [],
     "publisher": "",
-    "ismemberof": "22",
+    "ismemberof": "",
     "creator_lod": [
         {
             "name_uri": "http:\/\/id.loc.gov\/authorities\/names\/n79056597",
@@ -38,17 +37,6 @@
         }
     ],
     "website_url": "",
-    "as:generator": {
-        "type": "Update",
-        "actor": {
-            "url": "http:\/\/localhost:8001\/form\/descriptive-metadata",
-            "name": "descriptive_metadata",
-            "type": "Service"
-        },
-        "endTime": "2021-01-08T16:33:29-05:00",
-        "summary": "Generator",
-        "@context": "https:\/\/www.w3.org\/ns\/activitystreams"
-    },
     "date_created": "1863-05-01",
     "issue_number": [],
     "date_published": "2015-08-11",
