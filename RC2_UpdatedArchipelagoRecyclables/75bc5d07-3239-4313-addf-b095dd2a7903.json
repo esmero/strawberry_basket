@@ -25,17 +25,6 @@
         }
     ],
     "website_url": "",
-    "as:generator": {
-        "type": "Update",
-        "actor": {
-            "url": "http:\/\/localhost:8001\/form\/default-descriptive-metadata",
-            "name": "default_descriptive_metadata",
-            "type": "Service"
-        },
-        "endTime": "2021-01-08T14:25:02-05:00",
-        "summary": "Generator",
-        "@context": "https:\/\/www.w3.org\/ns\/activitystreams"
-    },
     "date_created": "",
     "issue_number": [],
     "date_published": "2020-07-14",
