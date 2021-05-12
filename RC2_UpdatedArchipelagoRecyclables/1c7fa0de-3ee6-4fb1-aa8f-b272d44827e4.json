@@ -54,17 +54,6 @@
         }
     ],
     "website_url": "",
-    "as:generator": {
-        "type": "Update",
-        "actor": {
-            "url": "http:\/\/localhost:8001\/form\/default-descriptive-metadata",
-            "name": "default_descriptive_metadata",
-            "type": "Service"
-        },
-        "endTime": "2021-01-08T09:10:05-05:00",
-        "summary": "Generator",
-        "@context": "https:\/\/www.w3.org\/ns\/activitystreams"
-    },
     "date_created": "2005-08-19",
     "issue_number": [],
     "date_published": "",
