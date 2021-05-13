@@ -1,2 +1,2 @@
-# strawberry_basket -- RC2 Archipelago Recyclables branch
-This space is being used to stage updated and revised Archipelago demo objects for RC2--prior to moving to the [Archipelago Recyclables repository](https://github.com/esmero/archipelago-recyclables).
+# strawberry_basket - RC2
+This space is being used to stage Archipelago Webforms, Options, Metadata Display Templates, and Configurations --prior to moving any to the Archipelago deployment repositories.
