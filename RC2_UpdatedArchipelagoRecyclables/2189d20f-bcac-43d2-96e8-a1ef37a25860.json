@@ -1,0 +1,106 @@
+{
+    "type": "Photograph",
+    "label": "Senju no oubashi (Senju great bridge)",
+    "owner": "Library of Congress Prints and Photographs Division Washington, D.C. 20540 USA",
+    "audios": [],
+    "images": [],
+    "models": [],
+    "rights": "No known restrictions on publication.",
+    "videos": [],
+    "creator": [],
+    "duration": "",
+    "language": [
+        "Japanese"
+    ],
+    "documents": [],
+    "edm_agent": [],
+    "publisher": "",
+    "ismemberof": [],
+    "creator_lod": [
+        {
+            "name_uri": "http:\/\/id.loc.gov\/authorities\/names\/n50044379",
+            "role_uri": "http:\/\/id.loc.gov\/vocabulary\/relators\/art",
+            "agent_type": "personal",
+            "name_label": "And\u014d, Hiroshige, 1797-1858",
+            "role_label": "Artist"
+        }
+    ],
+    "description": "View of the bridge of Senju crossing the Sumida River, with mountains in the background.\r\n\r\nCaption label from exhibit \"Floating World,\" Major Genres Landscapes section: The Great Bridge at Senju. This view by Utagawa Hiroshige (1797-1858) shows the great bridge of Senju crossing the Arakawa River. The Senju Bridge was built in 1594 and stood for nearly 300 years until it was washed away in the great flood of 1885. Mount Buk \u0325(4,383 feet) is also depicted. The superb printing of the wood grain and the crisp detail attests that this image is an early edition. Notably, the wood grain creates a rhythmic pattern in the water, adding a rich texture to its surface.\r\n\r\nTitle and other descriptive information compiled by Nichibunken-sponsored Edo print specialists in 2005-06.",
+    "interviewee": [],
+    "interviewer": [],
+    "subject_loc": [
+        {
+            "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh87005810",
+            "label": "Bridges--Japan"
+        },
+        {
+            "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh85114321",
+            "label": "Rivers--Japan"
+        },
+        {
+            "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh2010002441",
+            "label": "Landscape prints, Japanese"
+        },
+        {
+            "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh85139330",
+            "label": "Ukiyoe"
+        }
+    ],
+    "website_url": "",
+    "date_created": "1856-01-01",
+    "issue_number": [],
+    "date_published": "2020-12-25",
+    "subjects_local": [],
+    "term_aat_getty": [],
+    "ap:entitymapping": {
+        "entity:file": [
+            "images",
+            "documents",
+            "audios",
+            "videos",
+            "models",
+            "upload_associated_warcs"
+        ],
+        "entity:node": [
+            "ismemberof"
+        ]
+    },
+    "local_identifier": "",
+    "subject_wikidata": [],
+    "rights_statements": "",
+    "geographic_location": {
+        "lat": "35.7416692",
+        "lng": "139.791137",
+        "city": "Tokyo",
+        "state": "",
+        "value": "Sumida River, Tokyo, 1350024, Japan",
+        "county": "",
+        "osm_id": "3878383",
+        "country": "Japan",
+        "category": "waterway",
+        "locality": "",
+        "osm_type": "relation",
+        "postcode": "1350024",
+        "country_code": "jp",
+        "display_name": "Sumida River, Tokyo, 1350024, Japan",
+        "neighbourhood": "",
+        "state_district": ""
+    },
+    "subject_lcgft_terms": [
+        {
+            "uri": "http:\/\/id.loc.gov\/authorities\/genreForms\/gf2017027269",
+            "label": "Woodcuts"
+        }
+    ],
+    "upload_associated_warcs": [],
+    "strawberry_field_widget_id": "descriptive_metadata",
+    "subject_lcnaf_personal_names": [],
+    "subject_lcnaf_corporate_names": [],
+    "subjects_local_personal_names": [],
+    "subject_lcnaf_geographic_names": [
+        {
+            "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh85130420",
+            "label": "Sumida River (Japan)"
+        }
+    ]
+}

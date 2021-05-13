@@ -1,0 +1,107 @@
+{
+    "type": "Photograph",
+    "label": "Laddie the dog running in the garden, Bronx, N.Y., undated [c. 1910-1918?]",
+    "owner": "New-York Historical Society, 170 Central Park West, New York, NY 10024, 212-873-3400.",
+    "audios": [],
+    "images": [],
+    "models": [],
+    "rights": "This digital image may be used for educational or scholarly purposes without restriction. Commercial and other uses of the item are prohibited without prior written permission from the New-York Historical Society. For more information, please visit the New-York Historical Society's Rights and Reproductions Department web page at http:\/\/www.nyhistory.org\/about\/rights-reproductions",
+    "videos": [],
+    "creator": [],
+    "duration": "",
+    "language": [
+        "English"
+    ],
+    "documents": [],
+    "edm_agent": [],
+    "publisher": "",
+    "ismemberof": "111",
+    "creator_lod": [
+        {
+            "name_uri": "",
+            "role_uri": "http:\/\/id.loc.gov\/vocabulary\/relators\/pht",
+            "agent_type": "personal",
+            "name_label": "Stonebridge, George Ehler",
+            "role_label": "Photographer"
+        }
+    ],
+    "description": "George Ehler Stonebridge (d. 1941) was an amateur photographer who lived and worked in the Bronx, New York. He left little record of himself, but an invaluable one of his surroundings and interests. Stonebridge lived at several locations in the Bronx with his wife Bella, and their three children Grace, George, and William. He worked at the Northern Gaslight Company, although the position he held is unknown. In addition to taking photographs, Stonebridge wrote poetry and prose about his love of the Bronx, his children, and in honor of military victories. Some of Stonebridge's photographs appeared in local papers. In 1898, he was an authorized reporter and photographer for the North Side News; in 1905 he was an authorized reporter for the Bronx Borough Record and Times, and probably took photographs for that paper as well. Stonebridge was fascinated with the subject of military preparedness. Training rituals and staged battles were one of his favorite photographic subjects. His 1898 poem, \"Remember the Maine,\" celebrates the United States' victory in the Spanish-American War. He was especially proud of soldiers from the Bronx, and photographed historical tablets throughout the Borough commemorating previous military victories. Stonebridge also used his photographs to illustrate lectures. In 1907, he gave several lectures on \"The Training of War,\" using colored lantern slides.",
+    "interviewee": [],
+    "interviewer": [],
+    "subject_loc": [
+        {
+            "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh85038796",
+            "label": "Dogs"
+        }
+    ],
+    "website_url": "",
+    "date_created": "1910-01-01",
+    "issue_number": [],
+    "date_published": "",
+    "subjects_local": [],
+    "term_aat_getty": [],
+    "ap:entitymapping": {
+        "entity:file": [
+            "images",
+            "documents",
+            "audios",
+            "videos",
+            "models",
+            "upload_associated_warcs"
+        ],
+        "entity:node": [
+            "ismemberof"
+        ]
+    },
+    "local_identifier": "nyhs_PR066_6136",
+    "subject_wikidata": [
+        {
+            "uri": "http:\/\/www.wikidata.org\/entity\/Q3381576",
+            "label": "black-and-white photography"
+        },
+        {
+            "uri": "http:\/\/www.wikidata.org\/entity\/Q60",
+            "label": "New York City"
+        }
+    ],
+    "rights_statements": "In Copyright - Non-Commercial Use Permitted",
+    "geographic_location": {
+        "lat": "40.8466508",
+        "lng": "-73.8785937",
+        "city": "New York",
+        "state": "New York",
+        "value": "The Bronx, Bronx County, New York, United States",
+        "county": "",
+        "osm_id": "9691916",
+        "country": "United States",
+        "category": "boundary",
+        "locality": "",
+        "osm_type": "relation",
+        "postcode": "",
+        "country_code": "us",
+        "display_name": "The Bronx, Bronx County, New York, United States",
+        "neighbourhood": "Bronx County",
+        "state_district": ""
+    },
+    "subject_lcgft_terms": [
+        {
+            "uri": "http:\/\/id.loc.gov\/authorities\/genreForms\/gf2017027249",
+            "label": "Photographs"
+        }
+    ],
+    "upload_associated_warcs": [],
+    "strawberry_field_widget_id": "descriptive_metadata",
+    "subject_lcnaf_personal_names": [],
+    "subject_lcnaf_corporate_names": [],
+    "subjects_local_personal_names": [],
+    "subject_lcnaf_geographic_names": [
+        {
+            "uri": "http:\/\/id.loc.gov\/authorities\/names\/n81059724",
+            "label": "Bronx (New York, N.Y.)"
+        },
+        {
+            "uri": "http:\/\/id.loc.gov\/authorities\/names\/n79007751",
+            "label": "New York (N.Y.)"
+        }
+    ]
+}

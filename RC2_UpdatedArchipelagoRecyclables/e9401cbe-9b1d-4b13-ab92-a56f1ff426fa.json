@@ -1,0 +1,88 @@
+{
+    "type": "Book",
+    "label": "Airs novveaux de la covr",
+    "owner": "Lessing J. Rosenwald Collection (Library of Congress)",
+    "audios": [],
+    "images": [],
+    "models": [],
+    "rights": "",
+    "videos": [],
+    "creator": [],
+    "duration": "",
+    "language": [
+        "French"
+    ],
+    "documents": [],
+    "edm_agent": [],
+    "publisher": "",
+    "ismemberof": [],
+    "creator_lod": [
+        {
+            "name_uri": "http:\/\/id.loc.gov\/authorities\/names\/nr98023400",
+            "role_uri": "http:\/\/id.loc.gov\/vocabulary\/relators\/cre",
+            "agent_type": "personal",
+            "name_label": "Jarry, Nicolas, approximately 1605-approximately 1666",
+            "role_label": "Creator"
+        },
+        {
+            "name_uri": "http:\/\/id.loc.gov\/authorities\/names\/nr93006612",
+            "role_uri": "http:\/\/id.loc.gov\/vocabulary\/relators\/bnd",
+            "agent_type": "personal",
+            "name_label": "Trautz, Georges, 1808-1879",
+            "role_label": "Binder"
+        },
+        {
+            "name_uri": "http:\/\/id.loc.gov\/authorities\/names\/nr98007000",
+            "role_uri": "http:\/\/id.loc.gov\/vocabulary\/relators\/fmo",
+            "agent_type": "personal",
+            "name_label": "Wilmerding, Lucius, 1880-1949",
+            "role_label": "Former owner"
+        }
+    ],
+    "description": "Manuscript on vellum. Headlines in red; initials in gold and various colors; coat of arms (apparently of a lady of the Painel-Marcel family) in gold and colors on first leaf. Dessus and bassus parts on confronting pages; the bassus part principally vocal.  Mosaic binding by Trautz-Bauzonnet, dated 1854, with monogram of the Comte de Lurde; inserted is a ms. note by the binder, reading \"Les airs de la cour manuscrit Jarry ... est la reliure qui m'a donn\u00e9 le plus de satisfaction et je la regarde comme une des mes meilleures productions. G. Trautz.\" \r\n\r\nBaron d'Heis, J. J. de Bure l'ain\u00e9 (inscription on flyleaf), Comte de Lurde (bookplate), Baron de Ruble, Robert Hoe (bookplate), C.F. Bishop (bookplate), L. Wilmerding (bookplate).\r\n\r\nLibrary of Congress. Lessing J. Rosenwald collection, 1415.",
+    "interviewee": [],
+    "interviewer": [],
+    "subject_loc": [
+        {
+            "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh85080672",
+            "label": "Manuscripts"
+        },
+        {
+            "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh99001795",
+            "label": "Music"
+        },
+        {
+            "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh85098322",
+            "label": "Part songs, French"
+        }
+    ],
+    "website_url": "",
+    "date_created": "1670-01-01",
+    "issue_number": [],
+    "date_published": "2019-08-26",
+    "subjects_local": [],
+    "term_aat_getty": [],
+    "ap:entitymapping": {
+        "entity:file": [
+            "images",
+            "documents",
+            "audios",
+            "videos",
+            "models",
+            "upload_associated_warcs"
+        ],
+        "entity:node": [
+            "ismemberof"
+        ]
+    },
+    "local_identifier": "https:\/\/lccn.loc.gov\/51007065",
+    "subject_wikidata": [],
+    "rights_statements": "",
+    "geographic_location": null,
+    "subject_lcgft_terms": [],
+    "upload_associated_warcs": [],
+    "subject_lcnaf_personal_names": [],
+    "subject_lcnaf_corporate_names": [],
+    "subjects_local_personal_names": [],
+    "subject_lcnaf_geographic_names": []
+}
