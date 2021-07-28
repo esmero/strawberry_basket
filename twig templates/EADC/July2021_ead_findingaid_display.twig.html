@@ -1,0 +1,762 @@
+{# "ap:importeddata": {
+        "dsc_csv": {
+            "format": "csv",
+            "content": {
+                "2": {
+                    "id": "c_c0bc26977add8087243fe0f489c1d681",
+                    "did": "",
+                    "level": "file",
+                    "@parent": "",
+                    "did_unittitle": "\"Selective Giving: An Account of the Ittleson Family Foundation\"\n                            by Henry Anthony Ittleson and Pamela Lee Ittleson",
+                    "unitdate_type": "inclusive",
+                    "container_type": "box",
+                    "unitdate_normal": "",
+                    "unitdate_content": "1971",
+                    "container_content": "1",
+                    "unitdate_certainty": ""
+                },
+                // If empty tag is gone
+                // If all tags inside a wrapper are empty, the wrapper is gone.
+#}
+{% macro recursiveTree(objects, parent, level) %}
+{% import _self as self %}
+<div id="accordion-{{ parent }}" {% if level > 1 %}class="p-1"{% endif %}>
+{% for containerkey, c in objects %}
+    {% set current_parent = parent %}
+    {# check which parent key we have #}
+    {% set found_parent = attribute(c, '@parent') is defined ? attribute(c, '@parent') : attribute(c, 'parent') %}
+    {% if found_parent == parent and level < 5 %}
+      {% if attribute(c, 'id') %}
+        {% set containerid = c.id %}
+      {% else %}  
+        {% set containerid = level ~ '-' ~ containerkey %}
+      {% endif %}  
+	  <div class="card" id="container-{{ containerid }}">   
+         <div class="card-header">
+            <a class="card-link" data-toggle="collapse" href="#collapse-{{containerid}}">
+            {{ c.did_unittitle ~ ' Level: ' ~ c.level  ~ ' hierarchy level: ' ~ level }}
+            </a>
+         </div>  
+         <div id="collapse-{{containerid}}" class="collapse" data-parent="#accordion-{{current_parent}}">
+           <div class="card-body">
+          {% if c.unitdate_type is defined %}
+              {% if c.unitdate_type == 'inclusive' %}
+               <time datetime="{{ c.unitdate_inclusive }}">{{ c.unitdate_display }}</time>
+              {% endif %}
+              {% if c.unitdate_type == 'bulk' %}
+               <time datetime="{{ c.unitdate_bulk }}">{{ c.unitdate_display }}</time>
+              {% endif %}
+          {% else %}
+             {% if c.unitdate_inclusive is defined and c.unitdate_inclusive is not empty %}
+               <time datetime="{{ c.unitdate_inclusive }}">{{ c.unitdate_display }}</time>
+              {% endif %}
+          {% endif %} 
+          {% if c.container_type is defined and c.container_type is not empty %}
+             {% set containers = c.container_type|split(';') %}
+             {% if c.container_number is defined and c.container_number is not empty %}
+                {% set container_numbers =  c.container_number|split(';') %}
+             {% endif %}  
+             {% if containers|length > 0 %}  
+             <p>Containers:</p> 
+             <ul>
+               {% for container_key, container in containers %}
+             <li>
+             {{ container }}
+                 {% if container_numbers[container_key] is defined and container_numbers[container_key] is not empty %}
+                 {{ container_numbers[container_key] }}
+                 {% endif %}
+             </li>
+               {% endfor %}
+              </ul>
+             {% endif %}  
+          {% endif %}  
+         
+          {% if c.scope_content_note is defined and c.scope_content_note is not empty %}
+            <p>Note: {{ c.scope_content_note }}</p>
+          {% endif %}
+          {% if c.general_note is defined  and c.general_note is not empty %}
+            <p>Note: {{ c.general_note }}</p>
+          {% endif %}
+          {% if c.dao_link is defined and c.dao_link is not empty %}
+          <p>External Link</p>
+          <a href="{{ c.dao_link }}" target="_blank">
+            {% if c.link_title is defined and c.link_title|length > 0 %}
+               {{ c.link_title }}
+            {% else %}
+              {{ c.dao_link }}
+            {% endif %}
+          </a>
+         {% endif %}
+    {{ self.recursiveTree(objects, containerkey, (level+1)) }}
+    {# self.recursiveTree(objects, (loop.index+1), (level+1)) #}
+    {% endif %}
+    {% if found_parent == parent and level < 5 %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+{% endfor %}
+</div>
+{% endmacro %}
+{% set language_of_material_code = 'eng' %}
+<div class="d-flex flex-row justify-content-between align-items-start">
+  <div class="p-10">
+    <div>
+    <h1>{{ data.finding_aid_title }}</h2>
+    </div>   
+   </div>
+   <div class="p-2">
+     <div class="dropdown">
+       <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+       Download as XML
+       </button>
+       <div class="dropdown-menu">
+         <a download class="dropdown-item" href="/do/{{ node.uuid.value }}/metadata/ead2002/{{ (data.mainagencycode ~ '-' ~ node.uuid.value ~ '_' ~ node.changed.value ~ '_EAD2002')|url_encode }}.xml">EAD2002</a>
+         <a download class="dropdown-item" href="/do/{{ node.uuid.value }}/metadata/ead3/{{ (data.mainagencycode ~ '-' ~ node.uuid.value ~ '_' ~ node.changed.value ~ '_EAD3')|url_encode }}.xml">EAD3</a>         
+       </div>
+     </div>
+  </div>
+</div> 
+<div>
+			<h1>Publication</h1>
+    		<h2>Author</h2>
+      		<div>{{ data.finding_aid_author }}</div>
+            <h2>Data Entered On</h2>
+            <time>{{ data.date_encoded }}</time>
+            <h2>Publisher</h2>
+            <div>{{ data.publisher }}</div>
+            {% if data.data.publisher_address|length > 0 %}
+        	<address>
+                {% if data.data.publisher_address.address %}
+            	 {{ data.publisher_address.address }}<br/>
+                {% endif %}
+                {% if data.data.publisher_address.address_2 %}
+           		{{ data.publisher_address.address_2 }}<br/>
+                {% endif %}
+                {% if data.data.publisher_address.city %}
+            	{{ data.publisher_address.city }}<br/>
+                {% endif %}
+                {% if data.data.publisher_address.state_province %}
+            	{{ data.publisher_address.state_province }}<br/>
+                {% endif %}
+                {% if data.data.publisher_address.postal_code %}
+            	{{ data.publisher_address.postal_code }}<br/>
+                {% endif %}
+                {% if data.data.publisher_address.country %}
+            	{{ data.publisher_address.country }}<br/>
+                {% endif %}
+           </address>
+           {% endif %}
+        </div>
+    <div>
+		{% if data.encoded_by|length > 0 %}	
+        <h2>Data Entered By</h2>
+        <div>{{ data.encoded_by }}</div>
+		{% endif %}
+        {% if data.language_of_finding_aid|length > 0 %}
+        <h2>Finding Aid Language</h2>
+        <div>{{ data.language_of_finding_aid }}</div>
+         {#
+         <ul>
+          {% for lang in data.language_of_finding_aid %}
+            <li>{{ lang }}</li>
+		  {% endfor %}
+         </ul>  
+         #}
+        {% endif %}
+        {% if data.description_rules|length > 0 %}
+       <h2>Description Rules</h2>
+          {% for description_rule in data.description_rules %}
+            <div>{{ description_rule}}</div>
+          {% endfor %}    
+        {% endif %}
+    </div>
+    <div>
+      <h1>Archival Descripion</h1>
+      <h2>Description Level</h2>
+      <div>{{ data.level_of_description }}</div>
+      <h2>Unit Title</h2>
+      <div>{{ data.label }}</div>
+	  {% if data.collection_id|length > 0 %}
+      <h2>Collection ID</h2>  
+      <div>{{ data.collection_id }}</div>
+	  {% endif %}
+      {% if data.size_of_collection|length > 0 %}
+      <h2>Extent</h2>
+      <div>{{ data.size_of_collection }}</div>
+      {% endif %}
+      {% if data.language_of_material|length > 0 %}
+      <h2>Material Languages</h2>
+        <ul>
+        {% for lang in data.language_of_material %}
+          <li>{{ lang }} </li>
+		    {% endfor %}
+       </ul>
+      {% endif %}
+      {% if data.abstract|length > 0 %}
+      <h2>Abstract</h2>  
+      <p>{{ data.abstract|markdown_2_html }}</p>
+      {% endif %}
+     {% if data.physical_description|length > 0 %}
+      <h2>Physical Description</h2>
+       <ul>
+        {% for description in data.physical_description %}
+        <li>Coverage: {{ description.coverage }}; Type: {{ description.physical_description_type }}; {{ description.quantity }} {{ description.unit_type }}</li>
+        {% endfor %}
+        {% if data.physical_description_note %}
+    	<li>Note: {{ data.physical_description_note }}</li>
+      	{% endif %}
+     </ul>
+	{% endif %}
+
+{# -- Physical Description alternative
+    {% if data.physical_description|length > 0 %}
+      <h2>Physical Description</h2>
+       <ul>
+        {% for description in data.physical_description %}
+        <li>{{ description.quantity }} {{ description.unit_type }} (Coverage: {{ description.coverage }}; Type: {{ description.physical_description_type }})</li>
+        {% endfor %}
+        </ul>
+     {% endif %}   
+    {% if data.physical_description_note %}
+    	<h4>Physical Description Note:</h4>{{ data.physical_description_note }}
+	{% endif %}	
+      #}
+ 		{# Q1: can there be many inclussive dates? #}
+        {# Q2: can the user select point date? #}
+      {% if data.inclusive_dates|length > 0 %}
+      <h2>Inclusive Dates</h2>       
+        {% for inclusive_date in data.inclusive_dates %}
+          {% if inclusive_date.date_type == "date_range" %}
+      <time datetime="{{ inclusive_date.date_from ~ '/' ~ inclusive_date.date_to }}">
+          {{ (inclusive_date.date_free) ? inclusive_date.date_free : inclusive_date.date_from ~ '-' ~ inclusive_date.date_to }}
+      </time>    
+          {% elseif inclusive_date.date_type == 'date_point' %}
+      <time datetime="{{ inclusive_date.date_from }}">
+          {{ (inclusive_date.date_free) ? inclusive_date.date_free : inclusive_date.date_from }}
+      </time>
+          {% elseif inclusive_date.date_type == 'date_free' %}
+      <time>
+          {{ inclusive_date.date_free }}
+      </time>
+          {% endif %}  
+        {% endfor %}
+      {% endif %}   
+        {# Q3: Should Bulk be many? #}
+      {% if data.bulk_dates|length > 0 %}
+      <h2>Bulk Dates</h2>            
+        {% for bulk_date in data.bulk_dates %}
+          {% if bulk_date.date_type == "date_range" %}
+      <time datetime="{{ bulk_date.date_from ~ '/' ~ bulk_date.date_to }}">
+          {{ (bulk_date.date_free) ? bulk_date.date_free : bulk_date.date_from ~ '-' ~ bulk_date.date_to }}
+      </time>
+          {% elseif bulk_date.date_type  == 'date_point' %}
+      <time datetime="{{ bulk_date.date_from }}">
+          {{ (bulk_date.date_free) ? bulk_date.date_free : bulk_date.date_from  }}
+      </time>
+          {% elseif bulk_date.date_type == 'date_free' %}
+      <time>
+          {{ bulk_date.date_free }}
+      </time>
+          {% endif %}  
+        {% endfor %}
+      {% endif %}   
+     </div>
+      {% if data.creator|length > 0 %}
+     <h2>Creator</h2>
+      <ul>
+        {% for creator in data.creator %}
+        <li>{{ creator.role_label }}: <a href="{{ creator.name_uri }}">{{ creator.name_label }}</a></li>
+        {% endfor %}
+      {% endif %} 
+     </ul>
+      {% if data.repository|length > 0 %}
+      <h2>Repository</h2>  
+         {% if data.repository_url %}
+      <a href="{{ data.repository_url }}" target="_blank" title="Repository URL">
+         {% endif %} 
+      <p>{{ data.repository }}</p>
+        {% if data.repository_url %}
+      </a>
+        {% endif %}
+      {% elseif data.repository_url %}
+       <a href="{{ data.repository_url }}" target="_blank" title="Repository URL">Repository URL</a>
+      {% endif %}
+      {% if data.repository_address|length > 0 %}
+      <h2>Repository Address</h2>       
+      <address>
+      {% if data.repository_address.address %} 
+      {{ data.repository_address.address }}<br/>
+      {% endif %}
+      {% if data.repository_address.address_2 %}
+      {{ data.repository_address.address_2 }}<br/>
+      {% endif %}
+      {% if data.repository_address.city %}
+      {{ data.repository_address.city }}<br/>
+      {% endif %}
+      {% if data.repository_address.state_province %} 
+      {{ data.repository_address.state_province }}<br/>
+      {% endif %}
+      {% if data.repository_address.postal_code %} 
+      {{ data.repository_address.postal_code }}<br/>
+      {% endif %}
+      {% if data.repository_address.country %}
+      {{ data.repository_address.country }}<br/>
+      {% endif %}
+      </address>
+      {% endif %}
+      {% if data.access_restrictions_note|length > 0 %}
+      <h2>Access Restrictions</h2>
+        {% for access_restrictions_note in data.access_restrictions_note %}
+      <p>{{ access_restrictions_note }}</p>
+        {% endfor %}
+      {% endif %}
+      {% if data.use_restrictions_note|length > 0 %}
+      <h2>Usage Restrictions</h2>
+      {% for use_restrictions_note in data.use_restrictions_note %}       
+      <p>{{ use_restrictions_note }}</p>
+      {% endfor %}
+      {% endif %}
+    {% if data.admin_bio_note|length > 0 %}
+    <h2>Biography or History</h2>
+      {% for admin_bio_note in data.admin_bio_note %}      
+ 		  {{ admin_bio_note|markdown_2_html }}
+      {% endfor %}
+    {% endif %}
+    {% if data.scope_and_content_note|length > 0 %}
+    <h2> Scope and Content</h2>
+    {% for scope_and_content_note in data.scope_and_content_note %}     
+    <p>{{ scope_and_content_note|markdown_2_html }}</p>
+    {% endfor %}
+    {% endif %}
+    <div>
+    <h1>Controlled Access Headings</h1>
+     {# -- start subjects -- #}
+	 {% if data.lcsh_subjects|length > 0 or
+	 data.wikidata_items|length > 0 or
+     data.local_subjects|length > 0 or
+	 data.other_controlled_vocabulary_subjects|length > 0
+     %}	 
+    <h2>Subjects</h2>
+       {% if data.lcsh_subjects|length > 0 %}
+    <h4>Library Of Congress</h4>
+      <ul>
+         {% for lcsh in data.lcsh_subjects %}
+             <li><a href="{{ lcsh.uri }}">{{ lcsh.label }}</a></li>
+          {% endfor %}
+       </ul>
+    {% endif %} 
+    {% if data.wikidata_items|length > 0 %}
+    <h4>Wikidata</h4>
+      <ul>
+         {% for wikidata in data.wikidata_items %}
+             <li><a href="{{ wikidata.uri }}">{{ wikidata.label }}</a></li>
+          {% endfor %}
+       </ul>
+    {% endif %} 
+    {% if data.local_subjects|length > 0 %}
+    <h4>Local</h4> 
+      <ul>             
+          {% for slc in data.local_subjects %}
+             <li><p>{{ slc }}</p></li>
+          {% endfor %} 
+       </ul>
+    {% endif %} 
+	{% if data.other_controlled_vocabulary_subjects|length > 0 %}
+    <h4>Other Controlled Vocabulary</h4>
+      <ul>
+         {% for ocvs in data.other_controlled_vocabulary_subjects %}
+             <li><a href="{{ ocvs.term_url }}">{{ ocvs.term_label }}</a></li>
+          {% endfor %}
+       </ul>
+    {% endif %}
+	{% endif %}  
+          {# -- end subjects -- #}
+         {# -- start personal names -- #}	
+    {% if data.lcnaf_personal_names|length > 0 or
+    data.viaf_personal_names|length > 0 or
+	data.wikidata_personal_names|length > 0 or
+    data.local_personal_names|length > 0 or
+	data.other_controlled_vocabulary_personal_names|length > 0
+	 %}	  
+    <h2>Personal Names</h2>
+       {% if data.lcnaf_personal_names|length > 0 %}
+    <h4>Library Of Congress</h4>
+      <ul>
+         {% for lcnaf in data.lcnaf_personal_names %}
+           <li><a href="{{ lcnaf.uri }}">{{ lcnaf.label }}</a></li>
+         {% endfor %}
+       </ul>
+      {% endif %}
+      {% if data.viaf_personal_names|length > 0 %}
+    <h4>VIAF</h4>
+      <ul>
+         {% for viaf in data.viaf_personal_names %}
+            <li><a href="{{ viaf.uri }}">{{ viaf.label }}</a></li>
+         {% endfor %}
+      </ul>
+      {% endif %}
+     {% if data.wikidata_personal_names|length > 0 %}
+    <h4>Wikidata</h4>
+      <ul>
+         {% for wikidata in data.wikidata_personal_names %}
+           <li><a href="{{ wikidata.uri }}">{{ wikidata.label }}</a></li>
+         {% endfor %}
+       </ul>
+      {% endif %}
+      {% if data.local_personal_names|length > 0 %}
+    <h4>Local</h4>
+      <ul>
+         {% for plc in data.local_personal_names %}
+            <p>{{ plc }}</p>
+         {% endfor %}
+      </ul>
+      {% endif %}
+	  {% if data.other_controlled_vocabulary_personal_names|length > 0 %}
+    <h4>Other Controlled Vocabulary</h4>
+        <ul>
+           {% for ocvpn in data.other_controlled_vocabulary_personal_names %}
+               <li><a href="{{ ocvpn.term_url }}">{{ ocvpn.term_label }}</a></li>
+            {% endfor %}
+         </ul>
+      {% endif %}
+	  {% endif %}     
+	  {# -- end personal names -- #}	
+	  {# -- start corporate names -- #}	
+	{% if data.lcnaf_corporate_names|length > 0 or
+    data.viaf_corporate_names|length > 0 or
+	data.wikidata_corporate_names|length > 0 or
+    data.local_corporate_names|length > 0 or
+	data.other_controlled_vocabulary_corporate_names|length > 0
+	%}      
+    <h2>Corporate Names</h2>
+       {% if data.lcnaf_corporate_names|length > 0 %}
+    <h4>Library Of Congress</h4>
+      <ul>      
+         {% for lcnafc in data.lcnaf_corporate_names %}
+            <li><a href="{{ lcnafc.uri }}">{{ lcnafc.label }}</a></li>
+         {% endfor %}
+      </ul>
+      {% endif %} 
+      {% if data.viaf_corporate_names|length > 0 %}
+    <h4>VIAF</h4>
+      <ul>              
+         {% for viafc in data.viaf_corporate_names %}
+            <li><a href="{{ viafc.uri }}">{{ viafc.label }}</a></li>
+         {% endfor %}
+      </ul>
+      {% endif %}  
+      {% if data.wikidata_corporate_names|length > 0 %}
+    <h4>Wikidata</h4>
+      <ul>
+         {% for wikidata in data.wikidata_corporate_names %}
+           <li><a href="{{ wikidata.uri }}">{{ wikidata.label }}</a></li>
+         {% endfor %}
+       </ul>
+      {% endif %}
+	  {% if data.local_corporate_names|length > 0 %}	  
+    <h4>Local</h4>
+      <ul>              
+         {% for plcc in data.local_corporate_names %}
+           <li><p>{{ plcc }}</p></li>
+         {% endfor %}
+      </ul>
+      {% endif %}
+  	  {% if data.other_controlled_vocabulary_corporate_names|length > 0 %}
+      <h4>Other Controlled Vocabulary</h4>
+          <ul>
+             {% for ocvcn in data.other_controlled_vocabulary_corporate_names %}
+                 <li><a href="{{ ocvcn.term_url }}">{{ ocvcn.term_label }}</a></li>
+              {% endfor %}
+           </ul>
+        {% endif %}
+	 {% endif %} 
+	 {# -- end corporate names -- #}
+	 {# -- start family names -- #}
+   {% if data.local_family_names|length > 0 or
+	  data.other_controlled_vocabulary_family_names|length > 0 
+	  %} 
+   <h2>Family Names</h2>  
+   {% if data.local_family_names|length > 0 %} 
+   <h4>Local</h4>
+     <ul>            
+         {% for lfm in data.local_family_names %}
+           <li><p>{{ lfm }}</p></li>
+         {% endfor %}
+   </ul>
+   {% endif %}  
+   {% if data.other_controlled_vocabulary_family_names|length > 0 %}
+    <h4>Other Controlled Vocabulary</h4>
+        <ul>
+           {% for ocvfn in data.other_controlled_vocabulary_family_names %}
+              <li><a href="{{ ocvfn.term_url }}">{{ ocvfn.term_label }}</a></li>
+           {% endfor %}
+       </ul>
+   {% endif %}
+   {% endif %}   
+         {# -- end family names -- #}
+         {# -- start geographic -- #}
+   {% if data.lcnaf_geographic_names|length > 0 or
+   data.viaf_geographic_names|length > 0 or
+   data.wikidata_geographic_names|length > 0 or   
+   data.local_geographic_names|length > 0 or
+   data.other_controlled_vocabulary_geographic_names|length > 0
+   %}	 
+   <h2>Geographic Names</h2>
+    {% if data.lcnaf_geographic_names|length > 0 %}
+    <h4>Library Of Congress</h4>  
+       <ul>        
+         {% for lcsg in data.lcnaf_geographic_names %}
+         <li><a href="{{ lcsg.uri }}">{{ lcsg.label }}</a></li>
+         {% endfor %}
+      </ul>
+   {% endif %}  
+   {% if data.viaf_geographic_names|length > 0 %}
+    <h4>VIAF</h4>
+      <ul>              
+         {% for viafgn in data.viaf_geographic_names %}
+            <li><a href="{{ viafgn.uri }}">{{ viafgn.label }}</a></li>
+         {% endfor %}
+      </ul>
+      {% endif %}
+        {% if data.wikidata_geographic_names|length > 0 %}
+      <h4>Wikidata</h4>
+        <ul>
+           {% for wikidata in data.wikidata_geographic_names %}
+             <li><a href="{{ wikidata.uri }}">{{ wikidata.label }}</a></li>
+           {% endfor %}
+         </ul>
+        {% endif %}  
+  {% if data.local_geographic_names|length > 0 %}	   
+   <h4>Local</h4>  
+      <ul>      
+         {% for lg in data.local_geographic_names %}
+      <li><p>{{ lg }}</p></li>
+         {% endfor %} 
+      </ul>
+   {% endif %} 
+   {% if data.other_controlled_vocabulary_geographic_names|length > 0 %}
+     <h4>Other Controlled Vocabulary</h4>
+         <ul>
+            {% for ocvgn in data.other_controlled_vocabulary_geographic_names %}
+               <li><a href="{{ ocvgn.term_url }}">{{ ocvgn.term_label }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+  {% endif %}         
+	     {# -- end geographic -- #}
+         {# -- start genre -- #}
+	{% if data.lcgft_terms|length > 0 or
+	 data.aat_terms|length > 0 or
+     data.local_genre_form_terms|length > 0 or
+	 data.other_controlled_vocabulary_genre_form_terms|length > 0
+	 %}		 
+   <h2>Genre</h2>
+   {% if data.lcgft_terms|length > 0 %} 
+   <h4>Library Of Congress</h4> 
+    <ul>
+         {% for lcgft in data.lcgft_terms %}
+         <li><a href="{{ lcgft.uri }}">{{ lcgft.label }}</a></li>
+         {% endfor %}
+       </ul>
+    {% endif %} 
+     {% if data.aat_terms|length > 0 %}
+     <h4>Getty AAT</h4>  
+        <ul>
+     {% for aat in data.aat_terms %}
+           <li><a href="{{ aat.uri }}">{{ aat.label }}</a></li>
+           {% endfor %} 
+       </ul>
+    {% endif %}    
+    {% if data.local_genre_form_terms|length > 0 %}	   
+     <h4>Local</h4>  
+        <ul>      
+           {% for gft in data.local_genre_form_terms %}
+        <li><p>{{ gft }}</p></li>
+           {% endfor %} 
+        </ul>
+     {% endif %} 
+     {% if data.other_controlled_vocabulary_genre_form_terms|length > 0 %}
+       <h4>Other Controlled Vocabulary</h4>
+           <ul>
+              {% for ocvgft in data.other_controlled_vocabulary_genre_form_terms %}
+                 <li><a href="{{ ocvgft.term_url }}">{{ ocvgft.term_label }}</a></li>
+              {% endfor %}
+          </ul>
+      {% endif %}
+	 {% endif %} 
+         {# -- end genre -- #}
+         {# Q5: missing Wikidata? #}
+    </div>
+    <h1>Additional Information</h1>
+    {% if data.url_to_online_items|length > 0 %}
+    <a href="{{ data.url_to_online_items }}" target="_blank">
+    External Link
+     </a>
+     {% endif %}
+     {# -- Link To Online Items Placeholder
+     
+     JSON example: "link_to_online_items": [
+        {
+            "coverage": "part",
+            "dao_link": "https:\/\/nyheritage.org\/collections\/harriet-martin-dey-photograph-collection",
+            "dao_type": "derived",
+            "link_title": "Palmentiero Family Diaries"
+        },
+        {
+            "coverage": "part",
+            "dao_link": "https:\/\/nyheritage.org\/collections\/ws-teator-glass-plate-negative-collection",
+            "dao_type": "borndigital",
+            "link_title": "Palmentiero Family Photos, 2000"
+        }
+    ]
+    
+    Also: dao_set_coverage
+    
+    #}
+
+	{% if data.link_to_online_items|length >0 %}
+	<h4>Link to Online Items</h4>
+		<ul>
+		{% for links in data.link_to_online_items %}
+			<li><a href="{{ links.dao_link }}">{{ links.link_title }}</a></li>
+		{% endfor %}
+		</ul>
+	{% endif %}
+	{% if logged_in %}      
+    	{% if data.link_to_online_items|length >0 %}
+	<h4>Link to Online Items with Coverage and Type</h4>
+		<ul>
+		{% for links in data.link_to_online_items %}
+			<li><a href="{{ links.dao_link }}">{{ links.link_title }}</a> : {{ links.coverage }}, {{ links.dao_type }}</li>
+		{% endfor %}
+		</ul>
+	{% endif %}
+	{% endif %}
+    {% if data.preferred_citation|length > 0 %}  
+    <h4>Preferred Citation</h4>
+       {% for preferred_citation in data.preferred_citation %}
+       <p>{{preferred_citation }}</p>
+       {% endfor %} 
+    {% endif %}
+    {% if data.processing_note|length > 0 %}    
+    <h4>Processing Information</h4>
+        {% for processing_note in data.processing_note %}
+        <p>{{ processing_note }} </p>
+        {% endfor %} 
+    {% endif %}
+        {% if data.publication_note|length > 0 %}    
+    <h4>Publication Information</h4>
+        {% for publication_note in data.publication_note %}
+        <p>{{ publication_note }} </p>
+        {% endfor %} 
+    {% endif %}
+    {% if data.arrangement_note|length > 0 %}    
+    <h4>Arrangement Notes</h4>
+        {% for arrangement_note in data.arrangement_note %}
+        <p>{{ arrangement_note|markdown_2_html }} </p>
+        {% endfor %}   
+    {% endif %}
+    {% if data.acquisition_note|length > 0 %}    
+    <h4>Acquisition Notes</h4>
+        {% for acquisition_note in data.acquisition_note %}
+        <p>{{ acquisition_note }} </p>
+        {% endfor %}  
+    {% endif %}
+    {% if data.custodial_history_note|length > 0 %}    
+     <h4>Custodial History Notes</h4>
+        {% for custodial_history_note in data.custodial_history_note %}
+        <p>{{ custodial_history_note }} </p>
+        {% endfor %}  
+    {% endif %}
+    {% if data.accruals_note|length > 0 %}    
+    <h4>Accruals Notes</h4>
+        {% for accruals_note in data.accruals_note %}
+        <p>{{ accruals_note }} </p>
+        {% endfor %} 
+    {% endif %}
+   {% if data.general_note|length > 0 %}    
+    <h4>General Note</h4>
+        {% for general_note in data.general_note %}
+        <p>{{ general_note }} </p>
+        {% endfor %} 
+    {% endif %}  
+    
+    {% if data.location_of_originals|length > 0 %}    
+    <h4>Location of Originals</h4>
+        {% for location_of_originals in data.location_of_originals %}
+        <p>{{ location_of_originals|markdown_2_html }} </p>
+        {% endfor %}  
+    {% endif %}
+    {% if data.location_of_copies|length > 0 %}    
+     <h4>Location of Copies</h4>
+        {% for location_of_copies in data.location_of_copies %}
+        <p>{{ location_of_copies }} </p>
+        {% endfor %} 
+    {% endif %}
+    {% if data.related_materials_note|length > 0 %}    
+     <h4>Related Materials Notes</h4>
+        {% for related_materials_note in data.related_materials_note %}
+        <p>{{ related_materials_note|markdown_2_html }} </p>
+        {% endfor %}  
+    {% endif %}
+    {% if data.separated_materials_note|length > 0 %}    
+     <h4>Separated Materials Notes</h4>
+        {% for separated_materials_note in data.separated_materials_note %}
+        <p>{{ separated_materials_note }} </p>
+        {% endfor %}  
+    {% endif %}
+    {% if data.publication_note|length > 0 %}    
+    <h4>Bibliography</h4>
+        {% for publication_note in data.publication_note %}
+        <p>{{ publication_note }} </p>
+        {% endfor %} 
+    {% endif %}
+    {% if data.appraisal_destruction_and_scheduling_note|length > 0 %}    
+     <h4>Appraisal Destruction and Scheduling Notes</h4>
+        {% for appraisal_destruction_and_scheduling_note in data.appraisal_destruction_and_scheduling_note %}
+        <p>{{ appraisal_destruction_and_scheduling_note }} </p>
+        {% endfor %}  
+    {% endif %}
+    {% if data.physical_access_note|length > 0 %}    
+      <h4>Physical Access Notes</h4>
+        {% for physical_access_note in data.physical_access_note %}
+        <p>{{ physical_access_note }} </p>
+        {% endfor %}  
+    {% endif %}
+    {% if data.technical_access_note|length > 0 %}    
+    <h4>Technical Access Notes</h4>
+        {% for technical_access_note in data.technical_access_note %}
+        <p>{{ technical_access_note }} </p>
+        {% endfor %}   
+    {% endif %}
+    {% if data.other_finding_aids|length > 0 %}    
+    <h4>Other Finding Aids</h4>
+        {% for other_finding_aid in data.other_finding_aids %}
+        <p>{{ other_finding_aid|markdown_2_html }} </p>
+        {% endfor %} 
+    {% endif %}
+  {% if data["ap:importeddata"].dsc_csv.content|length > 0 %}  
+      <h1>Container Level Description</h1>
+      <div>
+     {% set dsc = data["ap:importeddata"].dsc_csv.content ?? [] %}
+     {% set current_row = 0 %}
+     {% set current_parent = 0 %}
+     {% set last_parent = null %}
+     {% import _self as thistwig %}
+     {{ thistwig.recursiveTree(dsc, "", 1) }}
+      </div> 
+    {% endif %}
+    {% if attribute(data, 'as:text') and logged_in %}
+    <h2>Files referenced in this Finding AID</h2>
+    <ul>
+      {% for document in attribute(data, 'as:text') %}
+      <li><a download href="/do/{{ node.id }}/iiif/{{ document['dr:uuid'] }}/full/full/0/{{  document.name }}" target="_blank">Download {{ document.name }}</a></li>
+      {% endfor %}
+    </ul>
+        <ul>
+      {% for document in attribute(data, 'as:document') %}
+      <li><a download href="/do/{{ node.id }}/iiif/{{ document['dr:uuid'] }}/full/full/0/{{  document.name }}" target="_blank">Download {{ document.name }}</a></li>
+      {% endfor %}
+    </ul>
+   {% endif %}

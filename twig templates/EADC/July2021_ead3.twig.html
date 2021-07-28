@@ -1,0 +1,581 @@
+{# "ap:importeddata": {
+        "dsc_csv": {
+            "format": "csv",
+            "content": {
+                "2": {
+                    "id": "c_c0bc26977add8087243fe0f489c1d681",
+                    "did": "",
+                    "level": "file",
+                    "@parent": "",
+                    "did_unittitle": "Something",
+                    "unitdate_type": "inclusive",
+                    "container_type": "box",
+                    "unitdate_normal": "",
+                    "unitdate_content": "1971",
+                    "container_content": "1",
+                    "unitdate_certainty": ""
+                },
+                // If empty tag is gone
+                // If all tags inside a wrapper are empty, the wrapper is gone.
+#}
+{% macro recursiveTree(objects, parent, level) %}
+{% import _self as self %}
+{% for containerkey, c in objects %}
+    {% set current_parent = parent %}
+    {% set found_parent = attribute(c, '@parent') is defined ? attribute(c, '@parent') : attribute(c, 'parent') %}
+    {% if found_parent == parent and level < 5 %}
+      {% if attribute(c, 'id') %}
+        {% set containerid = c.id %}
+      {% else %}  
+        {% set containerid = 'c-' ~ containerkey ~ '-' ~ level %}
+     {% endif %} 
+	 <c id="{{ containerid }}" level="{{ c.level }}">
+        <did>
+          <unittitle>{{ c.did_unittitle }}</unittitle>
+          <unitdatestructured unitdatetype="{{ c.unitdate_type }}">
+          	<datesingle standarddate="{{ c.unitdate_normal }}">{{ c.unitdate_content }}</datesingle>
+          </unitdatestructured>
+          <container localtype="{{ c.container_type }}">{{ c.container_content }}</container>
+        </did>
+    {{ self.recursiveTree(objects, containerkey, (level+1)) }}
+    {% endif %}
+    {% if found_parent == parent and level < 5 %}
+    </c>
+    {% endif %}
+{% endfor %}
+{% endmacro %}
+{% set language_of_material_code = 'eng' %}
+{% if node.id %}
+{% set nodeurl = url('entity.node.canonical', {'node': node.id}, {'absolute': true}) %}
+{% else %}
+{% set nodeurl = '<current>' %}
+{% endif %}
+{# used to feed <maintenancestatus> #}
+{% if node.created.value == node.changed.value %}
+{% set maintenancestatus = 'new' %}
+{% else %}
+{% set maintenancestatus = 'revised' %}
+{% endif %}
+{% if node.status.value == 1 %}
+{% set publicationstatus = 'published' %}
+{% else %}
+{% set publicationstatus = 'inprocess' %}
+{% endif %}
+<?xml version="1.0"?>
+<ead xmlns="http://ead3.archivists.org/schema/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="http://purl.org/DC/elements/1.0/" relatedencoding="MARC" xmlns:ns2="http://www.w3.org/1999/xlink" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<control countryencoding="iso3166-1" dateencoding="iso8601" langencoding="iso639-2b" relatedencoding="iso15511" scriptencoding="iso15924" repositoryencoding="iso15511">
+	<recordid instanceurl="{{ nodeurl }}/metadadata/ead3/default.xml">{{ data.collection_id }}</recordid>
+ {% if data.repository_url %}
+    <otherrecordid>{{ data.repository_url }}"</otherrecordid>
+{% endif %}
+   	<representation href="{{ nodeurl }}" linktitle="Digital Object with HTML display of the finding aid" show="new"/>
+    <maintenanceagency>
+      <agencycode>{{ data.mainagencycode }}</agencycode>
+      <agencyname>{{ data.publisher }}</agencyname>
+    </maintenanceagency>
+    <filedesc>
+        <titlestmt>
+            <titleproper>{{ data.finding_aid_title }}</titleproper>
+            <author>{{ data.finding_aid_author }}</author>
+        </titlestmt>
+        <publicationstmt>
+            <date>{{ data.date_encoded }}</date>
+            <publisher>{{ data.publisher }}</publisher>
+            {% if data.publisher_address|length > 0 %}
+        	<address>
+                {% if data.publisher_address.address %}
+            	<addressline>{{ data.publisher_address.address }}</addressline>
+                {% endif %}
+                {% if data.publisher_address.address_2 %}
+           		<addressline>{{ data.publisher_address.address_2 }}</addressline>
+                {% endif %}
+                {% if data.publisher_address.city %}
+            	<addressline>{{ data.publisher_address.city }}</addressline>
+                {% endif %}
+                {% if data.publisher_address.state_province %}
+            	<addressline>{{ data.publisher_address.state_province }}</addressline>
+                {% endif %}
+                {% if data.publisher_address.postal_code %}
+            	<addressline>{{ data.publisher_address.postal_code }}</addressline>
+                {% endif %}
+                {% if data.publisher_address.country %}
+            	<addressline>{{ data.publisher_address.country }}</addressline>
+                {% endif %}
+           </address>
+           {% endif %}
+        </publicationstmt>
+    </filedesc>
+    {# maintenancestatus NEW for and required EAD3. Should change from new to revised on update of the node #}
+    <maintenancestatus value="{{ maintenancestatus }}"/>
+    <publicationstatus value="{{ publicationstatus }}"/>
+    {% if data.language_of_finding_aid|length >0 %}
+    <languagedeclaration>
+	{% for langcode in datafixed %}
+		{% if attribute(langcode, "English") in data.language_of_finding_aid  %}
+      	<language langcode="{{ attribute(langcode,"alpha3-b") }}"> 
+        {{ attribute(langcode, "English") }}
+       	</language>
+        {% endif %}
+    {% endfor %}  
+    </languagedeclaration>
+    {% endif %}
+    {# script NEW for and required EAD3. We may need a hint? Or we just go for latin chars?#}
+	<conventiondeclaration>	
+        <script scriptcode="latn">Latin</script>
+          {% if data.description_rules|length > 0 %}
+        <descriptivenote>
+          {% for description_rule in data.description_rules %}
+            {{ description_rule}}
+          {% endfor %}    
+        </descriptivenote>
+        {% endif %}
+	</conventiondeclaration>    
+    {# https://eadiva.com/maintenancehistory/ we have access to past history. Do we want to bring this in?#}
+     <maintenancehistory>
+     	<maintenanceevent>
+    		<eventtype value="created"/>
+   			<eventdatetime standarddatetime="{{ node.created.value|date("Y-m-d\TH:i:sO") }}">{{ node.created.value|date }}</eventdatetime>
+    		<agenttype value="human"/>
+    		<agent>{{ data.encoded_by }}</agent>
+    		<eventdescription>Digital Object Created</eventdescription>
+		</maintenanceevent>
+        {% if maintenancestatus != "new" %}
+     	<maintenanceevent>
+    		<eventtype value="revised"/>
+   			<eventdatetime standarddatetime="{{ node.changed.value|date("Y-m-d\TH:i:sO") }}">{{ node.changed.value|date }}</eventdatetime>
+    		<agenttype value="human"/>
+    		<agent>{{ data.encoded_by }}</agent>
+    		<eventdescription>Digital Object updated</eventdescription>
+		</maintenanceevent>
+        {% endif %}
+     </maintenancehistory> 
+</control>
+{# -- finished control --- #}
+<archdesc level="{{ data.level_of_description }}">
+    <did>
+        <unittitle label="Title">{{ data.label }}</unittitle>
+        <unitid>{{ data.collection_id }}</unitid>        
+        {# 
+         "physical_description": [
+        {
+            "coverage": "whole",
+            "quantity": "12",
+            "unit_type": "cubic feet",
+            "physical_description_type": "spaceoccuppied"
+        },
+        {
+            "coverage": "whole",
+            "quantity": "120",
+            "unit_type": "boxes",
+            "physical_description_type": "carrier"
+        },
+        {
+            "coverage": "part",
+            "quantity": "4500",
+            "unit_type": "photographs",
+            "physical_description_type": "materialtype"
+        }
+   	 ]
+    #}
+        {% if data.physical_description|length == 1 %}
+        <physdescstructured coverage="{{ data.physical_description[0].coverage }}"  physdescstructuredtype="{{ data.physical_description[0].physical_description_type }}">
+			<quantity>{{ data.physical_description[0].quantity }}</quantity>
+			<unittype>{{ data.physical_description[0].unit_type }}</unittype>
+		</physdescstructured>
+        {% elseif data.physical_description|length > 1 %}
+        <physdescset>
+        {% for physical_description in data.physical_description %}
+        	<physdescstructured coverage="{{ physical_description.coverage }}"  physdescstructuredtype="{{physical_description.physical_description_type }}">
+				<quantity>{{ physical_description.quantity }}</quantity>
+				<unittype>{{ physical_description.unit_type }}</unittype>
+			</physdescstructured>
+  		{% endfor %}
+		</physdescset>
+        {% else %}
+       		{# are this mandatory?  Only subelements, but we can allow people to totally remove the whole line. #}
+        {% endif %}
+        {% if data.physical_description_note is not empty %}
+        <physdesc>
+        {{ data.physical_description_note }}
+        </physdesc>
+        {% endif %}
+        {% if data.language_of_material|length >0 %}
+        <langmaterial>
+            {% for langcode in datafixed %}
+			   {% if attribute(langcode, "English") in data.language_of_material  %}
+        	<language langcode="{{ attribute(langcode,"alpha3-b") }}"> 
+            {{ attribute(langcode, "English") }}
+            </language>
+              {% endif %}
+            {% endfor %}    
+        </langmaterial>
+        {% endif %}
+        {% if data.abstract %}
+        <abstract>
+        {{ data.abstract }} 
+        </abstract>
+        {% endif %}
+        {% if data.inclusive_dates|length > 0 %}
+          {% for inclusive_date in data.inclusive_dates %}
+        <unitdatestructured unitdatetype="inclusive">
+        	{# only add dateset if there is also a free form #}
+        	{% if inclusive_date.date_free|length > 1 and inclusive_date.date_type == "date_range" %}
+        	<dateset>
+        	{% endif%}
+            {% if inclusive_date.date_type == "date_range" %}
+            	<daterange>
+    				<fromdate standarddate="{{ inclusive_date.date_from }}">{{ inclusive_date.date_from }}</fromdate>
+    				<todate standarddate="{{ inclusive_date.date_to}}">{{ inclusive_date.date_to }}</todate>
+  				</daterange>
+            	{% if inclusive_date.date_free %}
+             	<datesingle>{{ inclusive_date.date_free }}</datesingle>
+             	{% endif %}
+            {% elseif inclusive_date.date_type == 'date_point' %}
+            <datesingle standarddate="{{ inclusive_date.date_from }}">
+            {{ (inclusive_date.date_free) ? inclusive_date.date_free : inclusive_date.date_from }}
+  			</datesingle>
+            {% elseif inclusive_date.date_type == 'date_free' %}
+         	<datesingle>
+            {{ inclusive_date.date_free }}
+  			</datesingle>
+            {% endif %}
+        	{% if inclusive_date.date_free|length > 1 and inclusive_date.date_type == "date_range" %}
+        	</dateset>
+        	{% endif%}    
+        </unitdatestructured>
+        {% endfor %}    
+      {% endif %}
+        {# Q3: Should Bulk be many? #}
+      {% if data.bulk_dates|length > 0 %}
+        {% for bulk_date in data.bulk_dates %}
+        <unitdatestructured unitdatetype="bulk">
+        	{# only add dateset if there is also a free form #}
+        	{% if bulk_date.date_free|length > 1 and bulk_date.date_type == "date_range" %}
+        	<dateset>
+        	{% endif%}
+            {% if bulk_date.date_type == "date_range" %}
+            	<daterange>
+    				<fromdate standarddate="{{ bulk_date.date_from }}">{{ bulk_date.date_from }}</fromdate>
+    				<todate standarddate="{{ bulk_date.date_to}}">{{ bulk_date.date_to }}</todate>
+  				</daterange>
+            	{% if bulk_date.date_free %}
+             	<datesingle>{{ bulk_date.date_free }}</datesingle>
+             	{% endif %}
+            {% elseif bulk_date.date_type == 'date_point' %}
+            <datesingle standarddate="{{ bulk_date.date_from }}">
+            {{ (bulk_date.date_free) ? bulk_date.date_free : bulk_date.date_from }}
+  			</datesingle>
+            {% elseif bulk_date.date_type == 'date_free' %}
+         	<datesingle>
+            {{ bulk_date.date_free }}
+  			</datesingle>
+            {% endif %}
+        	{% if bulk_date.date_free|length > 1 and bulk_date.date_type == "date_range" %}
+        	</dateset>
+        	{% endif%}    
+        </unitdatestructured>   
+        {% endfor %}    
+       {% endif %} 
+        <repository>
+            {% if data.repository %}
+            <corpname><part>{{ data.repository }}</part></corpname>
+            {% endif %}
+            {% if data.repository_address|length > 0 %}
+            <address>
+               {% if data.repository_address.address %} 
+               <addressline>{{ data.repository_address.address }}</addressline>
+               {% endif %}
+               {% if data.repository_address.address_2 %} 
+               <addressline>{{ data.repository_address.address_2 }}</addressline>
+               {% endif %}
+               {% if data.repository_address.city %} 
+               <addressline>{{ data.repository_address.city }}</addressline>
+               {% endif %}
+               {% if data.repository_address.state_province %} 
+               <addressline>{{ data.repository_address.state_province }}</addressline>
+               {% endif %}
+               {% if data.repository_address.postal_code %} 
+               <addressline>{{ data.repository_address.postal_code }}</addressline>
+               {% endif %}
+               {% if data.repository_address.country %} 
+               <addressline>{{ data.repository_address.country }}</addressline> 
+               {% endif %}
+            </address>
+            {% endif %}
+       </repository>
+     </did>
+     {% if data.access_restrictions_note|length > 0 %}
+     <accessrestrict>
+         {% for access_restrictions_note in data.access_restrictions_note %}
+         <p>{{ access_restrictions_note }}</p>
+         {% endfor %}
+     </accessrestrict>
+     {% endif %}
+     {% if data.use_restrictions_note|length > 0 %}
+     <userestrict>
+         {% for use_restrictions_note in data.use_restrictions_note %}       
+         <p>{{ use_restrictions_note }}</p>
+         {% endfor %}
+    </userestrict>
+    {% endif %}
+    {% if data.admin_bio_note|length > 0 %}
+    <bioghist>
+           {% for admin_bio_note in data.admin_bio_note %}      
+ 		   <p>{{ admin_bio_note }}</p>
+           {% endfor %}
+    </bioghist>
+    {% endif %}
+    {% if data.scope_and_content_note|length > 0 %}
+    <scopecontent>
+        {% for scope_and_content_note in data.scope_and_content_note %}     
+        <p>{{ scope_and_content_note }}</p>
+         {% endfor %}
+    </scopecontent>
+    {% endif %}
+    {% if data.lcnaf_personal_names|length > 0 or
+    data.viaf_personal_names|length > 0 or
+	data.wikidata_personal_names|length > 0 or
+    data.local_personal_names|length > 0 or
+	data.other_controlled_vocabulary_personal_names|length > 0 or 
+	data.lcnaf_corporate_names|length > 0 or
+	data.viaf_corporate_names|length > 0 or
+	data.wikidata_corporate_names|length > 0 or
+	data.local_corporate_names|length > 0 or
+	data.other_controlled_vocabulary_corporate_names|length > 0 or
+    data.local_family_names|length > 0 or
+	data.lcsh_subjects|length > 0 or
+	data.wikidata_items|length > 0 or
+	data.local_subjects|length > 0 or
+	data.other_controlled_vocabulary_subjects|length > 0 or
+	data.lcnaf_geographic_names|length > 0 or
+	data.viaf_geographic_names|length > 0 or
+	data.wikidata_geographic_names|length > 0 or   
+	data.local_geographic_names|length > 0 or
+	data.other_controlled_vocabulary_geographic_names|length > 0 or
+    data.aat_terms|length > 0 or
+    data.lcgft_terms|length > 0 or
+    data.local_genre_form_terms |length > 0 or
+ 	data.other_controlled_vocabulary_genre_form_terms|length > 0
+    %}
+    <controlaccess xmlns:xlink="http://www.w3.org/1999/xlink">
+         {# -- start names -- #}	 
+         {% for lcnaf in data.lcnaf_personal_names %}
+            <persname source="lcnaf" identifier="{{ lcnaf.uri }}"><part>{{ lcnaf.label }}</part></persname>
+         {% endfor %}
+         {% for viaf in data.viaf_personal_names %}
+            <persname source="viaf" identifier="{{ viaf.uri }}"><part>{{ viaf.label }}</part></persname>
+         {% endfor %}
+         {% for wikidata in data.wikidata_personal_names %}
+		   <persname source="wikidata" identifier="{{ wikidata.uri }}"><part>{{ wikidata.label }}</part></persname>   
+         {% endfor %}	 
+         {% for plc in data.local_personal_names %}
+            <persname source="local"><part>{{ plc }}</part></persname>
+         {% endfor %}
+         {% for ocvpn in data.other_controlled_vocabulary_personal_names %}
+			<persname source="ocvpn" identifier="{{ ocvpn.term_url }}"><part>{{ ocvpn.term_label }}</part></persname>
+         {% endfor %}
+         {% for lcnafc in data.lcnaf_corporate_names %}
+            <corpname source="lcnaf" identifier="{{ lcnafc.uri }}"><part>{{ lcnafc.label }}</part></corpname>
+         {% endfor %}
+         {% for viafc in data.viaf_corporate_names %}
+            <corpname source="viaf" identifier="{{ viafc.uri }}"><part>{{ viafc.label }}</part></corpname>
+         {% endfor %}
+		 {% for wikidata in data.wikidata_corporate_names %}
+		 	<corpname source="wikidata" identifier="{{ wikidata.uri }}"><part>{{ wikidata.label }}</part></corpname>
+		 {% endfor %}
+         {% for ocvcn in data.other_controlled_vocabulary_corporate_names %}
+			 <corpname source="ocvcn" identifier="{{ ocvcn.term_url }}"><part>{{ ocvcn.term_label }}</part></corpname>
+         {% endfor %}
+         {% for plcc in data.local_corporate_names %}
+            <corpname source="local"><part>{{ plcc }}</part></corpname>
+         {% endfor %}
+         {% for lfm in data.local_family_names %}
+           <famname source="local"><part>{{ lfm }}</part></famname>
+         {% endfor %}
+         {% for ocvgn in data.other_controlled_vocabulary_family_names|length > 0 %}
+		   <famname source=" ocvfn " identifier="{{ ocvfn.term_url }}"><part>{{ ocvfn.term_label }}</part></famname> 
+		 {% endfor %}
+         {# -- end names -- #}
+         {# -- start subjects -- #}	 
+         {% for lcsh in data.lcsh_subjects %}
+            <subject source="lcsh" identifier="{{ lcsh.uri }}"><part>{{ lcsh.label }}</part></subject>
+         {% endfor %}
+         {% for wikidata in data.wikidata_items %}
+			 <subject source="wikidata" identifier="{{ wikidata.uri }}"><part>{{ wikidata.label }}</part></subject>
+          {% endfor %}
+         {% for slc in data.local_subjects %}
+             <subject source="local"><part>{{ slc }}</part></subject>
+         {% endfor %} 
+         {% for ocvs in data.other_controlled_vocabulary_subjects %}
+			 <subject source="ocvs" identifier="{{ ocvs.term_url }}"><part>{{ ocvs.term_label }}</part></subject>
+          {% endfor %}
+         {# -- end subjects -- #}
+         {# -- start geographic --  We may want to add Lat/Long here coming from Nominamtim/Geonames -- #}
+         {% for lcsg in data.lcnaf_geographic_names %}
+         <geogname source="lcnaf" identifier="{{ lcsg.uri }}"><part>{{ lcsg.label }}</part></geogname>
+         {% endfor %} 
+         {% for viafgn in data.viaf_geographic_names %}
+			<geogname source="viafgn" identifier="{{ viafgn.uri }}"><part>{{ viafgn.label }}</part></geogname>
+         {% endfor %}
+         {% for wikidata in data.wikidata_geographic_names %}
+		   <geogname source="wikidata" identifier="{{ wikidata.uri }}"><part>{{ wikidata.label }}</part></geogname>
+         {% endfor %}
+         {% for lg in data.local_geographic_names %}
+         <geogname source="local"><part>{{ lg }}</part></geogname>
+         {% endfor %} 
+         {% for ocvgn in data.other_controlled_vocabulary_geographic_names %}
+			<geogname source="ocvgn" identifier="{{ ocvgn.term_url }}"><part>{{ ocvgn.term_label }}</part></geogname>
+         {% endfor %}
+	     {# -- end geographic -- #}
+         {# -- start genre -- #}
+         {% for lcgft in data.lcgft_terms %}
+         <genreform source="lcnaf" identifier="{{ lcgft.uri }}"><part>{{ lcgft.label }}</part></genreform>
+         {% endfor %}
+         {% for aat in data.aat_terms %}
+         <genreform source="aat" identifier="{{ aat.uri }}"><part>{{ aat.label }}</part></genreform>
+         {% endfor %} 
+         {% for gft in data.local_genre_form_terms %}
+	  	<genreform source="local"><part>{{ gft }}</part></genreform >
+         {% endfor %} 
+         {% for ocvgft in data.other_controlled_vocabulary_genre_form_terms %}
+			<genreform source="ocvgft" identifier="{{ ocvgft.term_url }}"><part>{{ ocvgft.term_label }}</part></genreform>
+         {% endfor %}
+    </controlaccess>
+    {% endif %}
+    {# not clear here if we should follow the idea of show on demand etc. All optional, feels strange, removed them #}
+    {# Need to recheck this logic,  #}
+    {% if data.link_to_online_items|length > 0 %}
+    	{% if data.link_to_online_items|length > 1 %}
+    <daoset coverage="{{ data.dao_coverage }}">
+    	{% endif %}
+        	{% for link_to_online_item in data.link_to_online_items %}
+    	<dao daotype="{{ link_to_online_item.dao_type }}" coverage="{{ link_to_online_item.coverage }}" linktype="simple" linktitle="{{ link_to_online_item.link_title }}" href="{{ link_to_online_item.dao_link }}"/>
+     		{% endfor %} 
+     	{% if data.link_to_online_items|length > 1 %}
+    </daoset>
+    	{% endif %}
+    {% endif %}
+    {% if data.preferred_citation|length > 0 %}  
+    <prefercite>
+       {% for preferred_citation in data.preferred_citation %}
+       <p>{{preferred_citation }}</p>
+       {% endfor %} 
+    </prefercite>
+    {% endif %}
+    {% if data.processing_note|length > 0 %}    
+    <processinfo>
+        {% for processing_note in data.processing_note %}
+        <p>{{ processing_note }} </p>
+        {% endfor %} 
+    </processinfo>  
+    {% endif %}
+    {% if data.arrangement_note|length > 0 %}    
+    <arrangement>
+        {% for arrangement_note in data.arrangement_note %}
+        <p>{{ arrangement_note }} </p>
+        {% endfor %} 
+    </arrangement>   
+    {% endif %}
+    {% if data.acquisition_note|length > 0 %}    
+    <acqinfo>
+        {% for acquisition_note in data.acquisition_note %}
+        <p>{{ acquisition_note }} </p>
+        {% endfor %} 
+    </acqinfo>   
+    {% endif %}
+    {% if data.custodial_history_note|length > 0 %}    
+    <custodhist>
+        {% for custodial_history_note in data.custodial_history_note %}
+        <p>{{ custodial_history_note }} </p>
+        {% endfor %} 
+    </custodhist>   
+    {% endif %}
+    {% if data.accruals_note|length > 0 %}    
+    <accruals>
+        {% for accruals_note in data.accruals_note %}
+        <p>{{ accruals_note }} </p>
+        {% endfor %} 
+    </accruals>   
+    {% endif %}
+    {% if data.general_note|length > 0 %} 
+	<didnote>   
+         {% for general_note in data.general_note %}
+         <p>{{ general_note }} </p>
+         {% endfor %} 
+	</didnote> 
+    {% endif %} 
+    {% if data.location_of_originals|length > 0 %}    
+    <originalsloc>
+        {% for location_of_originals in data.location_of_originals %}
+        <p>{{ location_of_originals }} </p>
+        {% endfor %} 
+    </originalsloc>   
+    {% endif %}
+    {% if data.location_of_copies|length > 0 %}    
+    <altformavail>
+        {% for location_of_copies in data.location_of_copies %}
+        <p>{{ location_of_copies }} </p>
+        {% endfor %} 
+    </altformavail>   
+    {% endif %}
+    {% if data.related_materials_note|length > 0 %}    
+    <relatedmaterial>
+        {% for related_materials_note in data.related_materials_note %}
+        <p>{{ related_materials_note }} </p>
+        {% endfor %} 
+    </relatedmaterial>   
+    {% endif %}
+    {% if data.separated_materials_note|length > 0 %}    
+    <separatedmaterial>
+        {% for separated_materials_note in data.separated_materials_note %}
+        <p>{{ separated_materials_note }} </p>
+        {% endfor %} 
+    </separatedmaterial>   
+    {% endif %}
+    {% if data.publication_note|length > 0 %}    
+    <bibliography>
+        {% for publication_note in data.publication_note %}
+        <p>{{ publication_note }} </p>
+        {% endfor %} 
+    </bibliography>   
+    {% endif %}
+    {% if data.appraisal_destruction_and_scheduling_note|length > 0 %}    
+    <appraisal>
+        {% for appraisal_destruction_and_scheduling_note in data.appraisal_destruction_and_scheduling_note %}
+        <p>{{ appraisal_destruction_and_scheduling_note }} </p>
+        {% endfor %} 
+    </appraisal>   
+    {% endif %}
+    {% if data.physical_access_note|length > 0 %}    
+    <phystech>
+        {% for physical_access_note in data.physical_access_note %}
+        <p>{{ physical_access_note }} </p>
+        {% endfor %} 
+    </phystech>   
+    {% endif %}
+    {% if data.technical_access_note|length > 0 %}    
+    <phystech localtype="tech">
+        {% for technical_access_note in data.technical_access_note %}
+        <p>{{ technical_access_note }} </p>
+        {% endfor %} 
+    </phystech>   
+    {% endif %}
+    {% if data.other_finding_aids|length > 0 %}    
+    <otherfindaid>
+        {% for other_finding_aid in data.other_finding_aids %}
+        <p>{{ other_finding_aid }}</p>
+        {% endfor %} 
+    </otherfindaid>   
+    {% endif %}
+  {% if data["ap:importeddata"].dsc_csv.content|length > 0 %}  
+    <dsc> 
+   {% set dsc = data["ap:importeddata"].dsc_csv.content ?? [] %}
+   {% set current_row = 0 %}
+   {% set current_parent = 0 %}
+   {% set last_parent = null %}
+   {% import _self as thistwig %}
+   {{ thistwig.recursiveTree(dsc, "", 1) }}
+    </dsc> 
+  {% endif %}
+  </archdesc>
+</ead>
