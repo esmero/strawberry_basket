@@ -117,10 +117,10 @@
 	{% if data.description %}
 	{% if data.description is iterable %}
 		{% for description in data.description %}
-			{{ description|markdown_2_html }} <br>
+			{{ description|markdown_2_html }}
 		{% endfor %}
 	{% else %}
-		{{ data.description|markdown_2_html }} <br>
+		{{ data.description|markdown_2_html }}
 	{% endif %} 
 	{% endif %}
 	</div>
